@@ -28,17 +28,6 @@ Product behavior and user-interface paths can change. Re-verify
 version-sensitive guidance against the linked Microsoft Learn documentation
 before delivering a workshop or publishing generated guidance.
 
-## Privacy and trademarks
-
-Do not add customer data, tenant details, credentials, private URLs, or
-confidential source material to this repository. Examples generated with these
-skills should use synthetic data unless the user explicitly supplies content
-they are authorized to use.
-
-Microsoft, Microsoft 365, Copilot, and related product names are trademarks of
-Microsoft Corporation. This project is independently maintained and is not an
-official Microsoft product.
-
 ## License
 
 Licensed under the [MIT License](LICENSE).
