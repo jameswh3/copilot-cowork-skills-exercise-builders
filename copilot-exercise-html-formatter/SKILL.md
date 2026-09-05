@@ -32,12 +32,13 @@ Two skills call it: `copilot-se-demo-builder` and `copilot-cowork-exercise-build
 
 Resolve brand colors before generating any HTML when a company is named.
 
-- Use a brand color only when it comes from an authoritative public brand source or user-provided brand guidance. Do not infer a company's color from memory.
+- Research the organization's primary brand color using authoritative public sources. Prefer its official brand guide or design system, then its official website. Use a third-party palette only when an official source corroborates it.
+- Do not infer a brand color from memory. Record the source used, and treat conflicting or unverifiable values as unknown.
 - Derive `[accentTint]` as the accent blended with white at roughly 10% opacity (for example `#0078D4` becomes `#e6f2fb`).
 - Derive `[accentText]` as a darkened variant of `[accent]` reaching at least 4.5:1 contrast against both `#ffffff` and `#fafafa`. Bright brand colors (orange, magenta, gold, lime) typically need 40-50% darkening to meet AA.
   - Worked examples: `#F36F21` becomes `#8C3D11`; `#FF6600` becomes `#B23A00`; `#E20074` becomes `#8C0048`.
   - For colors already dark enough (`#0078D4`, `#003087`), `[accentText]` can equal `[accent]`.
-- If the company's brand colors are not known, ask one brief question: "Do you have a primary brand color or company website I should use for styling?"
+- If the brand color cannot be verified, ask one brief question: "Do you have a primary brand color or official website I should use for styling?"
 - At the top of every HTML output, include a comment identifying the resolved colors: `<!-- Brand: [accent] / tint: [accentTint] -->`.
 
 ## Punctuation and encoding (binding)
