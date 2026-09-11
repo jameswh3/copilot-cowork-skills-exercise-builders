@@ -1,0 +1,31 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.28/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.28",
+  "version": "1.0.0",
+  "id": "a3cd85e3-28d4-4e97-879d-894573678cb6",
+  "developer": {
+    "name": "James Hammonds",
+    "websiteUrl": "https://github.com/jameswh3/copilot-cowork-skills-exercise-builders",
+    "privacyUrl": "https://github.com/jameswh3/copilot-cowork-skills-exercise-builders",
+    "termsOfUseUrl": "https://github.com/jameswh3/copilot-cowork-skills-exercise-builders"
+  },
+  "name": {
+    "short": "Cowork Exercise Builders",
+    "full": "Copilot Cowork Exercise Builders"
+  },
+  "description": {
+    "short": "Build Copilot Cowork exercises, workshop tracks, demo scenarios, and branded HTML handouts.",
+    "full": "Reusable skills for building persona-based Microsoft Copilot Cowork exercises, connected workshop tracks, Copilot Studio agent-building walkthroughs, cross-surface demo scenarios, and accessible branded HTML handouts for customer enablement sessions."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#2B579A",
+  "agentSkills": [
+    { "folder": "./skills/copilot-cowork-exercise-builder" },
+    { "folder": "./skills/copilot-exercise-html-formatter" },
+    { "folder": "./skills/copilot-se-demo-builder" },
+    { "folder": "./skills/copilot-studio-agent-builder" }
+  ]
+}
