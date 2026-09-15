@@ -71,6 +71,30 @@ Every lab in a participant guide uses the same five parts. Never ship a lab miss
   exact name; slight naming differences degrade results.
 - Test in the test pane after each change.
 
+### Choosing a knowledge source: documents yes, spreadsheets no
+
+A knowledge source is **searched like a document**, so it suits what a business actually circulates in prose:
+standards, registers, logs, narratives, policies. It does not suit a spreadsheet, where a cell's meaning depends
+on its row and column. Microsoft's own note is explicit: to search over Excel file content, use code interpreter
+rather than semantic search, because semantic search has limitations for cell indexing.
+
+When a scenario has tabular data, do **not** drop the workbook into the knowledge set and then warn the reader
+about totals. That builds a guide around a weak pattern and then apologises for it. Instead:
+
+- **Re-cast the content as the document a business would actually circulate.** A certification matrix becomes a
+  certification register with an entry per unit; a job log becomes a weekly operations log with an entry per job.
+  Same facts, same planted defects, a form that retrieval handles well and that reads as more realistic, not less.
+- **Keep one flat export in the pack deliberately**, out of the knowledge set, with a stated role: the
+  participant's own check against the agent, and the subject of the boundary exercise.
+- **Scope the exercise to what retrieval is for** — what a source says, whether two sources agree, what recurs.
+  If the exercise's headline output is a table of totals, the exercise is pointed at the wrong mechanism.
+- **Name the right mechanisms once, as capability rather than apology**: code interpreter (deterministic Python,
+  preview, standard harness, 16 MB / 10 files), Dataverse or Azure SQL as a structured knowledge source, or a
+  tool such as an Excel Online connector or agent flow.
+
+The test: if the guide has to spend a paragraph warning the reader not to trust the agent, change what the
+exercise asks for rather than lengthening the warning.
+
 ### Knowledge: the RAG explainer every guide carries
 
 The knowledge exercise always opens with a short explainer of what happens at answer time, because participants
@@ -111,6 +135,23 @@ Grounded in https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/
     working, and the agent appears broken in a way nobody can reproduce on demand. Achieve grounding through
     instruction text instead (see the copy-ready grounding and citation block below).
 
+### Topics under generative orchestration (do not teach the classic path)
+
+Generative orchestration is **on by default**. Under it a topic's trigger is **The agent chooses**, and the
+topic fires when the agent judges that the topic's **name and the description on the Trigger node** match the
+user's message. Source: https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-triggers
+
+- **Never write trigger phrases into a guide.** "User says a phrase" is the *classic* orchestration trigger and
+  the option only appears once orchestration is turned off. Teaching it as the default is teaching a legacy
+  construct and it will not match the screen.
+- The routing signals are the **topic name** and the **trigger description**. Write the description as *when to
+  use this* plus *when not to use it*, the same shape as a tool description.
+- The teaching point worth making: a topic under generative orchestration gives **semantic routing with
+  authored wording**. The user can phrase it any way; the Message node still returns the exact text. That is not
+  a trade-off between flexible and predictable, and it is the strongest single argument for the standard harness.
+- Have participants test with phrasing far from the description, to prove routing is semantic rather than
+  matched. If it misses, the fix is a better description, never a list of phrases.
+
 ### Tools
 - Tools page for the agent, select Add a tool, select New tool, choose the type: Prompt, Agent flow, Computer
   use, Custom connector, Model Context Protocol, REST API.
@@ -123,8 +164,9 @@ Grounded in https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/
   override with a value, variable, or Power Fx formula.
 - Completion, under After running: Don't respond (default), Write the response with generative AI, Send specific
   response, Send an adaptive card.
-- To call a tool from a topic: Topics page, create a topic, add trigger phrases, select Add node (+), select
-  Add a tool, pick from Basic tools / Connector / Tool tabs, Save.
+- To call a tool from a topic: Topics page, create a topic, write its trigger description (see the topics
+  section above; do not add trigger phrases), select Add node (+), select Add a tool, pick from the Basic
+  tools / Connector / Tool tabs, Save.
 - Turn a tool off from its configuration page with the Enabled toggle, then Save. Delete only from the agent's
   Tools page (three dots, Delete) — not from the main Copilot Studio Tools page.
 
@@ -214,6 +256,108 @@ Two parts of that prompt are load-bearing and must not be trimmed:
   general-purpose assistant restyle that line is not.
 
 Always pair the prompt with: read the result before pasting, change one thing at a time, test after each.
+
+## Uploaded files are one knowledge source each
+
+A lab step that says "upload the files and give the source this description" is wrong by default on the
+standard harness. Per Learn, **each individual file is its own knowledge source**, with its own name and its
+own description field: three files uploaded plainly means three descriptions to write, not one.
+
+- **Use a file group when the step wants one source.** Drag the files in, then `Add to agent` &rarr;
+  **Upload as a group**, which makes up to 500 files a single knowledge source with one name, one description,
+  and an optional instructions field. That is the direct-upload equivalent of pointing at a SharePoint folder,
+  and it keeps a one-description exercise step honest.
+- **File groups are local uploads only.** SharePoint and OneDrive files are not supported in a group, and file
+  upload as a knowledge source requires **Dataverse search** enabled in the environment. Put that in the
+  prerequisites whenever direct upload is offered as an alternative to SharePoint.
+- **Do not carry the group pattern to the GitHub Copilot harness.** The GHCP knowledge article documents the
+  drag-and-drop upload area but not file groups, and states that some standard-harness configuration options
+  have a different interface or default there. Write the step so it works either way rather than naming a
+  control you have not confirmed on that harness.
+- **Never put the same description on more than one knowledge source.** The description is the routing signal
+  generative orchestration uses to decide which source to search. Identical descriptions across several sources
+  leave it nothing to discriminate on, so it cannot tell which file holds what and the description stops
+  functioning as routing at all. This is an anti-pattern, not a shortcut, and the fact that one combined
+  description was written for a single-source path is never a reason to paste it onto four.
+- **Write one description per source, naming what is distinctly in that file**, and what kind of question should
+  send the agent there: a narrative source for the account of an event, a register for status and category, a
+  flat export for figures that must be computed. If an exercise offers both a folder path and an upload path,
+  it needs two sets of copy-ready text, one combined and one per file, not a single block reused.
+- **The general rule:** whenever a step offers two ways to attach the same knowledge, confirm both produce the
+  same number of sources before writing a single shared description into the exercise.
+
+## Do not manufacture a failure
+
+A test exercise earns its place when it puts the agent against a condition **that is already in the data**: two
+sources that disagree, a pattern that looks like a repeat and is not, a question a person would really type
+incompletely. Participants meet plenty of rough edges on their own; the guide does not need to arrange any.
+
+Do not invent an entity that exists nowhere in the pack purely to see whether the agent will make something up.
+A unit ID absent from every source, a reporting week outside the date range, a job number no file carries: these
+are author-built traps, not operating conditions. They teach a participant to paste a fix for a problem they did
+not watch happen, and on a modern instruction-adherent agent they often simply pass, which leaves the exercise
+with nothing to show.
+
+- **Frame the section around observation, not breakage.** "Test it against the hard cases", not "test it and
+  break it". The goal line says what the participant will have watched and which instruction carried it, not
+  how many failures they repaired.
+- **Never presume the failure.** Give what to watch for, then make the fix conditional: "if it answered anyway,
+  add this line". An exercise that jumps from prompt to fix has told the participant the outcome before they ran
+  anything.
+- **Grounding failure is worth testing** when the missing thing is a real gap a reader would hit anyway. Reach
+  for it only if the data already creates one.
+
+## Planted defects and where they may be named
+
+Labs that teach testing plant defects in the data: a miscoded record, two sources that disagree, something that
+looks like a pattern and is not. **Never enumerate them outside the answer key.** A pack overview that lists
+what is wrong with the data converts every test exercise from discovery into transcription, and the discovery
+is the entire value of the exercise.
+
+- **Say nothing about the data being flawed anywhere in the data-pack section.** Not a list, not a count, not a
+  hint at type, and not a general "the data is not clean, and that is deliberate" note either. A test exercise
+  that walks the participant into each conflict by name already delivers this at the moment it is useful.
+  Announcing it up front only tells them to expect something they will be shown anyway, and it reads as the
+  author defending the data rather than the participant doing the work. If a section has to prepare the reader
+  for the exercise, the exercise is not carrying its own weight.
+- Put the full list in one clearly labelled **Answer Key** at the end, opening with an instruction to read it
+  after testing rather than before.
+- Watch for the self-contradiction: "you will find these in the test section, not before", written directly
+  underneath a list of them. If a sentence has to warn the reader not to have read what they just read, delete
+  the list.
+
+## Structuring an instruction set (binding)
+
+**Make the sections real, then number inside them.** An instruction set numbered 1..N straight through its
+headings makes the headings decorative: delete one and nothing changes. Restart numbering at 1 under each
+heading. That is ordinary document convention and needs no explaining to anyone.
+
+Do not invent labelling schemes. No `G1`/`D1`/`A1` prefixes, no codes, no taxonomy of your own devising — a
+participant should not have to learn a notation to read an instruction set, and an invented one will not match
+anything they see in the product or in their own standards.
+
+The blocks, in this order:
+
+1. **Guardrails** — every *never*. Opens with a precedence line: *These outrank everything below. Where a
+   guardrail and a step conflict, follow the guardrail and say so.*
+2. **Scope and definitions** — the sources, and every term the agent could otherwise read loosely (what counts
+   as a repeat, what counts as current, what counts as a finding).
+3. **How you answer** — sequencing, ordering, length.
+
+Two placement tests before shipping:
+
+- **Is it a *never*? Then it is a guardrail**, wherever it felt natural to write it. A prohibition sitting under
+  "What to do" is the exact defect the guardrail-placement exercise teaches against — never ship a guide whose
+  own instruction set breaks the rule the guide is teaching.
+- **Is it a definition, or a step?** Definitions belong under Scope and definitions, not buried inside a task
+  step where they scan as advice.
+
+**Cross-reference instruction lines by what they say, not by position.** "The currency rule" survives an edit;
+"instruction 7" does not. This also removes any need for the labels.
+
+**Do not restate a skill's output format in the agent instructions.** Agent instructions govern behavior on any
+question; a skill owns the shape of one deliverable. Skills are portable and get copied between teams, so
+anything written in both places drifts the first time either one is edited. Say which owns what, in the guide.
 
 ## Language rules for instruction text
 

@@ -44,6 +44,8 @@ Source: https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-sol
 ## 3. Knowledge
 
 - [ ] Map each user question type to a source: public website, uploaded documents, SharePoint, Dataverse, connectors (GitHub Copilot harness adds Azure AI Search, Dynamics 365, Salesforce, ServiceNow, Azure SQL in the Add knowledge dialog)
+- [ ] **Documents into knowledge, tabular data into a query mechanism.** Semantic search has limitations for cell indexing, so a spreadsheet dropped into a knowledge set answers lookups unreliably and aggregates worse. Re-cast tabular content as the register or log a business would circulate, or route it to code interpreter, a Dataverse/Azure SQL knowledge source, or a connector or agent flow tool
+- [ ] Check the exercise is asking retrieval for what retrieval does — what a source says, whether two sources agree, what recurs. Totals, counts and percentages need a different mechanism
 - [ ] Note the source authentication model — SharePoint, Dataverse, and connector sources honor the end user's Entra ID permissions, so users only see what they can already access
 - [ ] **Web knowledge — two distinct controls:**
   - *Public website* knowledge source: searches Bing but returns results **only from the URLs you list** (generative mode: up to 25 websites; classic: four public URLs)
@@ -54,6 +56,18 @@ Source: https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-sol
 - [ ] Set content moderation level (default High; topic-level overrides agent-level at runtime)
 - [ ] Give every knowledge source an accurate, specific description — generative orchestration filters sources by description when there are many
 - [ ] Note channel citation limits (Teams caps citations and truncates titles/snippets; customized answers don't get automatic citations)
+
+## 3b. Topics (standard harness, where wording must not vary)
+
+Source: https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-triggers
+
+- [ ] Reach for a topic only where the *answer* must be identical every time: escalation wording, refusals, regulated or safety-critical statements. Everything else is instructions plus knowledge
+- [ ] Leave the trigger as **The agent chooses** (the generative-orchestration default). It fires on the topic's **name and trigger description**
+- [ ] **Do not write trigger phrases.** "User says a phrase" is classic orchestration and only appears once orchestration is turned off
+- [ ] Name the topic for the situation, not the mechanism — the name is a routing signal
+- [ ] Write the trigger description as *when to use this* plus *when not to use it*, the same shape as a tool description
+- [ ] Put the fixed wording in a Message node
+- [ ] Test with phrasing far from the description, to prove routing is semantic. A miss is fixed with a better description, never with a phrase list
 
 ## 4. Tools
 
