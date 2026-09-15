@@ -15,8 +15,8 @@ metadata:
 
 # Copilot Studio Agent Builder
 
-Decide the harness internally, then produce a **hands-on walkthrough** that takes a participant from an empty
-Copilot Studio environment to a working, tested, published agent. Audience: customer makers building their own
+Pick the harness deliberately, teach that choice in the guide, then produce a **hands-on walkthrough** that
+takes a participant from an empty Copilot Studio environment to a working, tested, published agent. Audience: customer makers building their own
 agent, following along at a keyboard.
 
 **This is a lab, not a briefing.** The participant should never have to decide what to type. Every step names a
@@ -59,8 +59,8 @@ The eight exercises are ordered by dependency, not by topic. Two positions are t
    unmanaged, solution layers and pipelines are ALM topics that belong to a later curriculum, not to a
    participant's first agent. Two or three sentences of why, then the clicks.
 2. **Boundaries before capability.** Scope and grounding rules (instructions) come before knowledge; the web
-   boundary comes before tools; testing comes before publishing. The failure mode of an agent is not a clumsy
-   sentence, it is a confident wrong action against a real system — so the guide constrains what the agent may
+   boundary comes before tools; testing comes before publishing. An agent does not go wrong by writing a clumsy
+   sentence; it goes wrong by taking a confident wrong action against a real system — so the guide constrains what the agent may
    do *before* connecting it to anything that can act.
 
 Everything else follows from those: create → instructions → knowledge → web boundary → tools → test → publish.
@@ -89,7 +89,36 @@ hands-on training program. Every guide ends by linking it as the next step. Two 
 whole sequence, dependency-ordered steps, prerequisites stated before anyone starts, capability-based objectives,
 and an end-state checklist of things the participant observed. What does NOT transfer is its presentation — no
 codenames, mission numbering, difficulty ratings, badges, rank language, or emoji-led headings. Those belong to
-Agent Academy. Guides from this skill use the customer's own voice and the standard handout format defined by the companion formatter skill.
+Agent Academy. Guides from this skill use the customer's own voice and the house handout format.
+
+## Legacy Constructs (check before you write)
+
+Copilot Studio has moved on from several patterns that still dominate older blog posts and training material.
+Writing one into a guide dates it instantly and it will not match the participant's screen. Before describing
+any authoring mechanism, confirm it against current Learn rather than recall:
+
+- **Topic trigger phrases** are classic orchestration. Generative orchestration is the default, and it routes on
+  the topic's **name and trigger description**. The phrases option only appears once orchestration is off.
+- **Topics as a reason to pick the standard harness.** Topics are usable there and worth teaching as a technique,
+  but current migration guidance translates authored conversational paths into **instructions and skills**
+  rather than porting them. Justify the harness on the work — question-set breadth, volume and billing model,
+  file and computation needs, what the org already runs — never on "you need topics".
+- **Spreadsheets as unstructured knowledge.** Semantic search has limitations for cell indexing, so retrieval
+  alone answers lookups unreliably and arithmetic worse. On the **standard harness**, re-cast tabular content as
+  the register or log a business would circulate, or route it to Dataverse/Azure SQL or a connector tool. On the
+  **GitHub Copilot harness this is not a constraint**: the Agent Sandbox runs real code over files. See below.
+- **"Agents cannot do arithmetic."** Out of date on the GitHub Copilot harness. Its Agent Sandbox is an isolated
+  Linux/Python workspace, **on by default**, with pandas, numpy, matplotlib, openpyxl and similar preinstalled;
+  the orchestrator writes and runs scripts when a task needs exact computation, parsing, validation or file
+  generation, and can emit charts and Office files. No outbound internet, so external calls still go through
+  tools and knowledge. The rule to teach is not *never calculate* but **never calculate by reading** — compute
+  it, or say you could not. (Classic Code Interpreter on the standard harness is the limited preview feature:
+  one file per prompt, no multi-turn, admin-enabled, not callable from a topic.)
+- **Positioning the reasoning harness as the unreliable one.** Modern agents are highly adherent to their
+  instructions. What differs between harnesses is what the agent can reach for, not how faithfully it follows
+  what you wrote. Never justify a harness choice with an unfounded claim about answer consistency.
+- When in doubt, search Learn for the mechanism and read the note at the top of the page: most articles state
+  which harness and which orchestration mode they describe.
 
 ## Hard Grounding Rule
 
@@ -102,15 +131,19 @@ than the current quarter as needing a re-check. If a check fails, say the detail
 ## Workflow
 
 1. **Resolve the scenario.** Capture: business outcome, users, where they'll use the agent, what data grounds it,
-   what actions it must take, and whether it runs on request or on a trigger. With the user's authorization, use
-   available Microsoft 365 search and file-reading capabilities when the user references a customer, meeting, or
-   document. Ask at most one focused question when the harness choice is genuinely blocked.
-2. **Pick the harness — an internal decision, reported in chat only.** Use
-   [references/harness-matrix.md](references/harness-matrix.md). In your chat reply give the pick, the one-line
-   reason, the trade-off given up, and the warning that GitHub Copilot and standard harness agents **cannot be
-   converted to each other** after creation. **None of this goes in the guide** (see Artifact Voice). The pick
-   still shapes the guide — it determines which capabilities and settings you document — it just isn't narrated
-   to the reader. Scope the design to a **single agent**: one set of instructions, one knowledge set, one tool set.
+   what actions it must take, and whether it runs on request or on a trigger. If the user references a customer,
+   meeting, or document, look it up (`m365_search-SearchM365`, `sharepoint_onedrive-ReadFileContent`) rather
+   than asking. Ask at most one question via `core-AskUserQuestion` when the harness choice is genuinely blocked.
+2. **Pick the harness, and put the reasoning in the guide.** Use
+   [references/harness-matrix.md](references/harness-matrix.md). The guide carries a "Choosing the runtime"
+   section: what a harness is, the three-way comparison, **why this build sits on the harness you picked and
+   what it gives up**, the warning that GitHub Copilot and standard harness agents **cannot be converted to each
+   other** after creation, and — where the build is on the GitHub Copilot harness — that usage-based billing
+   covers building, testing and evaluating, not only production traffic.
+   Give the reader a rule they can reuse: *if you can write the answer down in advance, author it on the
+   standard harness; if you can only write down how to work the answer out, you need the reasoning runtime.*
+   Scope the design to a **single agent**: one set of instructions, one knowledge set, one tool set — unless the
+   user asks for a build per harness, in which case produce one track each and keep the data and scenario shared.
 3. **Write ONE lab made of eight exercises.** The deliverable is a single lab producing a single working
    agent; the exercises are its parts, never eight standalone labs. Each adds one capability to the **same**
    agent, in this order — the sequence is load-bearing, see Build Sequence below:
@@ -134,8 +167,8 @@ than the current quarter as needing a re-check. If a check fails, say the detail
    `output/<agent-name>-build-guide.html`. Never hand-roll the HTML. Confirm with `Glob output/**/*` before
    telling the user it's ready.
    **Then run both sweeps on the rendered file:**
-   - *Voice:* grep for `harness`, `credit`, `facilitat`, `the room`, `workshop`, `agenda`, `Day One`, `Day Two`,
-     `we `, `I `, `you asked`, `as discussed`. `harness` and `credit` must return **zero** hits.
+   - *Voice:* grep for `facilitat`, `the room`, `workshop`, `agenda`, `Day One`, `Day Two`, `we `, `I `,
+     `you asked`, `as discussed`. (Harness and credit content is expected in the guide — do not strip it.)
    - *Hand-waving:* grep for `consider`, `decide`, `ensure`, `make sure`, `review the`, `map each`, `assess`,
      `determine`, `think about`, `as appropriate`, `as needed`. Each hit inside a lab step is a defect — rewrite
      it as an action or move it to the settings table. Then confirm every lab has a "Check it worked" and that
@@ -167,6 +200,10 @@ Call these out explicitly in every guide — they are the common failure points:
   structured sources (Dataverse, Azure SQL) turn the question into a query over rows, which is the only way a
   "how many / total / top five" question is answerable. Both are knowledge and both are read-only: **knowledge
   informs the answer, a tool takes the action.** See references/lab-patterns.md for the wording.
+- **Instruction sets restart numbering under each heading**, and every *never* is a guardrail regardless of
+  where it felt natural to write it. Invent no labelling scheme — no letter prefixes, no codes; a reader should
+  not have to learn a notation. Cross-reference a line by what it says, not by its number. See
+  [references/lab-patterns.md](references/lab-patterns.md).
 - **Descriptions are routing logic.** Tool, knowledge, topic, and agent *names and descriptions* are what the
   orchestrator reads to choose. A vague description is a routing bug, not a cosmetic one.
 - **Instructions can't do everything.** Instructions steer summarization and conversational flow — not citation
@@ -210,18 +247,17 @@ Keep OUT of the artifact — put these in the chat reply instead:
   (I / we / let's), no addressing the requester rather than the reader.
 - **Review commentary on the customer's own materials.** Findings about *their* deck, agenda, or plan are
   chat-reply content. Only product constraints a builder must act on belong in the artifact, stated as
-  constraints, never as critique of their document, and never framed around a harness.
+  constraints, never as critique of their document.
 - **Process narration.** No mention of tools used, files read, folders, searches, or how the guide was built.
-- **Harness selection content.** No harness names, no comparison table, no "recommended harness", no
-  convertibility or credit-consumption warnings, and no harness-titled sources. The harness is decided before
-  the guide exists; the guide documents the agent that decision produced. Write settings and capabilities
-  plainly ("skills are not available for this agent") rather than attributing them to a harness.
+Harness content is NOT in this list. Name the harness, compare the three, justify the pick, and state the
+convertibility and credit consequences — in the guide, not only in chat. What still stays out is *sales* framing
+around it: licensing quotes, credit forecasts, and roadmap.
 
 Second person addressed to **the builder** ("add the source you want the agent to search") is correct and
 expected — that is how product documentation reads. Second person addressed to **the requester** is not.
 
 Every heading must survive the test: *would this heading make sense to someone who has never seen the request?*
-"Open Questions for the Customer" fails; "Decisions Required Before Build" passes.
+"Open Questions for Halliburton" fails; "Decisions Required Before Build" passes.
 
 ## Output Format
 
@@ -233,32 +269,33 @@ The HTML guide, in this order:
 2. **The scenario** — the business problem in two or three sentences, then what the finished agent does
 3. **What you will be able to do** — 5-8 capability statements, each an ability gained ("diagnose why the agent
    is not finding what you expect"), never a topic covered
-4. **Before you start** — split in two: **access and licensing** (the environment, the licences, the security
+4. **Choosing the runtime** — what a harness is, the three-way comparison table, why this build sits on the
+   harness picked and what it trades away, the non-convertibility warning, and credit consumption where the
+   GitHub Copilot harness is used. Place it before the exercises: it is a design decision, not an appendix
+5. **Before you start** — split in two: **access and licensing** (the environment, the licences, the security
    role) and **content and test material**. Name the *specific* entitlements, not a general "access to the
    product": tenant-level access and access inside a given environment are different things, and conflating
    them strands people on the day. Say which exercise each item blocks, and give a fallback where one exists
-5. **Exercises**, in build order, each with:
+6. **Exercises**, in build order, each with:
    - **Goal** — one sentence
    - **Steps** — numbered, each starting with a UI verb, naming the page and control
    - **Enter this** — copy blocks holding the literal text: agent description, instruction text, knowledge source
      names and descriptions, tool names and descriptions
    - **Check it worked** — what appears on screen
    - **If it didn't** — likeliest cause and fix, where the failure is likely and fixable
-6. **What you built** — a checklist restating each capability as something the participant *observed*, plus the
+7. **What you built** — a checklist restating each capability as something the participant *observed*, plus the
    instruction to return to the exercise that produced any line that is not true
-7. **Settings reference** — setting, where it lives, recommended value, what the other value does. This is where
+8. **Settings reference** — setting, where it lives, recommended value, what the other value does. This is where
    recommendations belong, so the exercises stay imperative
-8. **Test prompts** — 5-8 to run against the finished agent, at least two the agent should refuse
-9. **Before you share it** — auth, data boundary, admin dependencies, monitoring, publish sequence
-10. **Decisions required before build** — what the owning organization must confirm (data scope, connectors,
-   approved recipients, publishing permissions, review owner). Not harness or licensing choices.
-11. **Sources** — a two-column table: which exercise used it, and the page as a **live hyperlink** plus the bare
-   URL in visible text (printed handouts lose the anchor). Titled by topic rather than by harness. Never a bare
+9. **Test prompts** — 5-8 to run against the finished agent, at least two the agent should refuse
+10. **Before you share it** — auth, data boundary, admin dependencies, monitoring, publish sequence
+11. **Decisions required before build** — what the owning organization must confirm (data scope, connectors,
+   approved recipients, publishing permissions, review owner). Not the harness pick, which the guide makes.
+12. **Sources** — a two-column table: which exercise used it, and the page as a **live hyperlink** plus the bare
+   URL in visible text (printed handouts lose the anchor). Never a bare
    list of page titles — a reader whose screen doesn't match needs the authoritative page in one click.
-12. **Where to go next** — link Copilot Studio Agent Academy (https://microsoft.github.io/agent-academy/) with a
+13. **Where to go next** — link Copilot Studio Agent Academy (https://microsoft.github.io/agent-academy/) with a
    one-line description of Recruit and Special Ops, and the caveat that it supplies no environments or licenses
-
-There is no harness section. The harness decision lives in the chat reply.
 
 **Copy blocks carry only what the participant pastes into Copilot Studio** — instruction text, descriptions,
 prompts. Never put UI navigation inside a copy block.
@@ -270,9 +307,9 @@ details, limits, license entitlements, or numbers.
 
 - Ground every product claim in a fetched Microsoft Learn page; no memory-sourced specifics.
 - Do not fabricate customer names, data sources, connector availability, or licensing.
-- Recommend one harness in chat; do not hedge across all three.
-- Never let harness names, comparisons, convertibility warnings, or credit-consumption notes reach the guide;
-  a `harness` or `credit` hit in the rendered file is a blocking defect, not a wording preference.
+- Recommend one harness per build and say why in the guide; do not hedge across all three.
+- Never ship a guide whose harness pick is unexplained, and never omit the non-convertibility warning: the
+  choice is fixed at creation and is the most expensive thing in the build to get wrong.
 - Every lab step is an action a participant performs, not a decision they must make. Recommendations live in the
   settings reference; steps stay imperative.
 - Never ship a lab without a "Check it worked", and never tell a participant to write text the guide could have
@@ -284,6 +321,10 @@ details, limits, license entitlements, or numbers.
   instruct a step that changes environment-wide or account-level defaults (preferred solution being the main
   one). Prefer per-object placement, and name objects with the participant's own initials so shared lists stay
   navigable.
+- **Show the product at its best, honestly.** Never build an exercise around a pattern the product handles
+  poorly and then caveat it. If a guide needs a paragraph warning the reader not to trust the agent, change
+  what the exercise asks for instead of lengthening the warning. Equally, never imply a capability the
+  documentation does not support: aggregate arithmetic over a document knowledge source is the standing example.
 - Never create, modify, or publish a live agent — this skill produces guidance only.
 - Include the security/prompt-injection and authentication items in every guide, even short ones.
 - The artifact never references the conversation, the requester, the delivery team, or how it was produced.
