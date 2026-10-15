@@ -1,15 +1,26 @@
 ---
-name: copilot-se-demo-builder
+name: copilot-exercise-builder
 description: |
   Create executive-ready Microsoft Copilot demo exercises, workshop scenarios, and prompt sequences for customer enablement sessions. Use when the user asks to "create a Copilot demo", "build a Copilot workshop", "make a Researcher exercise", "build an Agent Builder demo", or "put together a full suite of Copilot exercises" for Copilot Chat, Researcher, Analyst, Notebook, Agent Builder, Copilot in Outlook, Teams, Excel, Word, or PowerPoint, or Copilot on Mobile. Do NOT use for Copilot Cowork exercises (use copilot-cowork-exercise-builder) or for HTML handout formatting alone (use copilot-exercise-html-formatter); do NOT use to actually perform the work a scenario depicts (sending real email, real meeting prep, building real decks) - use the dedicated M365 skills instead; do NOT use to modify built-in system skills.
-cowork:
+metadata:
   category: productivity
   icon: SlideText
 ---
 
-# Copilot SE Demo Builder
+# Copilot Exercise Builder
 
 Use this skill to create customer-facing Copilot demo scenarios. Produce one scenario per request unless the user explicitly requests multiple scenarios and provides both the exact number and the specific scenario types. If either is missing, ask one clarifying question. You may also offer one optional `Writing Assistant` companion exercise after the primary output; only generate it if the user accepts.
+
+## Participant-only published content (binding)
+
+Every published HTML handout and companion file must stand alone for a participant who has never seen the authoring chat. This rule takes precedence over any older output-section, workflow, or companion-reference instruction requiring delivery notes or troubleshooting blocks.
+
+- Exclude meta-narrative and authoring rationale: no explanation of how the material was drafted, revised, selected, validated, or packaged; no internal process commentary or validation results.
+- Exclude chat-history extensions: no "as you requested", "updated/rebuilt", feedback acknowledgments, discussion of inferred scope or session counts, or future optional-extension offers copied from assistant chat. Keep any required planning statements and offers in chat only, never in an artifact.
+- Exclude facilitator, speaker, delivery-team, and run-room notes, including "While It Runs", "If It Stalls", wait-time filler, troubleshooting advice, and what someone should say or show to the room. Remove these sections rather than hiding them in comments, collapsed panels, appendices, document notes, or workbook tabs.
+- Preserve genuine participant scenario context, product setup and click paths, copy-ready prompts, expected outputs, evidence checks, and essential factual availability, access, permissions, and reference information. Business context and product constraints are not authoring commentary. Do not remove participant instructions merely because they address the reader directly.
+- Synthetic material must read like original source material: retain a concise synthetic label and appropriate source, participants or author, and date identifiers, then the business content. Never embed the author conversation or exercise-construction commentary in a source file.
+- Before publishing or revising, inspect all handout sections and every companion file for these excluded categories, including hidden text and notes. Delete excluded material and any orphaned navigation links; confirm required participant steps, prompts, source evidence, and factual prerequisites remain intact.
 
 ## Companion skills (delegate, do not duplicate)
 
@@ -98,7 +109,7 @@ Context that is part of the exercise itself (for example Scenario Overview, deci
 - Rationale for structure or design
 - Meta-framing phrases like "this exercise is designed to..." or "the goal here is..."
 
-**Note:** The non-overlap check (workflow step 3) is a brief planning statement outside the exercise output and is exempt from this rule.
+**Note:** The non-overlap check (the named workflow step below) may be a brief planning statement in chat only. It must never enter the HTML, any companion file, or participant-facing plain-text output.
 
 ### 3. Executive prompt style
 
@@ -147,7 +158,7 @@ Also: do not generate `.md` or `.txt` files as synthetic data deliverables. Docu
      - `Agent Builder`: also confirm business trigger, knowledge sources, and action scope if missing.
 
 2. **Non-overlap check (concise)**
-   - In 1-2 sentences, state how this exercise is distinct from other exercises mentioned.
+   - In chat only, state in 1-2 sentences how this exercise is distinct from other exercises mentioned. Do not publish this planning statement in the exercise or its files.
 
 3. **Capability boundary enforcement**
    - Write a "What This Exercise Demonstrates" section that frames scope in terms of outcome and decision value.
@@ -165,7 +176,7 @@ Also: do not generate `.md` or `.txt` files as synthetic data deliverables. Docu
    - If output format is plain text: return as formatted text in chat.
 
 7. **Offer optional companion exercise**
-   - After delivering the requested scenario(s), offer one optional additional `Writing Assistant` companion exercise.
+   - After delivering the requested scenario(s), offer one optional additional `Writing Assistant` companion exercise in chat only. Never add the offer to the handout or source files.
    - If the user accepts, generate the companion exercise in the same output format and with the same customer context.
    - If the user declines or does not answer, stop after the requested scenario(s).
    - If the user explicitly requested standalone `Writing Assistant`, treat that as the requested output and skip the companion-offer step.
@@ -277,7 +288,7 @@ Every Copilot Chat exercise must include the following elements in this order:
   - **Phase 1 (Copilot Chat, fast and interactive):** frame the problem and plan the research in one or two quick Chat turns. Use Chat to pin down the decision at stake, the specific questions worth researching, and the scope/timeframe. This costs seconds, not minutes.
   - **Phase 2 (Researcher, same thread, one run):** switch Researcher on in that same chat and fire a single consolidated, well-scoped prompt that asks for the synthesized, decision-ready deliverable in one pass. One run, one output.
 - **Researcher Prompt Sequence is the exception to the 4-5 prompt rule:** target one Chat framing prompt plus exactly one Researcher invocation (two prompts total). Do not author three-to-five standalone Researcher prompts. If a refine is truly needed, note it as optional rather than as a second required run.
-- Label the two phases clearly (for example `Phase 1: Frame in Chat` and `Phase 2: Run Researcher once`) so the facilitator knows when to toggle Researcher on.
+- Label the two phases clearly (for example `Phase 1: Frame in Chat` and `Phase 2: Run Researcher once`) so the participant knows when to switch to Researcher.
 
 ### `Analyst`
 
@@ -368,7 +379,7 @@ Use this flow when demoing the full document creation chain. Treat it as a singl
 When producing this linked flow:
 
 - Produce a connected prompt sequence that flows naturally across each phase
-- Include brief handoff cues between phases so the facilitator knows when to switch apps
+- Include brief participant-facing handoff cues between phases naming the next app and action
 - Synthetic content (if needed) should carry consistent terminology and data through all phases
 - Label each phase clearly in the output: `Phase 1`, `Phase 2`, etc.
 

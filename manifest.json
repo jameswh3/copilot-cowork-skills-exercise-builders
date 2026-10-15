@@ -25,7 +25,7 @@
   "agentSkills": [
     { "folder": "./skills/copilot-cowork-exercise-builder" },
     { "folder": "./skills/copilot-exercise-html-formatter" },
-    { "folder": "./skills/copilot-se-demo-builder" },
-    { "folder": "./skills/copilot-studio-agent-builder" }
+    { "folder": "./skills/copilot-exercise-builder" },
+    { "folder": "./skills/copilot-studio-exercise-builder" }
   ]
 }

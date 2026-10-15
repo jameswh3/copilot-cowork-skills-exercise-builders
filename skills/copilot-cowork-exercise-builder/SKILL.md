@@ -1,8 +1,8 @@
 ---
 name: copilot-cowork-exercise-builder
 description: |
-  Build rich, company-specific and persona-specific Microsoft Copilot Cowork exercises for customer enablement: agentic workspace scenarios, robust multi-step anchor prompts, drop-in synthetic content packs, and executive handouts. Use when the user asks to "create a Cowork exercise", "build a Copilot Cowork demo", "make a Cowork workshop track", "build Cowork exercises for a CFO / plant manager / claims lead", "design a scheduled autonomous briefing demo", "build a Cowork exercise set for [company]", or "create Cowork exercises by persona". Do NOT use for non-Cowork Copilot surfaces (Chat, Researcher, Analyst, Notebook, Agent Builder, Outlook, Teams, Excel, Word, PowerPoint) - use copilot-se-demo-builder; do NOT use to perform the real work a scenario depicts.
-cowork:
+  Build rich, company-specific and persona-specific Microsoft Copilot Cowork exercises for customer enablement: agentic workspace scenarios, robust multi-step anchor prompts, drop-in synthetic content packs, and executive handouts. Use when the user asks to "create a Cowork exercise", "build a Copilot Cowork demo", "make a Cowork workshop track", "build Cowork exercises for a CFO / plant manager / claims lead", "design a scheduled autonomous briefing demo", "build a Cowork exercise set for [company]", or "create Cowork exercises by persona". Do NOT use for non-Cowork Copilot surfaces (Chat, Researcher, Analyst, Notebook, Agent Builder, Outlook, Teams, Excel, Word, PowerPoint) - use copilot-exercise-builder; do NOT use to perform the real work a scenario depicts.
+metadata:
   category: productivity
   icon: PersonBoard
 ---
@@ -13,9 +13,20 @@ Cowork is the agentic workspace: one thread, many surfaces, real deliverables. T
 
 The unit of work is a **persona-anchored exercise**. Every exercise names a real operating moment for one role at one company, delegates the whole job in a single robust prompt, and ends with an artifact the participant is holding.
 
+## Participant-only published content (binding)
+
+Every published HTML handout and companion file must stand alone for a participant who has never seen the authoring chat. This rule takes precedence over any older output-section, workflow, or companion-reference instruction requiring delivery notes or troubleshooting blocks.
+
+- Exclude meta-narrative and authoring rationale: no explanation of how the material was drafted, revised, selected, validated, or packaged; no internal process commentary or validation results.
+- Exclude chat-history extensions: no "as you requested", "updated/rebuilt", feedback acknowledgments, discussion of inferred scope or session counts, or future optional-extension offers copied from assistant chat. Keep any required planning statements and offers in chat only, never in an artifact.
+- Exclude facilitator, speaker, delivery-team, and run-room notes, including "While It Runs", "If It Stalls", wait-time filler, troubleshooting advice, and what someone should say or show to the room. Remove these sections rather than hiding them in comments, collapsed panels, appendices, document notes, or workbook tabs.
+- Preserve genuine participant scenario context, product setup and click paths, copy-ready prompts, expected outputs, evidence checks, and essential factual availability, access, permissions, and reference information. Business context and product constraints are not authoring commentary. Do not remove participant instructions merely because they address the reader directly.
+- Synthetic material must read like original source material: retain a concise synthetic label and appropriate source, participants or author, and date identifiers, then the business content. Never embed the author conversation or exercise-construction commentary in a source file.
+- Before publishing or revising, inspect all handout sections and every companion file for these excluded categories, including hidden text and notes. Delete excluded material and any orphaned navigation links; confirm required participant steps, prompts, source evidence, and factual prerequisites remain intact.
+
 ## When NOT to Use
 
-- The exercise targets another Copilot surface (Chat, Researcher, Analyst, Notebook, Agent Builder, Copilot in Outlook / Teams / Excel / Word / PowerPoint, Copilot on Mobile): use `copilot-se-demo-builder` instead.
+- The exercise targets another Copilot surface (Chat, Researcher, Analyst, Notebook, Agent Builder, Copilot in Outlook / Teams / Excel / Word / PowerPoint, Copilot on Mobile): use `copilot-exercise-builder` instead.
 - The user wants Copilot Studio agent authoring content: that is out of scope for both skills right now.
 - The user wants the HTML handout styled, fixed, or rebranded and nothing else: use `copilot-exercise-html-formatter`.
 - The user wants the depicted work actually performed (real email, real scheduling, a real deck): use the dedicated M365 skills.
@@ -80,7 +91,7 @@ Every exercise opens from a short persona profile that the rest of the exercise 
 - Their week: the recurring meetings, reviews, and reports
 - What is on fire right now
 
-Keep it to five or six tight lines. It is scaffolding for the author and orientation for the facilitator, not a wall of text in the handout.
+Keep it to five or six tight lines as internal authoring scaffolding. Publish only the concise business context participants need, not the profile planning block or facilitator orientation.
 
 ### 4. Author the exercise content
 
@@ -110,20 +121,20 @@ Hard rules:
   - **At most one exercise per session** uses an interview-style prompt. Pick the exercise where the pattern teaches the most and make it the designated one.
   - **Cap it at three questions.** The prompt must say so explicitly, for example "ask me up to three questions, then proceed." An open-ended interview is what actually stalls a room, not the technique itself.
   - Every other exercise in the session states its inputs up front so the agent never stops to ask.
-  - Note the designated interview exercise in the track overview so a facilitator running a subset knows which one carries the pattern.
-  - Budget an extra 2 to 3 minutes of room time for that exercise and say so in its Facilitator Notes.
+  - Identify the designated interview exercise in the track overview as a participant activity.
+  - Budget an extra 2 to 3 minutes internally for that exercise; publish only its participant-facing time estimate, not facilitator pacing commentary.
 - **One anchor prompt, fired once.** Optional follow-ups are genuinely optional and exist so fast participants have somewhere to go, not as required steps the room waits on.
 - **Everything the participant types is copy-paste ready.** No prompt should require the participant to compose original text on the spot beyond swapping in an obvious value like a name or a date. Mark any spot where they substitute their own value with a clearly bracketed placeholder.
 - **No setup that cannot be done in under a minute.** No connector configuration, no admin consent, no artifact provisioning, no waiting on a tenant change.
-- **Plan for the dead air.** Every exercise includes a short `While It Runs` note for the facilitator: one or two things to say or ask the room during the agent run. This is facilitator-facing content and belongs in the handout as a facilitator note, not in the participant instructions.
-- **Every exercise must fail gracefully.** Include a one-line `If It Stalls` fallback: what the facilitator says or shows if a participant's run is slow, returns thin results, or errors. Usually this is a described expected output the room can discuss without waiting.
+- **Keep run-time planning internal.** Do not publish `While It Runs` talking points, waiting filler, or room-management notes.
+- **Make the expected output explicit.** Describe the result participants should check, without `If It Stalls` fallbacks, facilitator scripts, or troubleshooting advice.
 - **Never make one exercise a hard dependency of the next for the participant.** The E to B chain is the single exception, and even there the B exercise must state a fallback skill name so a participant whose E run failed can still complete B.
 
 Track-level timing:
 
 - Multiply the per-exercise budget by the exercise count, add 10 minutes of opening and 10 of close, then compare against the stated timebox. If the total exceeds it, cut exercises rather than trimming each one thin.
 - A 60-minute session supports three exercises. A 90-minute session supports four. A half day supports six with breaks.
-- State the estimated run time on each exercise in the handout so the facilitator can pace and drop one live if needed.
+- State a concise participant-facing time estimate on each exercise; keep pacing and drop-an-exercise deliberation internal.
 - Order the track so the exercises most likely to run long sit later, where they can be cut without breaking the story.
 
 ## The five Cowork patterns
@@ -194,7 +205,7 @@ Rules for the chain:
 - Add an explicit handoff line at the end of E and at the start of B naming the skill that carries across.
 - The B anchor prompt must reference the skill by name. If it restates E's steps inline, the chain is not demonstrated and the exercise fails review.
 - Both exercises stay persona-anchored: the same person, the same operating rhythm, the same company context.
-- If the participant's tenant will not persist personal skills between sessions, say so plainly in the facilitator notes rather than promising persistence.
+- If the participant's tenant will not persist personal skills between sessions, state that factual limitation in participant prerequisites rather than promising persistence.
 - The B exercise names a fallback skill name so a participant whose E run failed can still complete B rather than sitting out.
 - The E skill-creation prompt normally states the workflow outright. If E is the session's designated interview exercise, it may have Copilot ask up to three questions to shape the steps, but the **skill name must be pinned in the prompt itself**, not left to the interview. A room full of differently-named skills breaks the B exercise that schedules them.
 
@@ -229,8 +240,9 @@ Each exercise contains, in order:
 5. `What The Thread Will Reach Across` - the uploaded pack first, then the participant's live calendar, then their live inbox.
 6. `Participant-Facing Instructions` - the first instruction is always: upload all files from the drop-in content pack into the thread before running any prompts.
 7. `Anchor Prompt` plus at most two optional follow-ups.
-8. `What Good Looks Like` - three or four bullets describing the deliverable the participant should be holding, so the facilitator can tell whether the run succeeded.
-9. `Facilitator Notes` - the estimated run time, the `While It Runs` talking points, and the `If It Stalls` fallback. Facilitator-facing, visually separated from participant instructions in the handout.
+8. `What Good Looks Like` - three or four bullets describing the deliverable participants should be holding and the evidence they should check.
+
+Include a concise participant-facing time estimate, but no `Facilitator Notes`, `While It Runs`, `If It Stalls`, or delivery-team content.
 
 Pattern-specific additions:
 
@@ -288,7 +300,7 @@ When building a connected set:
 
 - Open with a short track overview: the company, the personas covered, the through-line, the per-exercise run times, and which exercise is the designated interview-pattern exercise
 - Number the exercises and use the same numbering for their pack folders
-- Add a one-line handoff cue between exercises so the facilitator knows the connective tissue
+- Add a one-line participant-facing handoff cue between exercises only when it names a needed input or next action
 - Keep terminology, program names, dates, and figures consistent across every exercise and every synthetic file in the track
 - If a file serves two exercises, keep it in its primary exercise's pack folder and reference it cross-folder from the other
 
@@ -304,11 +316,11 @@ When building a connected set:
 
 - Focus on the agentic workspace: cross-app orchestration, multi-step execution, autonomous scheduled work, deep multi-source investigation, live data-to-action chains, all in one thread
 - State the value plainly. Avoid hype like "stops being a feature inside apps"
-- Do not regress to single-surface tasks. If the exercise can be completed entirely inside Outlook, Teams, Excel, Word, or PowerPoint, it belongs in `copilot-se-demo-builder`
+- Do not regress to single-surface tasks. If the exercise can be completed entirely inside Outlook, Teams, Excel, Word, or PowerPoint, it belongs in `copilot-exercise-builder`
 - Do not position Cowork as a replacement for Agent Builder or Copilot Studio. It is the personal, conversational workspace where agents are invoked, work is delegated, and deliverables are produced
 - Cowork runs against the participant's own M365 tenant. Do not promise access to systems outside M365 unless a named Power BI model or supported connector is in scope
 - For scheduled patterns, do not imply autonomous destructive actions (deleting files, force-cancelling meetings, sending without approval) without confirmation
-- **Never include Copilot Chat custom instructions in a Cowork exercise.** Custom instructions are a Copilot Chat construct configured under Settings, Customize, Custom instructions. They are not part of Cowork and do not govern a Cowork thread. Do not add a custom-instructions setup step, do not tell participants to configure or paste them, do not reference the Settings path, and do not build a before-and-after comparison around them. That exercise belongs to `copilot-se-demo-builder` under Copilot Chat.
+- **Never include Copilot Chat custom instructions in a Cowork exercise.** Custom instructions are a Copilot Chat construct configured under Settings, Customize, Custom instructions. They are not part of Cowork and do not govern a Cowork thread. Do not add a custom-instructions setup step, do not tell participants to configure or paste them, do not reference the Settings path, and do not build a before-and-after comparison around them. That exercise belongs to `copilot-exercise-builder` under Copilot Chat.
 - The equivalent move in Cowork is not a settings change: context and standing preferences are carried by the anchor prompt itself, by the uploaded content pack, and by a saved personal skill (Pattern E). When an exercise needs the agent to know the participant's priorities or format preferences, state them inside the prompt or bake them into the skill
 
 ## Pre-delivery checklist
@@ -328,9 +340,9 @@ When building a connected set:
 13. Every unknown real-world value is a clearly marked placeholder, not an invented figure.
 14. The handout was produced through `copilot-exercise-html-formatter` and saved as a file, not pasted into chat.
 15. Every exercise fits the 10 to 15 minute room budget and carries an estimated run time in the handout.
-16. At most one exercise per session uses an interview-style prompt, it caps the question count at three in the prompt text, it is flagged in the track overview, and its Facilitator Notes carry the extra time. Every other exercise states its inputs up front.
+16. At most one exercise per session uses an interview-style prompt, it caps the question count at three in the prompt text, and it is flagged in the track overview with a participant-facing time estimate. Every other exercise states its inputs up front.
 17. No exercise references Copilot Chat custom instructions, the Settings and Customize path, or a custom-instructions before-and-after comparison.
-18. Every exercise has `Facilitator Notes` with `While It Runs` talking points and an `If It Stalls` fallback.
+18. The handout and every source file pass the participant-only content sweep: no facilitator notes, wait/stall/troubleshooting advice, chat echo, authoring rationale, optional-extension offers, or internal validation commentary.
 19. The track total, including opening and close, fits the stated timebox; if it did not, exercises were cut rather than thinned.
 20. Every participant-typed prompt is copy-paste ready, with any substitution marked as a bracketed placeholder.
 

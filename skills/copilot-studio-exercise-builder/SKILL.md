@@ -1,5 +1,5 @@
 ---
-name: copilot-studio-agent-builder
+name: copilot-studio-exercise-builder
 description: |
   Picks the right harness for a single Microsoft Copilot Studio agent, then produces a styled HTML hands-on
   walkthrough taking a participant from an empty environment to a working agent: numbered click-path exercises,
@@ -7,13 +7,13 @@ description: |
   Use when the user asks to "build a Copilot Studio agent", "which harness should I use", "add knowledge to my
   agent", "add tools to my agent", "write agent instructions", or "publish my agent to Microsoft 365 Copilot".
   Do NOT use for Copilot Cowork exercises (use copilot-cowork-exercise-builder), other Copilot surface demos
-  (use copilot-se-demo-builder), or to provision the agent — this produces the guide, not the agent.
+  (use copilot-exercise-builder), or to provision the agent — this produces the guide, not the agent.
 metadata:
   category: automation
   icon: BotSparkle
 ---
 
-# Copilot Studio Agent Builder
+# Copilot Studio Exercise Builder
 
 Pick the harness deliberately, teach that choice in the guide, then produce a **hands-on walkthrough** that
 takes a participant from an empty Copilot Studio environment to a working, tested, published agent. Audience: customer makers building their own
@@ -29,10 +29,21 @@ questions about ...`" passes. If a step tells the reader to *decide, consider, e
 determine, think about,* or *make sure* — it is not a step, it is a topic heading with no content. Rewrite it as
 an action, or move it to the settings table where a recommendation belongs.
 
+## Participant-only published content (binding)
+
+Every published HTML handout and companion file must stand alone for a participant who has never seen the authoring chat. This rule takes precedence over any older output-section, workflow, or companion-reference instruction requiring delivery notes or troubleshooting blocks.
+
+- Exclude meta-narrative and authoring rationale: no explanation of how the material was drafted, revised, selected, validated, or packaged; no internal process commentary or validation results.
+- Exclude chat-history extensions: no "as you requested", "updated/rebuilt", feedback acknowledgments, discussion of inferred scope or session counts, or future optional-extension offers copied from assistant chat. Keep any required planning statements and offers in chat only, never in an artifact.
+- Exclude facilitator, speaker, delivery-team, and run-room notes, including "While It Runs", "If It Stalls", wait-time filler, troubleshooting advice, and what someone should say or show to the room. Remove these sections rather than hiding them in comments, collapsed panels, appendices, document notes, or workbook tabs.
+- Preserve genuine participant scenario context, product setup and click paths, copy-ready prompts, expected outputs, evidence checks, and essential factual availability, access, permissions, and reference information. Business context and product constraints are not authoring commentary. Do not remove participant instructions merely because they address the reader directly.
+- Synthetic material must read like original source material: retain a concise synthetic label and appropriate source, participants or author, and date identifiers, then the business content. Never embed the author conversation or exercise-construction commentary in a source file.
+- Before publishing or revising, inspect all handout sections and every companion file for these excluded categories, including hidden text and notes. Delete excluded material and any orphaned navigation links; confirm required participant steps, prompts, source evidence, and factual prerequisites remain intact.
+
 ## When NOT to Use
 
 - Cowork exercises / workshop tracks → `copilot-cowork-exercise-builder`
-- Demos for Copilot Chat, Researcher, Analyst, Agent Builder, Word/Excel/PowerPoint → `copilot-se-demo-builder`
+- Demos for Copilot Chat, Researcher, Analyst, Agent Builder, Word/Excel/PowerPoint → `copilot-exercise-builder`
 - Multi-agent designs — connected agents, parent/child agent hierarchies, agent-to-agent handoff. This skill
   designs **one** agent. If a scenario seems to need a second agent, narrow the scope of the first instead and
   note it as an open question for later.
@@ -154,8 +165,8 @@ than the current quarter as needing a re-check. If a check fails, say the detail
    Use the click paths and copy-ready text in [references/lab-patterns.md](references/lab-patterns.md) and the
    coverage checklist in [references/build-checklists.md](references/build-checklists.md) — the checklist says
    *what must be covered*, the lab patterns say *how to write it as steps*. Every exercise carries Goal, Steps,
-   Enter this, and **Check it worked** — an exercise missing that last one is not finished. Add "If it didn't"
-   only where the failure is likely and fixable from the keyboard; omit it rather than padding.
+   Enter this, and **Check it worked** — an exercise missing that last one is not finished. Omit "If it didn't"
+   and other troubleshooting blocks from published content, including those suggested by older lab-pattern references. Preserve essential factual access and availability prerequisites.
    Write the agent's actual instruction text, knowledge source names and descriptions, and tool names for the
    scenario — do not tell the participant to compose their own. The instructions exercise always includes the
    Microsoft 365 Copilot refinement prompt from the lab patterns, with its caution about leaving citation and
@@ -173,7 +184,7 @@ than the current quarter as needing a re-check. If a check fails, say the detail
      `determine`, `think about`, `as appropriate`, `as needed`. Each hit inside a lab step is a defect — rewrite
      it as an action or move it to the settings table. Then confirm every lab has a "Check it worked" and that
      every instruction, description, or configuration value the participant must enter appears literally in a
-     copy block. Do not add a "If it didn't" block for a failure the participant cannot act on.
+     copy block. Do not add any "If it didn't", wait/stall, or troubleshooting block. Keep factual access and availability prerequisites and the participant's "Check it worked" evidence.
 
    A guide that reads like chat output, or that tells the participant to figure something out, is a failed
    deliverable even if every fact in it is correct.
@@ -248,7 +259,7 @@ Keep OUT of the artifact — put these in the chat reply instead:
 - **Review commentary on the customer's own materials.** Findings about *their* deck, agenda, or plan are
   chat-reply content. Only product constraints a builder must act on belong in the artifact, stated as
   constraints, never as critique of their document.
-- **Process narration.** No mention of tools used, files read, folders, searches, or how the guide was built.
+- **Process narration.** No mention of authoring tools used, files read, folders searched, or how the guide was built. Participant setup paths, required files, and product tools remain when needed to complete the lab.
 Harness content is NOT in this list. Name the harness, compare the three, justify the pick, and state the
 convertibility and credit consequences — in the guide, not only in chat. What still stays out is *sales* framing
 around it: licensing quotes, credit forecasts, and roadmap.
@@ -282,7 +293,6 @@ The HTML guide, in this order:
    - **Enter this** — copy blocks holding the literal text: agent description, instruction text, knowledge source
      names and descriptions, tool names and descriptions
    - **Check it worked** — what appears on screen
-   - **If it didn't** — likeliest cause and fix, where the failure is likely and fixable
 7. **What you built** — a checklist restating each capability as something the participant *observed*, plus the
    instruction to return to the exercise that produced any line that is not true
 8. **Settings reference** — setting, where it lives, recommended value, what the other value does. This is where

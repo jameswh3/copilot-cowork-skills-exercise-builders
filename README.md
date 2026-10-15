@@ -11,8 +11,8 @@ labs, and styled HTML handouts.
 |---|---|
 | `copilot-cowork-exercise-builder` | Builds persona-based Copilot Cowork exercises and connected workshop tracks. |
 | `copilot-exercise-html-formatter` | Renders exercise content as accessible, branded HTML handouts. |
-| `copilot-se-demo-builder` | Creates exercises for Copilot Chat, Researcher, Analyst, Notebook, and Microsoft 365 apps. |
-| `copilot-studio-agent-builder` | Creates hands-on Copilot Studio agent-building walkthroughs. |
+| `copilot-exercise-builder` | Creates exercises for Copilot Chat, Researcher, Analyst, Notebook, and Microsoft 365 apps. |
+| `copilot-studio-exercise-builder` | Creates hands-on Copilot Studio agent-building walkthroughs. |
 
 Each skill lives in its own subdirectory of [`skills/`](skills/), with a
 `SKILL.md` file and, when present, a `references/` directory. [`manifest.json`](manifest.json)
