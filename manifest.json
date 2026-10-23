@@ -15,7 +15,7 @@
   },
   "description": {
     "short": "Build Copilot Cowork exercises, workshop tracks, demo scenarios, and branded HTML handouts.",
-    "full": "Reusable skills for building persona-based Microsoft Copilot Cowork exercises, connected workshop tracks, Copilot Studio agent-building walkthroughs, cross-surface demo scenarios, and accessible branded HTML handouts for customer enablement sessions."
+    "full": "Reusable skills for building persona-based Microsoft Copilot Cowork exercises, connected workshop tracks, Copilot Studio agent-building walkthroughs, Microsoft Fabric data agent labs, cross-surface demo scenarios, and accessible branded HTML handouts for customer enablement sessions."
   },
   "icons": {
     "color": "color.png",
@@ -26,6 +26,7 @@
     { "folder": "./skills/copilot-cowork-exercise-builder" },
     { "folder": "./skills/copilot-exercise-html-formatter" },
     { "folder": "./skills/copilot-exercise-builder" },
-    { "folder": "./skills/copilot-studio-exercise-builder" }
+    { "folder": "./skills/copilot-studio-exercise-builder" },
+    { "folder": "./skills/fabric-data-agent-exercise-builder" }
   ]
 }

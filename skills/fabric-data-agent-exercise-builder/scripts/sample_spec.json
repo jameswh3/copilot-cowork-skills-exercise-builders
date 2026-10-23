@@ -1,0 +1,99 @@
+{
+  "company": "Fabrikam Process Industries",
+  "scenario_slug": "fabrikam-reliability",
+  "persona": "Reliability Manager",
+  "seed": 20261022,
+  "lakehouse_folder": "Files/maintenance_export",
+  "tables": [
+    {
+      "name": "sites",
+      "rows": 5,
+      "columns": [
+        {"name": "site_id", "type": "string", "gen": {"kind": "sequence", "prefix": "ST", "start": 110, "width": 3}},
+        {"name": "site_name", "type": "string", "gen": {"kind": "list", "values": ["Baytown Resin Plant", "Lake Charles Compounding", "Decatur Polymer Works", "Joliet Additives", "Freeport Blending Terminal"]}},
+        {"name": "region_name", "type": "string", "gen": {"kind": "list", "values": ["Gulf Coast", "Gulf Coast", "Midwest", "Midwest", "Gulf Coast"]}},
+        {"name": "commissioned_date", "type": "date", "gen": {"kind": "date", "start": "1988-01-01", "end": "2012-12-31"}}
+      ]
+    },
+    {
+      "name": "assets",
+      "rows": 60,
+      "columns": [
+        {"name": "asset_id", "type": "string", "gen": {"kind": "sequence", "prefix": "EQ-", "start": 2001, "width": 4}},
+        {"name": "site_id", "type": "string", "gen": {"kind": "fk", "table": "sites", "column": "site_id"}},
+        {"name": "asset_class", "type": "string", "gen": {"kind": "choice", "values": ["Centrifugal Pump", "Reciprocating Compressor", "Extruder", "Heat Exchanger", "Cooling Tower Fan", "Pelletizer"], "weights": [5, 2, 2, 3, 2, 1]}},
+        {"name": "criticality_rank", "type": "int", "gen": {"kind": "choice", "values": [1, 2, 3], "weights": [2, 5, 3]}},
+        {"name": "install_date", "type": "date", "gen": {"kind": "date", "start": "1995-01-01", "end": "2023-06-30"}}
+      ]
+    },
+    {
+      "name": "work_orders",
+      "rows": 420,
+      "supersede": {
+        "rate": 0.07,
+        "key": "work_order_id",
+        "version_column": "revision_number",
+        "current_flag": "is_current_revision",
+        "mutate": {
+          "status_code": {"kind": "choice", "values": ["COMP", "CLOSE", "CAN"], "weights": [5, 3, 1]},
+          "completed_date": {"kind": "date_offset", "from": "opened_date", "min_days": 2, "max_days": 25}
+        }
+      },
+      "columns": [
+        {"name": "work_order_id", "type": "string", "gen": {"kind": "sequence", "prefix": "WO-", "start": 48120, "width": 6}},
+        {"name": "revision_number", "type": "int", "gen": {"kind": "const", "value": 1}},
+        {"name": "is_current_revision", "type": "boolean", "gen": {"kind": "const", "value": true}},
+        {"name": "asset_id", "type": "string", "gen": {"kind": "fk", "table": "assets", "column": "asset_id"}},
+        {"name": "site_id", "type": "string", "gen": {"kind": "lookup", "via": "asset_id", "table": "assets", "key": "asset_id", "column": "site_id"}},
+        {"name": "work_order_type", "type": "string", "gen": {"kind": "choice", "values": ["PM", "CM", "EM", "INSP"], "weights": [5, 3, 1, 2]}},
+        {"name": "priority_code", "type": "int", "gen": {"kind": "choice", "values": [1, 2, 3, 4], "weights": [1, 3, 4, 2]}},
+        {"name": "status_code", "type": "string",
+         "gen": {"kind": "choice", "values": ["OPEN", "INPR", "WAPPR", "COMP", "CLOSE", "CAN"], "weights": [9, 4, 3, 12, 14, 2]},
+         "variants": {"rate": 0.18, "canonical": {"OPEN": ["Open"], "INPR": ["In Progress"], "COMP": ["Completed", "COMPLETE"], "CLOSE": ["Closed", "CLSD"], "CAN": ["CANC", "Cancelled"]}}},
+        {"name": "opened_date", "type": "date", "gen": {"kind": "date", "start": "2026-01-02", "end": "2026-09-30"}},
+        {"name": "completed_date", "type": "date",
+         "gen": {"kind": "date_offset", "from": "opened_date", "min_days": 1, "max_days": 21},
+         "nullify_if": {"column": "status_code", "in": ["OPEN", "INPR", "WAPPR", "CAN"]}},
+        {"name": "labor_quantity", "type": "double", "gen": {"kind": "float", "min": 0.5, "max": 18, "decimals": 1},
+         "unit_trap": {"unit_column": "labor_unit", "alt_unit": "MIN", "factor": 60, "rate": 0.09}},
+        {"name": "labor_unit", "type": "string", "gen": {"kind": "const", "value": "HR"}},
+        {"name": "parts_cost_usd", "type": "double", "gen": {"kind": "float", "min": 0, "max": 9500, "decimals": 2}, "null_rate": 0.06},
+        {"name": "record_loaded_date", "type": "date",
+         "gen": {"kind": "date_offset", "from": "opened_date", "min_days": 0, "max_days": 2, "tail": {"rate": 0.05, "min_days": 20, "max_days": 55}}}
+      ]
+    },
+    {
+      "name": "downtime_events",
+      "rows": 180,
+      "columns": [
+        {"name": "downtime_event_id", "type": "string", "gen": {"kind": "sequence", "prefix": "DT-", "start": 9001, "width": 5}},
+        {"name": "asset_id", "type": "string", "gen": {"kind": "fk", "table": "assets", "column": "asset_id"}},
+        {"name": "site_id", "type": "string", "gen": {"kind": "lookup", "via": "asset_id", "table": "assets", "key": "asset_id", "column": "site_id"}},
+        {"name": "event_start_ts", "type": "timestamp", "gen": {"kind": "timestamp", "start": "2026-01-01 00:00:00", "end": "2026-09-30 23:59:59"}},
+        {"name": "duration_minutes", "type": "int", "gen": {"kind": "int", "min": 15, "max": 960}},
+        {"name": "downtime_category", "type": "string",
+         "gen": {"kind": "choice", "values": ["UNPLANNED", "PLANNED", "RATE_REDUCTION"], "weights": [5, 4, 2]},
+         "variants": {"rate": 0.15, "canonical": {"UNPLANNED": ["Unplanned", "UNPL"], "PLANNED": ["Planned"]}}},
+        {"name": "cause_code", "type": "string", "gen": {"kind": "choice", "values": ["SEAL", "BRG", "ELEC", "INSTR", "PROC", "UTIL"]}, "null_rate": 0.12}
+      ]
+    }
+  ],
+  "answers": [
+    {"id": "backlog_naive", "prompt": "How big is our maintenance backlog right now?", "role": "before",
+     "sql": "SELECT COUNT(*) AS open_work_orders FROM work_orders WHERE status_code = 'OPEN'"},
+    {"id": "backlog_defined", "prompt": "How big is our maintenance backlog right now?", "role": "after",
+     "sql": "SELECT COUNT(*) AS backlog_work_orders FROM work_orders WHERE is_current_revision = 1 AND UPPER(status_code) IN ('OPEN','INPR','IN PROGRESS','WAPPR')"},
+    {"id": "unplanned_q3_by_site", "prompt": "Which site lost the most hours to unplanned downtime last quarter?",
+     "sql": "SELECT s.site_name, ROUND(SUM(d.duration_minutes) / 60.0, 1) AS unplanned_hours FROM downtime_events d JOIN sites s ON d.site_id = s.site_id WHERE UPPER(d.downtime_category) IN ('UNPLANNED','UNPL') AND d.event_start_ts >= '2026-07-01' AND d.event_start_ts < '2026-10-01' GROUP BY s.site_name ORDER BY unplanned_hours DESC"},
+    {"id": "cm_labor_hours_by_site", "prompt": "How many corrective labor hours did each site log this year?",
+     "sql": "SELECT s.site_name, ROUND(SUM(CASE WHEN w.labor_unit = 'MIN' THEN w.labor_quantity / 60.0 ELSE w.labor_quantity END), 1) AS corrective_labor_hours FROM work_orders w JOIN sites s ON w.site_id = s.site_id WHERE w.is_current_revision = 1 AND w.work_order_type IN ('CM','EM') GROUP BY s.site_name ORDER BY corrective_labor_hours DESC"}
+  ],
+  "example_queries": [
+    {"question": "What is the current maintenance backlog by site?",
+     "tsql": "SELECT s.site_name, COUNT(*) AS backlog_work_orders FROM work_orders w JOIN sites s ON w.site_id = s.site_id WHERE w.is_current_revision = 1 AND UPPER(w.status_code) IN ('OPEN','INPR','IN PROGRESS','WAPPR') GROUP BY s.site_name ORDER BY backlog_work_orders DESC"},
+    {"question": "How many hours of unplanned downtime did each asset class have in August 2026?",
+     "tsql": "SELECT a.asset_class, ROUND(SUM(d.duration_minutes) / 60.0, 1) AS unplanned_hours FROM downtime_events d JOIN assets a ON d.asset_id = a.asset_id WHERE UPPER(d.downtime_category) IN ('UNPLANNED','UNPL') AND d.event_start_ts >= '2026-08-01' AND d.event_start_ts < '2026-09-01' GROUP BY a.asset_class ORDER BY unplanned_hours DESC"},
+    {"question": "Total labor hours on completed work orders at Decatur Polymer Works this year",
+     "tsql": "SELECT ROUND(SUM(CASE WHEN w.labor_unit = 'MIN' THEN w.labor_quantity / 60.0 ELSE w.labor_quantity END), 1) AS labor_hours FROM work_orders w JOIN sites s ON w.site_id = s.site_id WHERE w.is_current_revision = 1 AND UPPER(w.status_code) IN ('COMP','COMPLETED','COMPLETE','CLOSE','CLOSED','CLSD') AND s.site_name = 'Decatur Polymer Works'"}
+  ]
+}

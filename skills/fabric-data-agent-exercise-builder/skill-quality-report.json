@@ -1,0 +1,68 @@
+{
+  "description": "Builds company- and persona-specific hands-on labs that take participants from an empty Fabric workspace to a published Microsoft Fabric data agent: prerequisites, click-path steps, copy-ready agent and data source instructions, validated example SQL, test prompts with computed answers, synthetic CSV data, and a scheduled PySpark ingestion notebook. Use when the user asks to \"create a Fabric data agent exercise\", \"build a Fabric Data Agent workshop\", \"build a Fabric data agent lab\", or \"data agent hands-on for [company]\". Do NOT use for Copilot Cowork exercises (copilot-cowork-exercise-builder), Copilot Studio agents (copilot-studio-exercise-builder), other Copilot surfaces (copilot-exercise-builder), HTML formatting alone (copilot-exercise-html-formatter), or provisioning real Fabric items.\n",
+  "description_length": {
+    "detail": "803/1024 UTF-16 units",
+    "headroom_units": 221,
+    "max_units": 1024,
+    "status": "PASS",
+    "units": 803
+  },
+  "dimension_notes": {
+    "instruction_specificity": [
+      "68 workflow line(s)",
+      "has Quick Start / example block",
+      "names tools / data sources",
+      "specifies output format"
+    ],
+    "robustness": [
+      "has Guardrails section",
+      "12 guardrail-style rule(s)",
+      "handles missing-data / failure"
+    ],
+    "scope_boundaries": [
+      "has 'When NOT to Use' section",
+      "description states exclusions",
+      "focused single-domain scope"
+    ],
+    "trigger_clarity": [
+      "4 explicit trigger phrase(s)",
+      "has exclusion clause"
+    ]
+  },
+  "dimension_semantics": "advisory-only",
+  "dimensions": {
+    "instruction_specificity": 25,
+    "robustness": 23,
+    "scope_boundaries": 23,
+    "trigger_clarity": 23
+  },
+  "faithfulness": {
+    "detail": "instructs grounding / no-fabrication",
+    "status": "PASS"
+  },
+  "grade": "Excellent",
+  "improvements": [],
+  "mvb_pass": true,
+  "mvb_threshold": 70,
+  "path": "working/fabric-data-agent-exercise-builder/SKILL.md",
+  "risk": {
+    "factors": [
+      "takes actions (autonomy / blast radius)"
+    ],
+    "launch_floor": 70,
+    "requires_behavioral": true,
+    "requires_human_review": false,
+    "tier": "medium"
+  },
+  "rubric_version": "3",
+  "safety": [],
+  "skill_name": "fabric-data-agent-exercise-builder",
+  "spec_conformance": {
+    "detail": "Frontmatter conforms to the AgentSkills spec.",
+    "host_extension_keys": [],
+    "non_spec_keys": [],
+    "status": "PASS"
+  },
+  "timestamp": "2026-10-22 18:28 UTC",
+  "total": 94
+}

@@ -11,6 +11,43 @@ metadata:
 
 Use this skill to create customer-facing Copilot demo scenarios. Produce one scenario per request unless the user explicitly requests multiple scenarios and provides both the exact number and the specific scenario types. If either is missing, ask one clarifying question. You may also offer one optional `Writing Assistant` companion exercise after the primary output; only generate it if the user accepts.
 
+## Inline sources at point of use (binding default)
+
+This rule overrides any older requirement for a published source pack, content matrix, file-to-exercise mapping table, inventory, blueprint, or separate source section. Apply it to new content and revisions, in HTML and plain text alike.
+
+- Put exact source filenames or verified links immediately alongside the exercise that requires them, in a concise `Setup`, `Open`, or `Upload` sentence or short bullets. List only the files needed at that point. Use one action verb per instruction: open, upload, or reference; add a short business purpose only when useful. Replace legacy participant-facing `Drop-in Content Pack` tables and published file blueprints with `Inline Sources` within the requiring exercise, or merge them into its existing setup sentence. Do not retain a separate pack heading, add another matrix, or duplicate the setup list. Include a short business purpose for each source without describing its internal anatomy.
+- Do not publish a centralized source pack/content matrix, mapping table, inventory section, source blueprint, or navigation link that sends participants elsewhere to discover required inputs. Move legacy entries into the relevant exercise and remove the obsolete section and orphaned nav link, rather than hiding them. This does not prohibit business-result tables or actual business data in source files.
+- Reuse the same saved file across exercises. Store it once in its primary exercise folder and reference that same exact path at each point of use; do not generate duplicate copies. Use an exact filename/path when no verified URL is available. Never invent a download, tenant, or sharing link; verify any link against the actual saved artifact or confirmed source.
+- Keep any file manifest, source-to-exercise mapping, or detailed blueprint internal for authoring and validation only, never in participant artifacts (including hidden panels, comments, appendices, or notes). Generate only the minimal assets needed for the bounded business task.
+- Put ONE concise `Synthetic` provenance attribution near the first exercise that uses the synthetic files, plus one `Synthetic` metadata/header label per file. Do not repeat the handout attribution for later exercises reusing those files, or put provenance in copied prompts. Retain truthful source, author/participants and date identifiers.
+- Keep setup business-only: no row/tab anatomy, internal field inventories, or prompt meta-narrative. Preserve bounded evidence and coverage, supported verified analytical paths, draft-only/approval constraints, factual access prerequisites, and minimal assets. Before delivery, verify every required source is named at its point of use and every link resolves to the intended saved source. Formatting changes must preserve the existing nav-width and semantic reading-anchor contracts.
+- Audit placement exercise by exercise, using an internal manifest only if useful: reconcile every required input against its inline setup and saved artifact, check exact spelling and any verified link target, and confirm reused sources keep one saved path. Remove conflicting old published-table/file-mapping mandates and obsolete source-section/nav entries rather than relying only on this override. Do not repeat prompt metadata or provenance. For a source-placement-only skill update, preserve the prior nav-width and semantic reading-anchor requirements byte-for-byte; do not edit a handout to demonstrate the change.
+
+## Business-only wording and bounded evidence (binding)
+
+These rules govern authoring and formatting alike and override older examples or section names that conflict. They apply to every participant-facing prompt, instruction, narrative, expected output, and companion source.
+
+1. **Business-only copy blocks.** Write only the work request the persona would actually give: the decision, selected inputs, substantive business constraints, and requested output. Never put demo, simulation, illustrative, teaching, or authoring labels in prompts. Exclude "this exercise", product comparisons, test controls, generation commentary, and explanations such as "This is illustrative IT ...". Keep draft-only instructions, unknown-value handling, citation/evidence requirements, uncertainty, and approval constraints: these protect the business work and are not meta-narrative.
+2. **Provenance once, in the right place.** Put ONE concise `Synthetic` label in each companion source's metadata/header and ONE concise handout attribution near the first exercise using the synthetic files. Retain source/author/participants/date identifiers. Do not repeat the label in business prose, prompt directives, table rows, or expected outputs; exclude all other demo/simulation/illustrative/teaching/authoring narrative. Do not remove truthful provenance or factual product availability, permissions, licensing, or access prerequisites. Product names and necessary setup/click paths remain; explanatory product comparisons do not.
+3. **Bound the actual evidence workload.** Use a short, explicitly selected file set, authored small enough for the timebox, and a bounded business question or decision-gate scope. Name the files, business scope and timeframe in the work request; keep internal row/table selection out of participant-facing content. For live M365 retrieval, bound topics, people/meetings, dates and returned evidence; report what was actually found/read and what remains unknown. Chat, Notebook, Agent Builder and search-based M365 retrieval are not exhaustive per-account/per-record audit engines. Never promise search-wide completeness, full-population validation, or an all-clear from retrieved snippets or a sample.
+4. **Population is not analyzed records.** A business rollout may cover hundreds of accounts, devices, employees, or sites without the run analyzing each one. Keep that population as business context; state the much smaller source set, summary/gate workload, and coverage actually analyzed separately. Prefer supplied aggregates to hundreds of enumerated items. Do not turn a rollout count such as 600 into 600 individual checks. Choose workload sizes for the timebox and actual source granularity, not an unsupported universal numeric product limit.
+5. **Use the right analytical path.** Quantitative scans and computations belong in Analyst over uploaded data or in Excel for appropriate formulas, tables and light analysis. In Cowork, use an explicitly available computational tool or supported model query for that leg before synthesizing or creating deliverables. Keep inputs small enough for the timebox and verify the computed output. If exact comprehensive validation is required, use a genuinely exhaustive tool-supported path with a defined dataset, full row/page coverage, explicit rules and verification; when unavailable, narrow the task or state the gap instead of promising completeness. No fabricated all-clear, totals, percentages, or probabilities from a sample.
+6. **Coverage belongs in the business result.** Require the sources/rows/gates actually considered, missing or stale evidence, contradictions, and unresolved questions. Distinguish source-reported aggregates from independently computed results and inferences. A sampled finding applies only to its evidence, not the whole population; missing evidence is unknown, not passed. Keep any message, approval or recommendation a draft where appropriate.
+7. **Audit before delivery.** Read the literal text copied by EVERY copy button, not just the visible wrapper, plus all visible/hidden narrative, source metadata, document notes and workbook tabs. Remove excluded wording rather than hiding it. Check actual source granularity, files/rows/gates touched, computational path and timebox; reconcile every prompt and claimed result with the companion files. Preserve participant setup, truthful provenance and business evidence guards. Delete orphaned navigation links. Fix conflicts before declaring ready; keep audit/generation commentary in chat only.
+
+## Business source language, not file anatomy (binding)
+
+This overriding rule applies to all participant-facing setup and selected-source content, steps, inline source instructions, copied prompts, and expected outputs. Where older wording asks for source selection or summary/gate scope, express that scope in business terms, not workbook anatomy.
+
+- Name the workbook or file and the business question, date period, service, vendor, or metric relevant to the decision. Do not ask participants to find named tabs/sheets, count sheets, locate row/column numbers or A1 ranges, copy exact formulas, select ranges, exclude metadata rows, or map sheets. Do not publish internal table/field inventories as participant setup requirements.
+- Have participants open or upload the file, then ask naturally for the result. Ask Copilot to identify the relevant table and fields, check stored units and number formats, preserve source values, and provide a traceable result. Do not claim that opening/uploading a file guarantees the entire file is read or exhaustive coverage. Missing, inaccessible, ambiguous, or unread evidence must be reported honestly, not inferred as complete or passed.
+- Bound workloads by authoring genuinely small files and specifying a business scope and date period, not by teaching participants to select a small set of rows or hunt for sheets. Keep source-reported aggregates distinct from computed values and inference; retain evidence checks, missing-data handling and the appropriate verified analytical path. Do not move numerical work into unsupported Chat arithmetic.
+- Internal authoring validation remains required: inspect source structure, tables, fields, rows, formulas, units, metadata, and expected calculations to ensure the files support the request. Keep that anatomy internal. Row/cell citations or other precise source anchors may appear in generated results as evidence; they are not a participant setup burden or an expected-output instruction to navigate manually.
+- A genuine product prerequisite may be stated plainly: "Use a formatted table if your Excel experience requires one." Never attach hardcoded ranges or sheet-hunting directions to it. Preserve truthful access prerequisites and product navigation, without confusing them with file-internal selection.
+- Before delivery, sweep all setup, steps, inline source instructions, prompt text (including literal clipboard content), and expected outputs for file-anatomy micromanagement. Rewrite it as file name plus business scope; keep the units, evidence and computation guards. Do not silently alter business figures or invent inaccessible evidence.
+
+Example business prompt: "Using the workbook, chart weekly availability by service for September 11 through October 16; flag Workplace Access below 99.90%; check stored units; preserve source values and cite the evidence."
+
 ## Participant-only published content (binding)
 
 Every published HTML handout and companion file must stand alone for a participant who has never seen the authoring chat. This rule takes precedence over any older output-section, workflow, or companion-reference instruction requiring delivery notes or troubleshooting blocks.
@@ -19,7 +56,7 @@ Every published HTML handout and companion file must stand alone for a participa
 - Exclude chat-history extensions: no "as you requested", "updated/rebuilt", feedback acknowledgments, discussion of inferred scope or session counts, or future optional-extension offers copied from assistant chat. Keep any required planning statements and offers in chat only, never in an artifact.
 - Exclude facilitator, speaker, delivery-team, and run-room notes, including "While It Runs", "If It Stalls", wait-time filler, troubleshooting advice, and what someone should say or show to the room. Remove these sections rather than hiding them in comments, collapsed panels, appendices, document notes, or workbook tabs.
 - Preserve genuine participant scenario context, product setup and click paths, copy-ready prompts, expected outputs, evidence checks, and essential factual availability, access, permissions, and reference information. Business context and product constraints are not authoring commentary. Do not remove participant instructions merely because they address the reader directly.
-- Synthetic material must read like original source material: retain a concise synthetic label and appropriate source, participants or author, and date identifiers, then the business content. Never embed the author conversation or exercise-construction commentary in a source file.
+- Synthetic material must read like original source material: use the single `Synthetic` source-metadata label and first-use handout attribution specified above, plus appropriate source, participants or author, and date identifiers. Follow with business content only, without repeated labeling, author conversation, or exercise-construction commentary.
 - Before publishing or revising, inspect all handout sections and every companion file for these excluded categories, including hidden text and notes. Delete excluded material and any orphaned navigation links; confirm required participant steps, prompts, source evidence, and factual prerequisites remain intact.
 
 ## Companion skills (delegate, do not duplicate)
@@ -102,7 +139,7 @@ The default behavior is to produce **one scenario per request**. Only produce mu
 
 Within the exercise output, return content directly without explaining structure or design choices.
 
-Context that is part of the exercise itself (for example Scenario Overview, decision pressure, and why a prompt matters at that step) is required and is not treated as meta-narrative.
+Business context (Scenario Overview, decision pressure, and the substantive decision supported by a step) remains required. Explanations about the exercise, teaching goals, product comparisons, and generation process are excluded everywhere except concise provenance and factual access prerequisites.
 
 **In the exercise output, do not include:**
 - Explanations of your approach
@@ -161,9 +198,9 @@ Also: do not generate `.md` or `.txt` files as synthetic data deliverables. Docu
    - In chat only, state in 1-2 sentences how this exercise is distinct from other exercises mentioned. Do not publish this planning statement in the exercise or its files.
 
 3. **Capability boundary enforcement**
-   - Write a "What This Exercise Demonstrates" section that frames scope in terms of outcome and decision value.
-   - Example: "This exercise demonstrates how to surface priorities and reshape Copilot's tone through custom instructions."
-   - Focus on what participants will see work, grounded in decision value.
+   - Write a "Business Outcome" section naming the business deliverable and decision it supports.
+   - Example: "A focused priority list aligned to your operating responsibilities."
+   - Keep capability-boundary planning internal; do not publish demonstration framing or explanatory product comparisons.
 
 4. **Produce the exercise content**
    - Include only the sections relevant to the selected scenario.
@@ -186,7 +223,7 @@ Also: do not generate `.md` or `.txt` files as synthetic data deliverables. Docu
 For `Copilot Chat` scenarios, prepend a `System of Work: Think, Plan, Do, Evaluate` section before the standard sections below.
 
 1. `Scenario Overview`
-2. `What This Exercise Demonstrates`
+2. `Business Outcome`
 3. `Setup / Priming Content`
 4. `Participant-Facing Instructions`
 5. `Prompt Sequence` (4-5 prompts maximum; never exceed 5). One exception: `Researcher` (one Chat framing prompt plus one Researcher run). See that scenario section for the exact structure.
@@ -194,7 +231,7 @@ For `Copilot Chat` scenarios, prepend a `System of Work: Think, Plan, Do, Evalua
 Context depth expectations for every exercise:
 
 - `Scenario Overview` is **1-2 plain sentences** of scenario context, in the shape "You need to prepare X for Y, with [constraint]." Do NOT use bold mini-labels (no "The moment / Why now / Pressure / Who needs to act" structure). Capture the current moment, why it matters now, and the core decision pressure in plain prose. **OMIT "who needs to act."** The reader is the target persona, so naming an owner is redundant. Keep the "Scenario Overview" section heading itself.
-- `Setup / Priming Content` should be lean: only include 2-3 concrete anchors directly relevant to the first prompt (active initiatives, named risks, specific cadence); avoid verbose background
+- `Setup / Priming Content` should be lean: include exact required filenames or verified links inline with a concise open/upload/reference action, plus only 2-3 concrete business anchors directly relevant to the first prompt (active initiatives, named risks, specific cadence); avoid verbose background or a separate source inventory.
 - Prompt-level context: Each prompt in the sequence should include a brief explanation of why that prompt matters at that point and what to expect before running it. Keep these to one short clause; do not stack multiple sentences.
 - Avoid generic setup text; context should read like a real operating moment for that role and function
 - Address the executive directly ("you", "your"), not in third person ("the CFO", "the executive")
@@ -248,7 +285,7 @@ Every synthetic file must:
 Every Copilot Chat exercise must include the following elements in this order:
 
 1. **System of Work Prefix** - Before the Copilot Chat exercise content, include a section titled **System of Work: Think, Plan, Do, Evaluate** that frames the exercise as a repeatable delegation method, not a feature tour. Use this structure:
-  - A short framing paragraph that states this is a hands-on system of work for delegating complex work to AI and evaluating outputs with leader-level rigor.
+  - A short business framing paragraph about defining the decision, delegating the work, and checking evidence before acting; no hands-on, demo or teaching narrative.
   - Four concise phase callouts in this exact sequence:
     - **Think - Frame the Problem**
     - **Plan - Design the Delegation**
@@ -257,25 +294,25 @@ Every Copilot Chat exercise must include the following elements in this order:
   - A closing line with this exact wording: **Accountability stays with the leader at every step.**
   - Include a TPDE mapping table when it improves clarity. If included, it must be adapted to the specific customer and business unit for the current exercise.
   - Treat the maritime mapping table pattern as an example only, never as default reusable text.
-  - Build customer-specific rows by mapping each TPDE phase to the customer's real operating rhythm (for example: planning cycle, execution cadence, governance gates, and review motions) and then to what participants do in the exercise.
+  - Build customer-specific rows by mapping each TPDE phase to the customer's real operating rhythm (for example: planning cycle, execution cadence, governance gates, and review motions) and then to the business task and evidence check.
   - A one-sentence transition into the Copilot Chat exercise.
 
 2. **Scenario Context** - Provide a specific, plainly-worded setup grounded in your industry, role, and current moment (a pending board meeting, an active regulatory process, a seasonal pressure like fire season or budget cycle). Keep it to 1-2 sentences; this context anchors all prompts and makes the scenario feel real, not generic.
 
 3. **Quick Priority Check** - Start with: "What are my top 3 priorities for today?" Copilot will scan your live mail, calendar, and Teams to surface what needs attention. **Why this first:** You're establishing what matters in your current moment. Copilot sees your calendar and inbox but doesn't yet know your values, context, or what "high-impact" means to you. It's offering an initial read based on activity and recency, not on your actual strategic focus.
 
-4. **Custom Instructions Builder** - Open a new chat, then run this prompt: "Do not interview me. Use my Microsoft 365 work signals to figure out how I work, then write my custom instructions for me. Look across my email, calendar, meetings, Teams chats, and files from the last 60 to 90 days and determine: my role and the scope I own; the people and teams I work with most and how I relate to each; the recurring meetings and cadences that structure my week; the projects, accounts, and priorities absorbing most of my time; the decisions I actually make; the audiences I write for; and the tone, length, format, and level of detail in the messages and documents I produce. Where the evidence is thin, make a reasonable inference and label it clearly so I can correct it. Return the finished custom instructions as a single copyable code block, written in first person, under 1,500 characters, followed by a short list of what you based each part on." Once Copilot drafts your custom instructions, review the inferences, then apply them: Settings -> Customize -> Custom instructions -> paste -> Save. **Why this step matters:** Do NOT build the instructions "based on what we just explored." The Quick Priority Check step deliberately shows that Copilot's read without custom instructions is shallow and disconnected, so anchoring the instructions to that result would carry the weakness forward. Start a NEW chat instead, so the disconnected read does not prime the model. The point of the inference approach is that Copilot already has the evidence: rather than asking you to describe your job, it reads your real working patterns and shows you what it can already see. That reveal is the demo moment. Participants correct what it got wrong instead of composing from scratch, which is faster and produces sharper instructions than self-report.
+4. **Custom Instructions Builder** - Open a new chat, then run this prompt: "Do not interview me. Draft my custom instructions from the recent work signals you can retrieve for [named project or topic] during [date range], prioritizing [selected meeting series] and [selected email thread]. Infer my role, recurring decisions, audiences, and writing preferences only where those selected sources support them. Distinguish evidence from inference and leave unsupported details unknown. Return first-person instructions under 1,500 characters as one copyable block, followed by the sources actually considered and gaps for me to correct." Review the evidence and inferences, then apply the corrected text: Settings -> Customize -> Custom instructions -> paste -> Save. Do not claim a complete profile or measured time allocation from retrieval.
 
-5. **Before / After Demonstration** - Open a fresh chat and re-run the opening prompt: "What are my top 3 priorities for today?" **What to notice:** Compare this response to the first one. You'll see differences in tone, framing, and *what* surfaces to the top. The same query now reflects your strategic context, not just activity. This shows how custom instructions reshape every interaction going forward.
+5. **Compare Priority Summaries** - Open a fresh chat and re-run "What are my top 3 priorities for today?" Check whether the response reflects your stated responsibilities, and review cited evidence and gaps. Do not promise that personalization guarantees better priorities or complete retrieval.
 
-6. **Executive Productivity Prompts** - Run these prompts in sequence and pause after each to absorb the insight:
-  - "Based on my previous interactions with [/person], identify five topics they are likely to prioritize in our next meeting."
-  - "Create a project update from the emails, chats, and meetings in [/series]. Cover progress against targets, wins and losses, risks, competitive developments, and likely questions with proposed answers."
-  - "Assess whether the [Product] launch is on track for [date]. Review engineering progress, pilot results, and key risks, then provide a confidence estimate and explain it."
-  - "Analyze my calendar and email from the past month. Group my work into five to seven project categories, estimate the share of time spent on each, and briefly describe them."
-  - "Use [/select email] and prior manager and team discussions to prepare me for the next meeting in [/series]."
+6. **Selected Work Prompts** - Use the prompts relevant to the current decision; keep the whole sequence within the prompt-count and timebox rules. These bounded versions take precedence over any earlier requirement to reproduce broad prompts verbatim:
+  - "Based on [selected prior thread] with [/person] during [date range], identify likely discussion topics for our next meeting. Cite the evidence and flag assumptions."
+  - "Draft a project update from [/selected email], [/selected chat] and [/selected meeting]: source-reported KPIs versus targets, decisions, risks, and open questions. State which sources were considered and leave unsupported metrics unknown."
+  - "Using [selected launch status memo] and [selected pilot summary], summarize the readiness gates for the [Product] launch in November. Flag gaps and conflicting evidence; do not infer whole-launch readiness or assign an unsupported probability."
+  - "Using [selected calendar entries] and [selected email thread] from [date range], suggest the main work themes. Describe coverage and uncertainty; do not claim measured percentages of total time from this selection."
+  - "Review [/select email] and [/selected meeting notes] to draft a brief for the next meeting in [/series], with evidence, unresolved issues and questions for the team."
 
-7. **Participant Practice** - Draft at least one custom instruction specific to your own function (rate case strategy, treasury, accounting, FP&A). Apply it, then re-run one of the executive productivity prompts. Notice how your new instruction shapes the response differently.
+7. **Participant Practice** - Draft one custom instruction specific to your function (rate case strategy, treasury, accounting, FP&A), apply it, then re-run a selected work prompt. Check whether it reflects your responsibilities without inventing evidence.
 
 ### `Researcher`
 
@@ -292,7 +329,7 @@ Every Copilot Chat exercise must include the following elements in this order:
 
 ### `Analyst`
 
-- Keep analysis strictly bounded to uploaded data
+- Keep analysis strictly bounded to uploaded data. Use a timebox-sized dataset and an explicit business scope/date period, naming the file and relevant service, vendor or metric rather than table/row coordinates; compute and verify requested aggregates with the analytical tool. Let Copilot identify the relevant table and fields, check units, and report actual coverage, missing values and business exclusions in the result, with precise source anchors where available. A complete scan of an uploaded table is not completeness across the wider business population.
 
 ### `Notebook`
 
@@ -387,7 +424,7 @@ When producing this linked flow:
 
 Use this table to determine whether synthetic content is allowed and what form it takes:
 
-| Scenario | Synthetic content allowed | Blueprint required | Brand-aligned |
+| Scenario | Synthetic content allowed | Internal validation required | Brand-aligned |
 |---|---|---|---|
 | `Copilot Chat` | No | - | - |
 | `Researcher` | No | - | - |
@@ -401,12 +438,9 @@ Use this table to determine whether synthetic content is allowed and what form i
 | `Copilot in Word` | Yes, if no prior content source | Yes | Yes, if company named |
 | `Copilot in PowerPoint` | Yes, if no prior content source | Yes | Yes, if company named |
 
-When synthetic content is allowed, provide a concise blueprint with:
+When synthetic content is allowed, validate sections, tables, fields, sample rows, formulas, units and evidence support internally before delivery. A detailed blueprint or manifest is optional internal scaffolding, not a required published deliverable. Participant-facing setup names only the needed files immediately alongside the exercise, using a concise open/upload/reference sentence or short bullets and, when useful, a short business purpose. Include relevant business scope or date period naturally. Do not publish a file/pack table, source mapping matrix, inventory section, or blueprint.
 
-- file name
-- purpose
-- key sections or tables
-- optional sample rows or excerpts
+Do not publish tab names, sheet maps/counts, row/column coordinates, ranges, exact formulas or metadata-row exclusions as participant preparation. Participants open/upload the file and ask naturally for the result.
 
 For `Agent Builder`, prefer synthetic knowledge sources such as policy documents, handbooks, SOPs, FAQ content, support guides, product documentation, and internal playbooks. Generate these as `.docx`, never `.txt` or `.md`.
 
@@ -438,10 +472,10 @@ All outputs must be:
 ## Guardrails
 
 - Never fabricate facts in exercise content or synthetic data: names, numbers, quotes, dates, or metrics. When a real value is unknown, use a clearly marked placeholder (for example [Add Q3 revenue]).
-- Always keep synthetic content clearly illustrative and labeled as synthetic; do not present it as real customer or tenant data.
+- Keep synthetic provenance truthful using only the concise `Synthetic` source-metadata label and first-use handout attribution; do not present it as real customer or tenant data or repeat illustrative narrative in prompts or content.
 - This skill produces demo content only. It does not send email, post to Teams, schedule or cancel meetings, or delete or overwrite files. When the user wants a real action taken, hand off to the dedicated M365 skill instead.
 - Never modify built-in system skills; only the user's own personal skills may be edited, and only through the host's personal-skill management capability.
-- Always review before delivering: sweep for em-dashes and en-dashes, confirm brand color placeholders are resolved, and confirm every named synthetic file was actually generated.
+- Always review before delivering: sweep for em-dashes and en-dashes, confirm brand color placeholders are resolved, and confirm every named synthetic file was actually generated. Also run the business-only wording and bounded-evidence audit on every copy block, narrative section and companion source: verify actual source granularity, workload, numerical path, coverage and consistency, not just the headline scope.
 - If required inputs are missing (customer, industry, target role, or scenario type), ask one focused question rather than guessing; when a specific detail cannot be found, use a clearly marked placeholder instead of inventing it.
 - Respect copyright: never reproduce third-party copyrighted text in synthetic content; summarize or create original substitutes instead.
 

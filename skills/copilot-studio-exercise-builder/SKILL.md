@@ -142,9 +142,9 @@ than the current quarter as needing a re-check. If a check fails, say the detail
 ## Workflow
 
 1. **Resolve the scenario.** Capture: business outcome, users, where they'll use the agent, what data grounds it,
-   what actions it must take, and whether it runs on request or on a trigger. If the user references a customer,
-   meeting, or document, look it up (`m365_search-SearchM365`, `sharepoint_onedrive-ReadFileContent`) rather
-   than asking. Ask at most one question via `core-AskUserQuestion` when the harness choice is genuinely blocked.
+   what actions it must take, and whether it runs on request or on a trigger. With the user's authorization, use
+   available Microsoft 365 search and file-reading capabilities when the user references a customer, meeting, or
+   document. Ask at most one focused question when the harness choice is genuinely blocked.
 2. **Pick the harness, and put the reasoning in the guide.** Use
    [references/harness-matrix.md](references/harness-matrix.md). The guide carries a "Choosing the runtime"
    section: what a harness is, the three-way comparison, **why this build sits on the harness you picked and

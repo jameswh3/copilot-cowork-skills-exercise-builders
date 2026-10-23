@@ -359,7 +359,7 @@ When building a connected set:
 ## Example requests
 
 - "Build a Cowork exercise for a utility CFO heading into a rate case hearing."
-- "Create a set of Cowork exercises for an energy company across four personas."
+- "Create a set of Cowork exercises for ConocoPhillips across four personas."
 - "Design a Scheduled Autonomous Briefing exercise for a sales VP who wants a Monday 7am pipeline digest in Teams."
 - "Build a Cowork Multi-Source Project Status exercise for a plant manager during a turnaround."
 - "Make a Personal Skill Authoring Cowork exercise for a CSM who runs a weekly customer health check."

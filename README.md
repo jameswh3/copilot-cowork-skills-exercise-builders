@@ -3,7 +3,7 @@
 This repository is a [Microsoft Copilot Cowork plugin](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-plugin-development):
 an M365 app package of [agent skills](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-plugin-development#step-1-create-your-first-skill)
 for creating Microsoft Copilot exercises, workshop scenarios, agent-building
-labs, and styled HTML handouts.
+labs, Microsoft Fabric data agent labs, and styled HTML handouts.
 
 ## Included skills
 
@@ -13,10 +13,23 @@ labs, and styled HTML handouts.
 | `copilot-exercise-html-formatter` | Renders exercise content as accessible, branded HTML handouts. |
 | `copilot-exercise-builder` | Creates exercises for Copilot Chat, Researcher, Analyst, Notebook, and Microsoft 365 apps. |
 | `copilot-studio-exercise-builder` | Creates hands-on Copilot Studio agent-building walkthroughs. |
+| `fabric-data-agent-exercise-builder` | Creates hands-on Microsoft Fabric data agent labs with synthetic data, validated SQL, and a scheduled ingestion notebook. |
 
 Each skill lives in its own subdirectory of [`skills/`](skills/), with a
-`SKILL.md` file and, when present, a `references/` directory. [`manifest.json`](manifest.json)
+`SKILL.md` file and, when present, `references/` and `scripts/` directories. [`manifest.json`](manifest.json)
 is the M365 Unified App Manifest that declares them as `agentSkills`.
+
+The Fabric data agent skill includes Python scripts and a sample scenario spec
+in [`scripts/`](skills/fabric-data-agent-exercise-builder/scripts/). The scripts
+use the Python standard library; optional Excel workbook output requires
+`openpyxl`.
+
+Published handouts are participant-focused, with authoring and facilitator notes
+kept out of the deliverables. The formatter places required sources alongside
+each exercise and specifies progressive desktop navigation with reading-position
+preservation, a no-script fallback, and mobile overlay behavior. The Studio skill
+also covers runtime selection, knowledge-source routing, and current topic
+authoring patterns.
 
 > [!IMPORTANT]
 > [`outline.png`](outline.png) is currently a resized copy of the color icon,
@@ -25,17 +38,48 @@ is the M365 Unified App Manifest that declares them as `agentSkills`.
 
 ## Package
 
-Zip the manifest, icons, and skills together at the root of the archive:
+From a clone or downloaded copy of this repository, run the bundled
+[`Package-Plugin.ps1`](scripts/Package-Plugin.ps1) script:
 
 ```powershell
-Compress-Archive -Path manifest.json, color.png, outline.png, skills -DestinationPath cowork-exercise-builders.zip
+.\scripts\Package-Plugin.ps1
 ```
 
-```bash
-zip -r cowork-exercise-builders.zip manifest.json color.png outline.png skills/
+Requires Windows PowerShell 5.1 or PowerShell 7, with no additional modules,
+Python, Node.js, or Azure tools needed for packaging. The script works from any
+working directory when invoked by its path.
+
+The output is `output\cowork-exercise-builders.zip`. Share that ZIP with users
+for sideloading or with an administrator for tenant deployment. It contains
+the manifest and icons at the archive root, plus only the skill folders
+registered in the manifest, including their references and scripts. Repository
+documentation, tests, and unregistered skill folders are not included.
+
+To rebuild an existing package or choose another output location:
+
+```powershell
+.\scripts\Package-Plugin.ps1 -Force
+.\scripts\Package-Plugin.ps1 -OutputPath output\my-plugin.zip -Force
 ```
 
-Or with the [Microsoft 365 Agents Toolkit CLI](https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/microsoft-365-agents-toolkit-cli) (`atk`):
+Relative output paths are resolved from the repository root. Existing output is
+not overwritten unless `-Force` is supplied. Missing manifest files, icons,
+or registered skill entry points cause packaging to fail.
+
+This script checks package inputs and creates the ZIP; it does not validate
+the full Microsoft 365 manifest schema, certify icon artwork, install the plugin,
+or provision any services. Address the outline-icon warning above before
+distribution.
+
+For a manual ZIP from the repository root (includes the entire `skills/`
+directory rather than only registered folders):
+
+```powershell
+New-Item -ItemType Directory -Path output -Force | Out-Null
+Compress-Archive -Path manifest.json, color.png, outline.png, skills -DestinationPath output\cowork-exercise-builders.zip
+```
+
+Alternatively, use the [Microsoft 365 Agents Toolkit CLI](https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/microsoft-365-agents-toolkit-cli) (`atk`):
 
 ```shell
 npm install -g @microsoft/m365agentstoolkit-cli
@@ -48,7 +92,7 @@ Sideload the package into your own Microsoft 365 account with `atk`:
 
 ```shell
 atk auth login
-atk install --file-path "./cowork-exercise-builders.zip" --scope Personal
+atk install --file-path "./output/cowork-exercise-builders.zip" --scope Personal
 ```
 
 Then open **Cowork** in Microsoft 365 Copilot and start a session that

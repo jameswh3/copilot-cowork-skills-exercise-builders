@@ -11,7 +11,7 @@ metadata:
 
 This skill owns the presentation layer for Copilot demo and workshop content. It does not decide what an exercise says. It decides how the handout looks, encodes, and behaves.
 
-Two skills call it: `copilot-exercise-builder` and `copilot-cowork-exercise-builder`. It also runs standalone when the user hands over existing exercise content and asks for a handout, or asks to fix an existing one.
+Four skills call it: `copilot-exercise-builder`, `copilot-cowork-exercise-builder`, `copilot-studio-exercise-builder`, and `fabric-data-agent-exercise-builder`. It also runs standalone when the user hands over existing exercise content and asks for a handout, or asks to fix an existing one.
 
 ## Inline sources at point of use (binding default)
 
@@ -63,7 +63,7 @@ Every published HTML handout and companion file must stand alone for a participa
 
 ## When NOT to Use
 
-- The user needs exercise content authored, not styled: use `copilot-exercise-builder` (scenario exercises) or `copilot-cowork-exercise-builder` (Cowork exercises).
+- The user needs exercise content authored, not styled: use `copilot-exercise-builder` (scenario exercises), `copilot-cowork-exercise-builder` (Cowork exercises), `copilot-studio-exercise-builder` (Copilot Studio labs), or `fabric-data-agent-exercise-builder` (Fabric data agent labs).
 - The user wants a general-purpose web page, landing page, or interactive app: use the `create` skill instead.
 - The user wants a Word, PowerPoint, Excel, or PDF deliverable: use `docx`, `pptx`, `xlsx`, or `pdf` instead.
 - The user wants synthetic sample data files generated: that belongs to the calling exercise skill.
@@ -84,7 +84,7 @@ Resolve brand colors before generating any HTML when a company is named.
 - Do not infer a brand color from memory. Record the source used, and treat conflicting or unverifiable values as unknown.
 - Derive `[accentTint]` as the accent blended with white at roughly 10% opacity (for example `#0078D4` becomes `#e6f2fb`).
 - Derive `[accentText]` as a darkened variant of `[accent]` reaching at least 4.5:1 contrast against both `#ffffff` and `#fafafa`. Bright brand colors (orange, magenta, gold, lime) typically need 40-50% darkening to meet AA.
-  - Worked examples: `#F36F21` becomes `#8C3D11`; `#FF6600` becomes `#B23A00`; `#E20074` becomes `#8C0048`.
+  - Worked examples: `#F36F21` (Ameren orange) becomes `#8C3D11`; `#FF6600` (FedEx orange) becomes `#B23A00`; `#E20074` (T-Mobile magenta) becomes `#8C0048`.
   - For colors already dark enough (`#0078D4`, `#003087`), `[accentText]` can equal `[accent]`.
 - If the brand color cannot be verified, ask one brief question: "Do you have a primary brand color or official website I should use for styling?"
 - At the top of every HTML output, include a comment identifying the resolved colors: `<!-- Brand: [accent] / tint: [accentTint] -->`.
@@ -341,6 +341,8 @@ Before telling the user the handout is ready, check every item:
 13. Participant scenario context, setup/click paths, prompts, expected outputs, evidence checks, and essential access/availability information remain intact. Audit literal clipboard text for excluded labels, product comparisons, test controls and generation commentary. Keep only the single `Synthetic` source-metadata label and first-use handout attribution, never prompt directives or repeated narrative. Companion-file cleanup is handed to the authoring skill if outside this formatter's HTML scope.
 14. Execute the mandatory mid-document regression matrix in BOTH directions for long prose, table text and wrapped prompts: wide/near-760 desktop enhanced width increases on collapse and restores on open, with SAME character-anchor error at most 1 CSS pixel; no-script desktop and mobile scripts-on/off keep width/wrapping invariant with the same anchor tolerance. Include embedded scroll contexts, keyboard focus, anchors, copy and print. If no runnable sample or interactive surface is available, state tests not run in chat; do not imply a browser pass from source inspection.
 15. Check selected-source granularity and actual files/rows/gates against prompts, claimed coverage, run size and timebox. A rollout population is not an analyzed record count; retrieval is not an exhaustive audit. Quantitative claims need the appropriate verified analytical path. Return content mismatches to the authoring skill before delivery; do not mask them with formatting.
+16. No Work/Web mode references. Microsoft 365 Copilot no longer has a Work/Web mode toggle: sweep visible text, prompts, and setup steps for "Work mode", "Work tab", "Web mode", "Web tab", and "Work/Web", and remove them. Setup reads "Open Microsoft 365 Copilot Chat." (or the specific app or agent) with no mode qualifier.
+17. Prompts in copy blocks lead with the affirmative ask; flag prompts that open with or rely on prohibitions (Don't interview me, Don't send, Never ask) and return them to the authoring skill for an affirmative rewrite.
 
 Fix any failure before delivering. Do not report the file as ready with an open item.
 
@@ -354,10 +356,10 @@ Fix any failure before delivering. Do not report the file as ready with an open 
 
 ## Example requests
 
-- "Format this Copilot workshop content as a branded HTML handout."
+- "Format this Copilot workshop content as an HTML handout for Ameren."
 - "The copy buttons in this handout are covering the prompt text, fix it."
 - "Rebuild the left nav on this exercise guide, it stopped scrolling in Teams."
 - "Collapse the sidebar to widen the reading content, then reopen it without losing my place in the text."
 - "Fix the nav collapse: it only shrinks the rail instead of expanding the content, and keep my reading position."
 - "Sweep this handout for em-dashes and encoding problems before I send it."
-- "Apply the supplied brand colors to this exercise guide and check the contrast."
+- "Apply T-Mobile brand colors to this exercise guide and check the contrast."
