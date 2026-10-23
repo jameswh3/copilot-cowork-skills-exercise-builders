@@ -8,7 +8,7 @@ labs, Microsoft Fabric data agent labs, and styled HTML handouts.
 ## Included skills
 
 | Skill | Purpose |
-|---|---|
+| --- | --- |
 | `copilot-cowork-exercise-builder` | Builds persona-based Copilot Cowork exercises and connected workshop tracks. |
 | `copilot-exercise-html-formatter` | Renders exercise content as accessible, branded HTML handouts. |
 | `copilot-exercise-builder` | Creates exercises for Copilot Chat, Researcher, Analyst, Notebook, and Microsoft 365 apps. |
