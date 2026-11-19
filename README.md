@@ -15,6 +15,11 @@ labs, Microsoft Fabric data agent labs, and styled HTML handouts.
 | `copilot-studio-exercise-builder` | Creates hands-on Copilot Studio agent-building walkthroughs. |
 | `fabric-data-agent-exercise-builder` | Creates hands-on Microsoft Fabric data agent labs with synthetic data, validated SQL, and a scheduled ingestion notebook. |
 
+The general exercise builder places source files inline where participants need
+them, uses business-only wording, and bounds evidence and analytical workloads.
+The HTML formatter also checks for obsolete Work/Web mode references and
+requires affirmative asks in copy-ready prompts.
+
 Each skill lives in its own subdirectory of [`skills/`](skills/), with a
 `SKILL.md` file and, when present, `references/` and `scripts/` directories. [`manifest.json`](manifest.json)
 is the M365 Unified App Manifest that declares them as `agentSkills`.
