@@ -1,7 +1,7 @@
 ---
 name: fabric-data-agent-exercise-builder
 description: |
-  Builds company- and persona-specific hands-on labs that take participants from an empty Fabric workspace to a published Microsoft Fabric data agent: prerequisites, click-path steps, copy-ready agent and data source instructions, validated example SQL, test prompts with computed answers, synthetic CSV data, and a scheduled PySpark ingestion notebook. Use when the user asks to "create a Fabric data agent exercise", "build a Fabric Data Agent workshop", "build a Fabric data agent lab", or "data agent hands-on for [company]". Do NOT use for Copilot Cowork exercises (copilot-cowork-exercise-builder), Copilot Studio agents (copilot-studio-exercise-builder), other Copilot surfaces (copilot-exercise-builder), HTML formatting alone (copilot-exercise-html-formatter), or provisioning real Fabric items.
+  Builds company- and persona-specific hands-on labs that take participants from an empty Fabric workspace to a published Microsoft Fabric data agent: prerequisites, click-path steps, copy-ready agent and data source instructions, validated example SQL, test prompts with computed answers, synthetic CSV data, and a one-time PySpark ingestion notebook. Use when the user asks to "create a Fabric data agent exercise", "build a Fabric Data Agent workshop", "build a Fabric data agent lab", or "data agent hands-on for [company]". Do NOT use for Copilot Cowork exercises (copilot-cowork-exercise-builder), Copilot Studio exercises (copilot-studio-exercise-builder), other Copilot surfaces (copilot-exercise-builder), HTML formatting alone (copilot-exercise-html-formatter), or provisioning real Fabric items.
 metadata:
   category: productivity
   icon: DatabaseSearch
@@ -11,11 +11,40 @@ metadata:
 
 Build a **hands-on lab** that takes a participant from an empty Fabric workspace to a working, tested, published
 Fabric data agent, grounded in one company, one persona, and one business scenario. The skill also produces
-everything the participant needs to succeed: realistic synthetic data, a scheduled ingestion notebook, and every
+everything the participant needs to succeed: realistic synthetic data, a one-time ingestion notebook, and every
 piece of text they paste.
 
 The unit of work is **one lab producing one data agent**. Exercises are its dependency-ordered parts, never
 standalone labs. Audience: customer makers and analysts following along at a keyboard in their own tenant.
+
+## Lab setup vs. the story (binding)
+
+The lakehouse is the star: it **stands in for the customer's production lakehouse** (curated tables a data team
+already refreshes nightly). The CSV files, the upload, and the ingestion notebook are **only the mechanism
+that stands that lakehouse up for the lab**, run once. Keep them out of the story.
+
+- **No scheduled job.** The import runs once. Lab Setup shows where a notebook schedule is configured (open the
+  scheduler, then close it with the schedule off) and never has the participant turn one on, set a recurrence, or
+  check Monitor for scheduled runs.
+- **Browser only.** The notebook is imported as `.ipynb` from the workspace toolbar (Import > Notebook > From this
+  computer). Never require VS Code or other local tools, and never have participants paste notebook code.
+- **Closed files.** The pre-flight checklist has participants save the lab files in one folder with none open in
+  Excel or another app, so uploads are not blocked by a file lock.
+
+- Put the data load in a clearly labeled **Lab Setup** section (steps S1-S5) after Prerequisites and before
+  Exercise 1. Open it with one sentence: these steps stand up a lakehouse that mirrors the production HR (or
+  domain) lakehouse; in a real deployment it already exists and the data team keeps it current. Setup steps use
+  the same Steps / Enter this / Check it worked shape, but they are not numbered exercises and do not appear
+  in "What you will be able to do", the scenario, or the exercise count.
+- The scenario, header strip, and core exercises speak only about the lakehouse and its tables ("the HR lakehouse,
+  refreshed nightly from the HR system"), never about CSVs, an export, file uploads, or the notebook. Exercise 1 is
+  creating the data agent over the lakehouse.
+- Data quirks are framed as **what a production lakehouse really looks like** (history rows, mixed codes, mixed units,
+  late-arriving records), not as quirks of a file.
+- Agent instructions, data source instructions, and descriptions describe the lakehouse tables, never "the export" or
+  files. Use the as-of date as "data current through <date>".
+- The `Synthetic` attribution sits once in Lab Setup, where the files are uploaded.
+
 
 **The hand-waving test.** Read every step and ask: *could someone do this without knowing anything I haven't told
 them?* "Add instructions for status codes" fails. "Paste this into Data source instructions: `Status codes vary in
@@ -49,17 +78,29 @@ chat. This rule takes precedence over any older output-section or workflow instr
   plus at most one optional `.xlsx` with a tab per table). A ZIP is only a convenience copy of the same files.
 - Test prompts are realistic, concise human questions as the persona would type them. They never restate setup,
   table names, file names, or the instructions.
-- **Service boundary, stated plainly.** Never frame data handling as content leaving the tenant. State the boundary:
-  the agent queries under the participant's own Entra ID identity and permissions; Fabric uses a Microsoft-managed
-  Azure OpenAI service; when the agent is consumed from Microsoft 365 Copilot or Copilot Studio, that service
-  processes the returned responses under its own terms.
+- Data agent instructions, data source instructions, and test prompts say what to do: the task, the tables and
+  filters, the output, and how to handle out-of-scope questions or missing data. Write a needed limit as the
+  action ("Return aggregated results only"); keep a negative only for a hard privacy or security line that no
+  affirmative form can carry.
+- **No noise (binding).** Include only what the participant must have, do, paste, or see. Leave out statements about
+  what is not required ("no key or token is required"), background on how the product works, limits the lab never
+  reaches (five-source limit, 25-row cap), run-identity and notification trivia, alternative approaches, and
+  sentences that explain why a step matters. If a sentence can be deleted without the participant missing an action,
+  a value, or an expected result, delete it. Keep each Check it worked to what appears on screen.
+- **No redundancy (binding).** Say each thing once. A Check it worked that restates a step or points back to What good
+  looks like is deleted; a Goal that restates the exercise title is deleted (titles carry the goal); a prompt already
+  in a copy block is referred to, not repeated ("ask the headcount question again"); a step that confirms what Check
+  it worked already shows is cut. No recap sections ("What you built"); References appear once, at the end; the
+  pre-flight checklist holds only checks that are not already a row in the Prerequisites table.
+- **Data handling.** Never frame data handling as content leaving the tenant. Do not add data-handling or service
+  boundary statements by default; include one plain sentence only when the user asks or the scenario requires it.
 - Exercise titles lead with the business task, product in parentheses: "Answer Backlog Questions in Plain English
   (Fabric Data Agent)".
 
 ## When NOT to Use
 
 - Copilot Cowork exercises or tracks: use `copilot-cowork-exercise-builder`.
-- Copilot Studio agent builds or walkthroughs: use `copilot-studio-exercise-builder`.
+- Copilot Studio exercises: use `copilot-studio-exercise-builder`.
 - Demos for Copilot Chat, Researcher, Analyst, Agent Builder, or Copilot in Word/Excel/PowerPoint/Outlook/Teams: use
   `copilot-exercise-builder`.
 - Styling, rebranding, or repairing an existing handout and nothing else: use `copilot-exercise-html-formatter`.
@@ -69,23 +110,23 @@ chat. This rule takes precedence over any older output-section or workflow instr
 
 ## Build sequence (why this order)
 
-Prerequisites → workspace → lakehouse → upload files → import, attach, run the notebook → schedule it → verify
-tables in the SQL analytics endpoint → create the data agent → add the lakehouse and select tables → **baseline
-question** → data agent instructions and data source instructions → **same question again** → example queries →
-in-scope and out-of-scope tests with the generated SQL inspected → publish → share → optional consumption.
+Prerequisites → **Lab Setup** (S1 workspace and lakehouse → S2 upload files → S3 import, attach, run the notebook →
+S4 see where a schedule is configured, without creating one → S5 verify tables in the SQL analytics endpoint) → **Exercises**: create the data agent over the
+lakehouse and select tables → **baseline question** → data agent instructions and data source instructions →
+**same question again** → example queries → in-scope and out-of-scope tests with the generated SQL inspected →
+publish and share → optional consumption.
 
 Two positions matter most:
 
-1. **Data lands as tables through a notebook, not "Load to Tables".** The agent answers from lakehouse tables, not
-   Files. A notebook with explicit schemas gives typed columns, repeatable overwrite loads, and a run that can be
-   scheduled, which is how the data stays current after the lab.
+1. **Setup lands data as tables through a notebook, not "Load to Tables".** The agent answers from lakehouse tables,
+   not Files. A notebook with explicit schemas gives typed columns in one run. This is setup, not the lesson (see Lab setup vs. the story).
 2. **Ask before instructing.** The participant asks the before/after prompt with no instructions, records the answer
    and its SQL, then adds instructions and asks again. Seeing the number change is the lesson; both values are
    computed from the data by code.
 
 Optional advanced exercises (only when requested or the timebox allows): add a second source (warehouse or Power BI
-semantic model: semantic models take no example queries and need only Read permission), Refresh the data source after
-the scheduled job runs, diagnostics, Git integration and deployment pipelines.
+semantic model: semantic models take no example queries and need only Read permission), diagnostics, Git integration
+and deployment pipelines.
 
 ## Hard Grounding Rule
 
@@ -151,7 +192,8 @@ Follow the step shape and click paths in [references/lab-patterns.md](references
 Prerequisites template and coverage list in [references/build-checklists.md](references/build-checklists.md).
 Write every pasted value literally: agent instructions (show the character count to yourself; stay well under
 15,000), data source instructions, example queries, test prompts, publish description, the SQL analytics endpoint
-row-count query, and the notebook parameter values. Any non-tabular companion (for example a one-page data
+row-count query, and the names the participant enters. Show notebook parameter values only if the participant must
+change them. Any non-tabular companion (for example a one-page data
 dictionary, only if the scenario needs it) is `.docx` in Aptos, never `.txt` or `.md`.
 
 ### 7. Render through the formatter (explicit handoff)
@@ -159,8 +201,8 @@ dictionary, only if the scenario needs it) is `.docx` in Aptos, never `.txt` or 
 Invoke the **`copilot-exercise-html-formatter`** skill and hand it the finished content plus the brand color. Require:
 brand color resolution, executive handout layout, collapsible left nav rail, WCAG AA contrast, ASCII-safe
 punctuation, sans-serif fonts (Aptos, Segoe UI), and **copy-to-clipboard blocks for every test prompt, the agent
-instructions, the data source instructions, each SQL example query, the row-count query, and the notebook parameter
-code**. Do not write CSS or HTML styling in this skill; never hand-roll the handout.
+instructions, the data source instructions, each SQL example query, the row-count query, and each name the participant
+enters**. Do not write CSS or HTML styling in this skill; never hand-roll the handout.
 
 ### 8. Package and deliver
 
@@ -180,9 +222,10 @@ before reporting ready.
 grep the HTML (including the literal text behind every copy button) and every companion for: `facilitat`, `the room`,
 `If it stalls`, `While it runs`, `ground rules`, `pair up`, `run time`, `failure mode`, `Learn more`, `we `, `I `,
 `as requested`, `honestly`, `consider`, `ensure`, `make sure`, `decide`, `as needed`, em-dashes and en-dashes, and
-serif font names. Each hit in participant content is a defect: fix it. Confirm every exercise has Check it worked,
-every test prompt has What good looks like with a computed value, and the Prerequisites section and pre-flight
-checklist are present with **References:**.
+serif font names. Each hit in participant content is a defect: fix it. Confirm every test prompt has What good looks like with
+a computed value, the Prerequisites section and pre-flight checklist are present, and **References:** appears once at
+the end. Then read the handout top to bottom for anything said twice (a Goal that repeats the title, a Check it worked
+that repeats a step or What good looks like, a repeated prompt, a recap) and delete the second occurrence.
 
 ### 10. Summarize in chat
 
@@ -191,17 +234,11 @@ values; any **[Verify]** items left; any Learn change since the baseline; file l
 
 ## Things participants must not miss
 
-Call these out in the guide, in one or two plain sentences each at the point of use:
-- The agent answers from **tables**, not files; that is why the notebook runs first.
-- **Descriptive names** in tables and columns improve the SQL the agent writes.
-- **Example queries are used only when valid** and matching the selected tables' schema; an invalid one is ignored.
-- Expand the **steps** dropdown to read the generated SQL; that is how to confirm the answer applied the definitions.
-- **Clear chat** before an independent test; earlier turns shape later answers and responses are capped at 25 rows.
-- **"Why" questions are out of scope**: the agent retrieves and aggregates; it does not do causal inference, advanced
-  analytics, or machine learning. Its queries are read-only.
-- **Publish** creates a published version to share and keeps a draft to keep improving; the description tells
-  colleagues and other agents when to use it. Recipients also need access to the lakehouse.
-- Scheduled notebook runs use the identity of whoever created or last updated the schedule.
+Build these into steps or Check it worked, not into explanatory paragraphs:
+- A step to expand the **steps** dropdown and read the generated SQL.
+- A **Clear chat** step before each independent test.
+- Example queries must show as valid; an invalid one is fixed against the schema.
+- The Share step gives colleagues access to the lakehouse as well as the agent.
 
 ## Output format (handout section order)
 
@@ -209,19 +246,21 @@ Call these out in the guide, in one or two plain sentences each at the point of 
    duration estimates.
 2. **The scenario** - two or three sentences in the persona's business terms; what the finished agent answers.
 3. **What you will be able to do** - 5-8 capability statements.
-4. **Prerequisites**, **Pre-flight checklist**, **References:** - clearly called out, from the template.
-5. **Exercises** in build order, each with Goal, Steps, Enter this, Check it worked; one `Synthetic` attribution
-   near the first use of the content pack.
-6. **Test prompts** - each with **What good looks like** (computed value, filters the SQL should show, or expected
+4. **Prerequisites** and **Pre-flight checklist** - clearly called out, from the template.
+5. **Lab Setup** (S1-S5) - stands up the lakehouse that mirrors production; one `Synthetic` attribution where the
+   files are uploaded. Not counted as exercises.
+6. **Exercises** in build order starting with creating the data agent, each with Steps, Enter this when there is
+   text to paste, and Check it worked only when it adds an on-screen result the steps do not already state.
+7. **Test prompts** - each with **What good looks like** (computed value, filters the SQL should show, or expected
    out-of-scope behavior).
-7. **What you built** - checklist of things the participant observed.
 8. **Optional advanced exercises** - only those in scope.
-9. **References:** - full list, each a live link with the URL visible.
+9. **References:** - the only reference list, each a live link with the URL visible.
 
 ## Pre-delivery checklist
 
 1. Product facts re-verified on Learn today; unverifiable paths carry [Verify].
-2. Prerequisites section, pre-flight checklist, and References: present, participant-facing, and accurate.
+2. Prerequisites section and pre-flight checklist present, participant-facing, accurate, and not duplicating each
+   other; References: appears once, at the end.
 3. `generate_synthetic_data.py --check` exit 0; every expected value traces to `expected_answers.json`.
 4. Notebook generated from the same manifest; `source_folder` equals the upload folder named in the guide.
 5. Before/after pair shows two different computed values and names the SQL change to look for.
@@ -232,7 +271,11 @@ Call these out in the guide, in one or two plain sentences each at the point of 
 10. File count minimal: one HTML, one notebook, one CSV per table, at most one workbook; no `.txt`/`.md` data.
 11. Sweep clean: no facilitator content, run-room timing, editorial commentary, "failure mode", "Learn more", dashes,
     or serif fonts; US English.
-12. Service boundary stated plainly; nothing framed as data leaving the tenant.
+12. No noise: no statements of what is not required, product background, unreached limits, run-identity or
+    notification trivia, alternative approaches, or why-this-matters sentences; nothing framed as data leaving the
+    tenant.
+13. Data load is confined to Lab Setup: the scenario, header, core exercises, instructions, and publish description
+    mention the lakehouse and its tables, never CSVs, an export, uploads, or the notebook.
 
 ## Guardrails
 
@@ -253,4 +296,4 @@ Call these out in the guide, in one or two plain sentences each at the point of 
 - "Create a Fabric data agent exercise for a reliability manager at a chemicals company."
 - "Build a Fabric Data Agent workshop for Contoso Retail's merchandising team, brand color #0F6CBD."
 - "Data agent hands-on for a regional utility's outage analysts, with a warehouse as a second source."
-- "Build a Fabric data agent lab where the notebook runs nightly and the agent answers backlog questions."
+- "Build a Fabric data agent lab where the agent answers maintenance backlog questions."

@@ -5,7 +5,7 @@ description: |
   walkthrough taking a participant from an empty environment to a working agent: numbered click-path exercises,
   copy-ready instruction text, knowledge (including web knowledge), tools, test prompts, and publishing.
   Use when the user asks to "build a Copilot Studio agent", "which harness should I use", "add knowledge to my
-  agent", "add tools to my agent", "write agent instructions", or "publish my agent to Microsoft 365 Copilot".
+  agent", "add tools to my agent", "write agent instructions", or "publish my agent to Microsoft Copilot".
   Do NOT use for Copilot Cowork exercises (use copilot-cowork-exercise-builder), other Copilot surface demos
   (use copilot-exercise-builder), or to provision the agent — this produces the guide, not the agent.
 metadata:
@@ -24,8 +24,8 @@ UI element and an action; every configuration value is supplied literally; every
 participant can see on screen to confirm it worked.
 
 **The hand-waving test.** Read any instruction you wrote and ask: *could someone do this without knowing anything
-I haven't told them?* "Add a scope guardrail" fails. "Paste this into the Instructions box: `Only respond to
-questions about ...`" passes. If a step tells the reader to *decide, consider, ensure, review, map, assess,
+I haven't told them?* "Add a scope guardrail" fails. "Paste this into the Instructions box: `Answer questions
+about ...`" passes. If a step tells the reader to *decide, consider, ensure, review, map, assess,
 determine, think about,* or *make sure* — it is not a step, it is a topic heading with no content. Rewrite it as
 an action, or move it to the settings table where a recommendation belongs.
 
@@ -47,7 +47,7 @@ Every published HTML handout and companion file must stand alone for a participa
 - Multi-agent designs — connected agents, parent/child agent hierarchies, agent-to-agent handoff. This skill
   designs **one** agent. If a scenario seems to need a second agent, narrow the scope of the first instead and
   note it as an open question for later.
-- Azure AI Foundry / Agent Framework / pro-code agent development
+- Microsoft Foundry / Agent Framework / pro-code agent development
 - Actually provisioning, configuring, or publishing the agent in a live tenant
 - Licensing quotes, pricing negotiation, or credit forecasting (point to the billing docs instead)
 
@@ -117,14 +117,15 @@ any authoring mechanism, confirm it against current Learn rather than recall:
 - **Spreadsheets as unstructured knowledge.** Semantic search has limitations for cell indexing, so retrieval
   alone answers lookups unreliably and arithmetic worse. On the **standard harness**, re-cast tabular content as
   the register or log a business would circulate, or route it to Dataverse/Azure SQL or a connector tool. On the
-  **GitHub Copilot harness this is not a constraint**: the Agent Sandbox runs real code over files. See below.
-- **"Agents cannot do arithmetic."** Out of date on the GitHub Copilot harness. Its Agent Sandbox is an isolated
-  Linux/Python workspace, **on by default**, with pandas, numpy, matplotlib, openpyxl and similar preinstalled;
-  the orchestrator writes and runs scripts when a task needs exact computation, parsing, validation or file
-  generation, and can emit charts and Office files. No outbound internet, so external calls still go through
-  tools and knowledge. The rule to teach is not *never calculate* but **never calculate by reading** — compute
-  it, or say you could not. (Classic Code Interpreter on the standard harness is the limited preview feature:
-  one file per prompt, no multi-turn, admin-enabled, not callable from a topic.)
+  **Microsoft Copilot harness** (formerly the GitHub Copilot harness; the new label is rolling out in the product)
+  **this is not a constraint**: code interpreter runs real code over files in a secure sandbox. See below.
+- **"Agents cannot do arithmetic."** Out of date on the Microsoft Copilot harness. Code interpreter is native
+  there: each task runs in a secure sandbox, an isolated Linux/Python workspace with pandas, numpy, matplotlib,
+  openpyxl and similar preinstalled; the orchestrator writes and runs scripts when a task needs exact
+  computation, parsing, validation or file generation, and can emit charts and Office files. No outbound
+  internet, so external calls still go through tools and knowledge. The rule to teach is not *never calculate*
+  but **never calculate by reading** — compute it, or say you could not. (On the standard harness code
+  interpreter is opt-in: one file per prompt, no multi-turn, admin-enabled, not callable from a topic.)
 - **Positioning the reasoning harness as the unreliable one.** Modern agents are highly adherent to their
   instructions. What differs between harnesses is what the agent can reach for, not how faithfully it follows
   what you wrote. Never justify a harness choice with an unfounded claim about answer consistency.
@@ -142,15 +143,15 @@ than the current quarter as needing a re-check. If a check fails, say the detail
 ## Workflow
 
 1. **Resolve the scenario.** Capture: business outcome, users, where they'll use the agent, what data grounds it,
-   what actions it must take, and whether it runs on request or on a trigger. With the user's authorization, use
-   available Microsoft 365 search and file-reading capabilities when the user references a customer, meeting, or
-   document. Ask at most one focused question when the harness choice is genuinely blocked.
+   what actions it must take, and whether it runs on request or on a trigger. If the user references a customer,
+   meeting, or document, look it up (`m365_search-SearchM365`, `sharepoint_onedrive-ReadFileContent`) rather
+   than asking. Ask at most one question via `core-AskUserQuestion` when the harness choice is genuinely blocked.
 2. **Pick the harness, and put the reasoning in the guide.** Use
    [references/harness-matrix.md](references/harness-matrix.md). The guide carries a "Choosing the runtime"
    section: what a harness is, the three-way comparison, **why this build sits on the harness you picked and
-   what it gives up**, the warning that GitHub Copilot and standard harness agents **cannot be converted to each
-   other** after creation, and — where the build is on the GitHub Copilot harness — that usage-based billing
-   covers building, testing and evaluating, not only production traffic.
+   what it gives up**, the warning that an agent **can't move from the Microsoft Copilot harness back to the
+   standard harness** (Copilot Studio can create a Microsoft Copilot harness agent from a standard agent with
+   Upgrade (preview)), and — where the build is on the Microsoft Copilot harness — that it uses Copilot Credits.
    Give the reader a rule they can reuse: *if you can write the answer down in advance, author it on the
    standard harness; if you can only write down how to work the answer out, you need the reasoning runtime.*
    Scope the design to a **single agent**: one set of instructions, one knowledge set, one tool set — unless the
@@ -169,7 +170,7 @@ than the current quarter as needing a re-check. If a check fails, say the detail
    and other troubleshooting blocks from published content, including those suggested by older lab-pattern references. Preserve essential factual access and availability prerequisites.
    Write the agent's actual instruction text, knowledge source names and descriptions, and tool names for the
    scenario — do not tell the participant to compose their own. The instructions exercise always includes the
-   Microsoft 365 Copilot refinement prompt from the lab patterns, with its caution about leaving citation and
+   Microsoft Copilot refinement prompt from the lab patterns, with its caution about leaving citation and
    formatting rules alone.
 4. **Verify** every product claim and every UI path against Microsoft Learn (Hard Grounding Rule). A click path
    you cannot verify gets written as a step and marked **[Verify]** — never invented. Collect the **full URLs**
@@ -211,8 +212,8 @@ Call these out explicitly in every guide — they are the common failure points:
   structured sources (Dataverse, Azure SQL) turn the question into a query over rows, which is the only way a
   "how many / total / top five" question is answerable. Both are knowledge and both are read-only: **knowledge
   informs the answer, a tool takes the action.** See references/lab-patterns.md for the wording.
-- **Instruction sets restart numbering under each heading**, and every *never* is a guardrail regardless of
-  where it felt natural to write it. Invent no labelling scheme — no letter prefixes, no codes; a reader should
+- **Instruction sets lead with what the agent does** (role and sources, how it answers, out-of-scope and
+  missing data, then boundaries) and restart numbering under each heading. Invent no labelling scheme — no letter prefixes, no codes; a reader should
   not have to learn a notation. Cross-reference a line by what it says, not by its number. See
   [references/lab-patterns.md](references/lab-patterns.md).
 - **Descriptions are routing logic.** Tool, knowledge, topic, and agent *names and descriptions* are what the
@@ -239,7 +240,9 @@ Most single-agent scenarios need one or two actions, not a toolbox. Start here a
   message goes to anyone outside a known list.
 - **An agent flow** — for a multi-step or system-of-record action (create a record, look something up, chain a
   couple of steps) that shouldn't be left to the model.
-- Then, only if the scenario demands it: prompt, REST API, MCP server, custom connector, or computer use.
+- Then, only if the scenario demands it: prompt (standard harness) or skill (Microsoft Copilot harness), REST
+  API, MCP server, custom connector, or computer use (standard harness; planned, not available, on the
+  Microsoft Copilot harness).
 
 Name each tool for the action it performs and describe when the agent should use it — that description is what
 the orchestrator routes on. **Supply the actual name and description text in the guide**; a participant should
@@ -261,7 +264,7 @@ Keep OUT of the artifact — put these in the chat reply instead:
   constraints, never as critique of their document.
 - **Process narration.** No mention of authoring tools used, files read, folders searched, or how the guide was built. Participant setup paths, required files, and product tools remain when needed to complete the lab.
 Harness content is NOT in this list. Name the harness, compare the three, justify the pick, and state the
-convertibility and credit consequences — in the guide, not only in chat. What still stays out is *sales* framing
+one-way conversion and credit consequences — in the guide, not only in chat. What still stays out is *sales* framing
 around it: licensing quotes, credit forecasts, and roadmap.
 
 Second person addressed to **the builder** ("add the source you want the agent to search") is correct and
@@ -281,8 +284,8 @@ The HTML guide, in this order:
 3. **What you will be able to do** — 5-8 capability statements, each an ability gained ("diagnose why the agent
    is not finding what you expect"), never a topic covered
 4. **Choosing the runtime** — what a harness is, the three-way comparison table, why this build sits on the
-   harness picked and what it trades away, the non-convertibility warning, and credit consumption where the
-   GitHub Copilot harness is used. Place it before the exercises: it is a design decision, not an appendix
+   harness picked and what it trades away, the one-way conversion warning, and credit consumption where the
+   Microsoft Copilot harness is used. Place it before the exercises: it is a design decision, not an appendix
 5. **Before you start** — split in two: **access and licensing** (the environment, the licences, the security
    role) and **content and test material**. Name the *specific* entitlements, not a general "access to the
    product": tenant-level access and access inside a given environment are different things, and conflating
@@ -297,7 +300,8 @@ The HTML guide, in this order:
    instruction to return to the exercise that produced any line that is not true
 8. **Settings reference** — setting, where it lives, recommended value, what the other value does. This is where
    recommendations belong, so the exercises stay imperative
-9. **Test prompts** — 5-8 to run against the finished agent, at least two the agent should refuse
+9. **Test prompts** — 5-8 to run against the finished agent, at least two outside its scope, each paired with
+   the redirect the agent should give
 10. **Before you share it** — auth, data boundary, admin dependencies, monitoring, publish sequence
 11. **Decisions required before build** — what the owning organization must confirm (data scope, connectors,
    approved recipients, publishing permissions, review owner). Not the harness pick, which the guide makes.
@@ -318,12 +322,19 @@ details, limits, license entitlements, or numbers.
 - Ground every product claim in a fetched Microsoft Learn page; no memory-sourced specifics.
 - Do not fabricate customer names, data sources, connector availability, or licensing.
 - Recommend one harness per build and say why in the guide; do not hedge across all three.
-- Never ship a guide whose harness pick is unexplained, and never omit the non-convertibility warning: the
-  choice is fixed at creation and is the most expensive thing in the build to get wrong.
+- Never ship a guide whose harness pick is unexplained, and never omit the one-way conversion warning: an agent
+  can't move from the Microsoft Copilot harness back to the standard harness (Upgrade (preview) goes the other
+  way only), so the choice is the most expensive thing in the build to get wrong.
 - Every lab step is an action a participant performs, not a decision they must make. Recommendations live in the
   settings reference; steps stay imperative.
 - Never ship a lab without a "Check it worked", and never tell a participant to write text the guide could have
   supplied.
+- **State the ask affirmatively.** Test prompts, copy-ready participant prompts, agent instructions, skill
+  instructions and the refinement prompt say what the agent should do: the task, which sources, what to return in
+  what format, and how to handle out-of-scope requests or missing data. Drop any prohibition the positive ask
+  already covers, and write a needed limit as the action ("Mark anything you can't confirm as unknown", "Send
+  email only to the approved recipients", "Save it as a draft for me to review"); keep a negative only for a hard
+  security or privacy line that no affirmative form can carry.
 - Never write a step that assumes an empty field. Where the product has already populated something — generated
   instructions, a default topic, a suggested source — say so, say whether to replace or keep it, and say why.
 - Every source is a clickable link with its URL also visible as text. A source list without URLs is a dead end.
@@ -339,3 +350,6 @@ details, limits, license entitlements, or numbers.
 - Include the security/prompt-injection and authentication items in every guide, even short ones.
 - The artifact never references the conversation, the requester, the delivery team, or how it was produced.
   Ship a document, not a transcript.
+- Microsoft Copilot no longer has a Work/Web mode toggle. When a step tests or uses the agent in Microsoft
+  Copilot, never say "Work mode", a Work or Web tab, or switching modes; write "Open Microsoft Copilot Chat."
+  (or the specific app or agent) with no mode qualifier, and remove any such reference found in content.

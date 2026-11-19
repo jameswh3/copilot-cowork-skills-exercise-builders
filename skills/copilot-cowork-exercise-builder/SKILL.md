@@ -1,7 +1,7 @@
 ---
 name: copilot-cowork-exercise-builder
 description: |
-  Build rich, company-specific and persona-specific Microsoft Copilot Cowork exercises for customer enablement: agentic workspace scenarios, robust multi-step anchor prompts, drop-in synthetic content packs, and executive handouts. Use when the user asks to "create a Cowork exercise", "build a Copilot Cowork demo", "make a Cowork workshop track", "build Cowork exercises for a CFO / plant manager / claims lead", "design a scheduled autonomous briefing demo", "build a Cowork exercise set for [company]", or "create Cowork exercises by persona". Do NOT use for non-Cowork Copilot surfaces (Chat, Researcher, Analyst, Notebook, Agent Builder, Outlook, Teams, Excel, Word, PowerPoint) - use copilot-exercise-builder; do NOT use to perform the real work a scenario depicts.
+  Build rich, company-specific and persona-specific Microsoft Copilot Cowork exercises for customer enablement: agentic workspace scenarios, robust multi-step anchor prompts, drop-in synthetic content packs, and executive handouts. Use when the user asks to "create a Cowork exercise", "build a Copilot Cowork demo", "make a Cowork workshop track", "build Cowork exercises for a CFO / plant manager / claims lead", "design a scheduled autonomous briefing demo", "build a Cowork exercise set for [company]", or "create Cowork exercises by persona". Do NOT use for non-Cowork Copilot surfaces (Chat, Researcher, Analyst, Copilot Workspaces, Agent Builder, Outlook, Teams, Excel, Word, PowerPoint) - use copilot-exercise-builder; Copilot Studio exercises use copilot-studio-exercise-builder; do NOT use to perform the real work a scenario depicts.
 metadata:
   category: productivity
   icon: PersonBoard
@@ -13,6 +13,43 @@ Cowork is the agentic workspace: one thread, many surfaces, real deliverables. T
 
 The unit of work is a **persona-anchored exercise**. Every exercise names a real operating moment for one role at one company, delegates the whole job in a single robust prompt, and ends with an artifact the participant is holding.
 
+## Inline sources at point of use (binding default)
+
+This rule overrides any older requirement for a published source pack, content matrix, file-to-exercise mapping table, inventory, blueprint, or separate source section. Apply it to new content and revisions, in HTML and plain text alike.
+
+- Put exact source filenames or verified links immediately alongside the exercise that requires them, in a concise `Setup`, `Open`, or `Upload` sentence or short bullets. List only the files needed at that point. Use one action verb per instruction: open, upload, or reference; add a short business purpose only when useful. Replace legacy participant-facing `Drop-in Content Pack` tables and published file blueprints with `Inline Sources` within the requiring exercise, or merge them into its existing setup sentence. Do not retain a separate pack heading, add another matrix, or duplicate the setup list. Include a short business purpose for each source without describing its internal anatomy.
+- Do not publish a centralized source pack/content matrix, mapping table, inventory section, source blueprint, or navigation link that sends participants elsewhere to discover required inputs. Move legacy entries into the relevant exercise and remove the obsolete section and orphaned nav link, rather than hiding them. This does not prohibit business-result tables or actual business data in source files.
+- Reuse the same saved file across exercises. Store it once in its primary exercise folder and reference that same exact path at each point of use; do not generate duplicate copies. Use an exact filename/path when no verified URL is available. Never invent a download, tenant, or sharing link; verify any link against the actual saved artifact or confirmed source.
+- Keep any file manifest, source-to-exercise mapping, or detailed blueprint internal for authoring and validation only, never in participant artifacts (including hidden panels, comments, appendices, or notes). Generate only the minimal assets needed for the bounded business task.
+- Put ONE concise `Synthetic` provenance attribution near the first exercise that uses the synthetic files, plus one `Synthetic` metadata/header label per file. Do not repeat the handout attribution for later exercises reusing those files, or put provenance in copied prompts. Retain truthful source, author/participants and date identifiers.
+- Keep setup business-only: no row/tab anatomy, internal field inventories, or prompt meta-narrative. Preserve bounded evidence and coverage, supported verified analytical paths, draft-only/approval constraints, factual access prerequisites, and minimal assets. Before delivery, verify every required source is named at its point of use and every link resolves to the intended saved source. Formatting changes must preserve the existing nav-width and semantic reading-anchor contracts.
+- Audit placement exercise by exercise, using an internal manifest only if useful: reconcile every required input against its inline setup and saved artifact, check exact spelling and any verified link target, and confirm reused sources keep one saved path. Remove conflicting old published-table/file-mapping mandates and obsolete source-section/nav entries rather than relying only on this override. Do not repeat prompt metadata or provenance. For a source-placement-only skill update, preserve the prior nav-width and semantic reading-anchor requirements byte-for-byte; do not edit a handout to demonstrate the change.
+
+## Business-only wording and bounded evidence (binding)
+
+These rules govern authoring and formatting alike and override older examples or section names that conflict. They apply to every participant-facing prompt, instruction, narrative, expected output, and companion source.
+
+1. **Business-only copy blocks.** Write only the work request the persona would actually give: the decision, selected inputs, substantive business constraints, and requested output. Never put demo, simulation, illustrative, teaching, or authoring labels in prompts. Exclude "this exercise", product comparisons, test controls, generation commentary, and explanations such as "This is illustrative IT ...". Keep draft-only instructions, unknown-value handling, citation/evidence requirements, uncertainty, and approval constraints: these protect the business work and are not meta-narrative.
+2. **Provenance once, in the right place.** Put ONE concise `Synthetic` label in each companion source's metadata/header and ONE concise handout attribution near the first exercise using the synthetic files. Retain source/author/participants/date identifiers. Do not repeat the label in business prose, prompt directives, table rows, or expected outputs; exclude all other demo/simulation/illustrative/teaching/authoring narrative. Do not remove truthful provenance or factual product availability, permissions, licensing, or access prerequisites. Product names and necessary setup/click paths remain; explanatory product comparisons do not.
+3. **Bound the actual evidence workload.** Use a short, explicitly selected file set, authored small enough for the timebox, and a bounded business question or decision-gate scope. Name the files, business scope and timeframe in the work request; keep internal row/table selection out of participant-facing content. For live M365 retrieval, bound topics, people/meetings, dates and returned evidence; report what was actually found/read and what remains unknown. Chat, Copilot Workspaces, Agent Builder and search-based M365 retrieval are not exhaustive per-account/per-record audit engines. Never promise search-wide completeness, full-population validation, or an all-clear from retrieved snippets or a sample.
+4. **Population is not analyzed records.** A business rollout may cover hundreds of accounts, devices, employees, or sites without the run analyzing each one. Keep that population as business context; state the much smaller source set, summary/gate workload, and coverage actually analyzed separately. Prefer supplied aggregates to hundreds of enumerated items. Do not turn a rollout count such as 600 into 600 individual checks. Choose workload sizes for the timebox and actual source granularity, not an unsupported universal numeric product limit.
+5. **Use the right analytical path.** Quantitative scans and computations belong in Analyst over uploaded data or in Excel for appropriate formulas, tables and light analysis. In Cowork, use an explicitly available computational tool or supported model query for that leg before synthesizing or creating deliverables. Keep inputs small enough for the timebox and verify the computed output. If exact comprehensive validation is required, use a genuinely exhaustive tool-supported path with a defined dataset, full row/page coverage, explicit rules and verification; when unavailable, narrow the task or state the gap instead of promising completeness. No fabricated all-clear, totals, percentages, or probabilities from a sample.
+6. **Coverage belongs in the business result.** Require the sources/rows/gates actually considered, missing or stale evidence, contradictions, and unresolved questions. Distinguish source-reported aggregates from independently computed results and inferences. A sampled finding applies only to its evidence, not the whole population; missing evidence is unknown, not passed. Keep any message, approval or recommendation a draft where appropriate.
+7. **Audit before delivery.** Read the literal text copied by EVERY copy button, not just the visible wrapper, plus all visible/hidden narrative, source metadata, document notes and workbook tabs. Remove excluded wording rather than hiding it. Check actual source granularity, files/rows/gates touched, computational path and timebox; reconcile every prompt and claimed result with the companion files. Preserve participant setup, truthful provenance and business evidence guards. Delete orphaned navigation links. Fix conflicts before declaring ready; keep audit/generation commentary in chat only.
+
+## Business source language, not file anatomy (binding)
+
+This overriding rule applies to all participant-facing setup and selected-source content, steps, inline source instructions, copied prompts, and expected outputs. Where older wording asks for source selection or summary/gate scope, express that scope in business terms, not workbook anatomy.
+
+- Name the workbook or file and the business question, date period, service, vendor, or metric relevant to the decision. Do not ask participants to find named tabs/sheets, count sheets, locate row/column numbers or A1 ranges, copy exact formulas, select ranges, exclude metadata rows, or map sheets. Do not publish internal table/field inventories as participant setup requirements.
+- Have participants open or upload the file, then ask naturally for the result. Ask Copilot to identify the relevant table and fields, check stored units and number formats, preserve source values, and provide a traceable result. Do not claim that opening/uploading a file guarantees the entire file is read or exhaustive coverage. Missing, inaccessible, ambiguous, or unread evidence must be reported honestly, not inferred as complete or passed.
+- Bound workloads by authoring genuinely small files and specifying a business scope and date period, not by teaching participants to select a small set of rows or hunt for sheets. Keep source-reported aggregates distinct from computed values and inference; retain evidence checks, missing-data handling and the appropriate verified analytical path. Do not move numerical work into unsupported Chat arithmetic.
+- Internal authoring validation remains required: inspect source structure, tables, fields, rows, formulas, units, metadata, and expected calculations to ensure the files support the request. Keep that anatomy internal. Row/cell citations or other precise source anchors may appear in generated results as evidence; they are not a participant setup burden or an expected-output instruction to navigate manually.
+- A genuine product prerequisite may be stated plainly: "Use a formatted table if your Excel experience requires one." Never attach hardcoded ranges or sheet-hunting directions to it. Preserve truthful access prerequisites and product navigation, without confusing them with file-internal selection.
+- Before delivery, sweep all setup, steps, inline source instructions, prompt text (including literal clipboard content), and expected outputs for file-anatomy micromanagement. Rewrite it as file name plus business scope; keep the units, evidence and computation guards. Do not silently alter business figures or invent inaccessible evidence.
+
+Example business prompt: "Using the workbook, chart weekly availability by service for September 11 through October 16; flag Workplace Access below 99.90%; check stored units; preserve source values and cite the evidence."
+
 ## Participant-only published content (binding)
 
 Every published HTML handout and companion file must stand alone for a participant who has never seen the authoring chat. This rule takes precedence over any older output-section, workflow, or companion-reference instruction requiring delivery notes or troubleshooting blocks.
@@ -21,13 +58,13 @@ Every published HTML handout and companion file must stand alone for a participa
 - Exclude chat-history extensions: no "as you requested", "updated/rebuilt", feedback acknowledgments, discussion of inferred scope or session counts, or future optional-extension offers copied from assistant chat. Keep any required planning statements and offers in chat only, never in an artifact.
 - Exclude facilitator, speaker, delivery-team, and run-room notes, including "While It Runs", "If It Stalls", wait-time filler, troubleshooting advice, and what someone should say or show to the room. Remove these sections rather than hiding them in comments, collapsed panels, appendices, document notes, or workbook tabs.
 - Preserve genuine participant scenario context, product setup and click paths, copy-ready prompts, expected outputs, evidence checks, and essential factual availability, access, permissions, and reference information. Business context and product constraints are not authoring commentary. Do not remove participant instructions merely because they address the reader directly.
-- Synthetic material must read like original source material: retain a concise synthetic label and appropriate source, participants or author, and date identifiers, then the business content. Never embed the author conversation or exercise-construction commentary in a source file.
+- Synthetic material must read like original source material: use the single `Synthetic` source-metadata label and first-use handout attribution specified above, plus appropriate source, participants or author, and date identifiers. Follow with business content only, without repeated labeling, author conversation, or exercise-construction commentary.
 - Before publishing or revising, inspect all handout sections and every companion file for these excluded categories, including hidden text and notes. Delete excluded material and any orphaned navigation links; confirm required participant steps, prompts, source evidence, and factual prerequisites remain intact.
 
 ## When NOT to Use
 
-- The exercise targets another Copilot surface (Chat, Researcher, Analyst, Notebook, Agent Builder, Copilot in Outlook / Teams / Excel / Word / PowerPoint, Copilot on Mobile): use `copilot-exercise-builder` instead.
-- The user wants Copilot Studio agent authoring content: that is out of scope for both skills right now.
+- The exercise targets another Copilot surface (Chat, Researcher, Analyst, Copilot Workspaces, Agent Builder, Copilot in Outlook / Teams / Excel / Word / PowerPoint, Copilot on Mobile): use `copilot-exercise-builder` instead.
+- The exercise targets Copilot Studio: use `copilot-studio-exercise-builder` instead.
 - The user wants the HTML handout styled, fixed, or rebranded and nothing else: use `copilot-exercise-html-formatter`.
 - The user wants the depicted work actually performed (real email, real scheduling, a real deck): use the dedicated M365 skills.
 - The user wants a personal skill created, edited, or audited: use `skills`.
@@ -77,7 +114,7 @@ If the user names a company and a persona but nothing else, proceed with reasona
 
 Pick exactly one pattern per exercise. Do not blend patterns inside a single exercise. When building a multi-exercise set, vary the patterns deliberately so the set demonstrates range.
 
-**Two patterns are mandatory in every multi-exercise track:** Pattern E (Personal Skill Authoring) and Pattern B (Scheduled Autonomous Briefing). Skill creation and prompt scheduling are the two capabilities that distinguish Cowork from every other Copilot surface, and a track that omits either one undersells the product. Include both even when the persona heuristics would not have selected them, and add the persona that makes each land.
+**Two patterns are mandatory in every multi-exercise track:** Pattern E (Personal Skill Authoring) and Pattern B (Scheduled Autonomous Briefing). Skill creation and scheduled tasks are the two capabilities that distinguish Cowork from every other Copilot surface, and a track that omits either one undersells the product. Include both even when the persona heuristics would not have selected them, and add the persona that makes each land.
 
 **The one permitted pairing:** Pattern E and Pattern B may be chained, and in a full track they should be. The skill authored in E becomes the skill the schedule in B invokes. See "The E to B chain" below. This is the only exception to the no-blending rule, and it still means two separate exercises, not one merged exercise.
 
@@ -95,11 +132,11 @@ Keep it to five or six tight lines as internal authoring scaffolding. Publish on
 
 ### 4. Author the exercise content
 
-Produce the required sections (below), the anchor prompt, and the drop-in content pack.
+Produce the required sections (below), the anchor prompt, and only the needed saved source files, named inline in this exercise. A pack is a storage convenience, not a published inventory or participant section.
 
 ### 5. Generate the synthetic files
 
-Every named file must actually exist as a saved artifact before the exercise is delivered. See Drop-in Content Pack.
+Every named file must actually exist as a saved artifact before the exercise is delivered. See Inline Sources and source-file generation.
 
 ### 6. Format and deliver
 
@@ -120,7 +157,7 @@ Hard rules:
 - **Budget interview-style prompts; do not ban them.** Having Copilot interview the participant is a legitimate pattern worth showing, and it lands well when the room sees it once. The rule is scarcity, not prohibition:
   - **At most one exercise per session** uses an interview-style prompt. Pick the exercise where the pattern teaches the most and make it the designated one.
   - **Cap it at three questions.** The prompt must say so explicitly, for example "ask me up to three questions, then proceed." An open-ended interview is what actually stalls a room, not the technique itself.
-  - Every other exercise in the session states its inputs up front so the agent never stops to ask.
+  - Every other exercise gives the agent every input it needs inside the prompt.
   - Identify the designated interview exercise in the track overview as a participant activity.
   - Budget an extra 2 to 3 minutes internally for that exercise; publish only its participant-facing time estimate, not facilitator pacing commentary.
 - **One anchor prompt, fired once.** Optional follow-ups are genuinely optional and exist so fast participants have somewhere to go, not as required steps the room waits on.
@@ -143,22 +180,22 @@ Track-level timing:
 
 - One thread orchestrates uploaded content plus the participant's live calendar and inbox to produce a complete pre-read for a meeting, board moment, or executive review
 - Output includes concrete deliverables in the participant's workspace: a Word brief, a PowerPoint pre-read, or a drafted email to the principal with attachments
-- Distinct from `Researcher` (web focus, no action chain) and `Copilot Chat` (single surface, no deliverables)
+- Distinct from a standalone `Researcher` run (work and web research, no action chain) and `Copilot Chat` (single surface, no deliverables). When the exercise needs a research leg, the participant @mentions Researcher in the same Cowork thread, or Cowork invokes it
 - Best when the moment requires consolidating documents, datasets, transcripts, and live workspace context before acting
 - Drop-in content pack required
 
 ### Pattern B: Scheduled Autonomous Briefing
 
-- Configures a recurring task that executes without the user present (every Monday at 7am, every weekday at 7:45am, every Friday at 4pm)
+- Configures a scheduled task that runs without the user present (every Monday at 7am, every weekday at 7:45am, every Friday at 4pm)
 - Cowork scans email, calendar, and Teams in the background, applies the user's stated priorities, and posts a digest to a chosen destination (email to self, Teams chat, Teams channel)
 - Emphasize persistence: the agent remembers what it surfaced last run and flags what changed
 - Distinct from every other scenario type, which assume a user is actively driving
 - Do not build this pattern without an explicit cadence (frequency, day, time, timezone) and a destination
 - Content pack not required; this pattern reads the live mailbox and calendar
 - **Prefer scheduling a saved skill over restating the steps.** When the track includes a Pattern E exercise, the schedule-setup prompt should invoke that skill by name rather than repeating its logic inline. When the track has no Pattern E exercise, the schedule prompt carries its own steps
-- The exercise must show where the scheduled task lives after setup, so the participant knows how to review, pause, edit, or delete it. A recurring task the participant cannot find again is a demo, not an adoption moment
+- The exercise must show where the scheduled task lives after setup: participants view, edit, reschedule, or delete it from Automations on the Cowork home page. Event-driven tasks (triggered by an event, such as an email arriving) also appear on Automations. A scheduled task the participant cannot find again is a demo, not an adoption moment
 - State plainly that scheduled runs happen with no one watching: the prompt must be self-contained, naming the people, channels, and topics it needs, because there is no user present to answer a clarifying question
-- Do not imply the scheduled task will send, post, delete, or cancel anything without confirmation
+- Do not imply the scheduled task will send, post, delete, or cancel anything without confirmation. Give the prompt a positive delivery step, for example "save it as a draft for me to review" or "send the digest only to me"
 
 ### Pattern C: Live Power BI Investigation to Action
 
@@ -166,14 +203,14 @@ Track-level timing:
 - The thread identifies the right artifact or dataset, asks analytical questions (variance, drivers, anomalies, segment cuts), then chains into deliverables: an Excel cut for finance, a stakeholder email, a Teams post to regional owners
 - Distinct from `Analyst` (bounded to uploads, single surface, no cross-app chain) and `Copilot in Excel` (no semantic-style analysis, no handoff)
 - Avoid prompts that require building or modifying the Power BI model. Analysis and action are the focus
-- **Tenant guidance:** unless the workshop runs inside a customer tenant against an artifact you know exists, default to the uploaded-dataset approach. Keep the semantic model blueprint as descriptive context only
+- **Tenant guidance:** unless the workshop runs inside a customer tenant against an artifact you know exists, default to the uploaded-dataset approach. Keep the semantic model blueprint internal for validation only; participant context names the confirmed model or uploaded workbook, business measures and date period
 - Drop-in content pack required
 
 ### Pattern D: Multi-Source Project Status Investigation
 
 - Parallel investigation across the uploaded pack and the participant's live calendar and inbox to answer one grounded question ("what is the real status of the Riverbend turnaround?")
 - Output is a one-page status with explicit evidence anchors (which document, which transcript line, which email, which meeting), contradictions surfaced, and stale-information flags
-- Distinct from `Researcher` (web only) and from a single-thread `Copilot Chat` exercise (no parallel fan-out)
+- Distinct from a standalone `Researcher` run and from a single-thread `Copilot Chat` exercise (no parallel fan-out)
 - The value: the facts live across many surfaces, and Cowork reads them in parallel and reconciles them in one answer
 - Pack typically includes a chat transcript, a status memo or meeting notes doc, and one or two datasets
 - Drop-in content pack required
@@ -182,11 +219,12 @@ Track-level timing:
 
 - The participant defines a reusable workflow ("Friday wrap-up", "weekly customer health check", "Monday account review") that becomes a callable skill in their personal workspace
 - Demonstrate the full lifecycle: state the trigger, state the steps, save the skill, invoke it by name, then confirm it persists for a future session
-- Distinct from `Agent Builder` (declarative RAG in M365 Copilot) and Copilot Studio (multi-author platform)
+- Saved skills live under Customize > Skills; to add one there, use Customize > Skills > Add > Create new (or Upload skill)
+- Distinct from `Agent Builder` (declarative RAG in Microsoft Copilot) and Copilot Studio (multi-author platform)
 - Position as personal automation that compresses a recurring motion, not enterprise governance
 - Best for participants who already have a repeating personal workflow
 - Content pack not required
-- **Author the skill so it can be scheduled later.** The workflow must be one that runs correctly with nobody watching: no step that depends on the participant answering a question mid-run, no reference to "the file I just uploaded" or anything else tied to the authoring session. Name the people, channels, sources, and output destination explicitly inside the skill
+- **Author the skill so it can be scheduled later.** The workflow runs correctly with nobody watching: every step has its inputs, and the skill names the people, channels, sources (by name or location) and output destination explicitly. In the skill-creation prompt, ask for this directly: "write the skill to run start to finish on its own"
 - Prefer a workflow with a natural recurring cadence (weekly wrap-up, Monday review, Friday health check) over a one-off task, so the Pattern B exercise has something real to schedule
 - Close the exercise by naming the skill the participant just saved and noting that the scheduling exercise will put it on a cadence
 
@@ -196,7 +234,7 @@ The strongest Cowork story in a workshop is the participant watching their own w
 
 **Exercise E (author the skill).** The participant states a recurring workflow they already do by hand and saves it as a named personal skill. The anchor prompt is the skill-creation delegation: the trigger phrase, the ordered steps, the sources to reach across, the output format, and the skill name, all in one pass. The participant then invokes it by name once to prove it works.
 
-**Exercise B (schedule the skill).** The participant puts that same saved skill on a cadence. The anchor prompt is the schedule-setup delegation and it invokes the skill by name rather than restating its steps: for example, "Every Friday at 4pm Central, run my Weekly Account Health Check skill and post the result to my Teams chat with myself." The exercise then shows where the scheduled task lives so the participant can review, pause, edit, or delete it.
+**Exercise B (schedule the skill).** The participant puts that same saved skill on a cadence. The anchor prompt is the schedule-setup delegation and it invokes the skill by name rather than restating its steps: for example, "Every Friday at 4pm Central, run my Weekly Account Health Check skill and post the result to my Teams chat with myself." The exercise then points the participant to the scheduled task on Automations.
 
 Rules for the chain:
 
@@ -234,21 +272,20 @@ Do not build two exercises with the same pattern and the same persona level. If 
 Each exercise contains, in order:
 
 1. `Scenario Overview` - one or two plain sentences: "You need to prepare X for Y, with [constraint]." No bold mini-labels. Capture the moment, why it matters now, and the decision pressure. Omit who needs to act; the reader is the persona.
-2. `What This Exercise Demonstrates` - scope framed as outcome and decision value, not feature list.
-3. `Drop-in Content Pack` - when the pattern requires one. Placed here, before setup.
-4. `Setup / Priming Content` - two or three concrete anchors directly relevant to the anchor prompt: active initiatives, named risks, specific cadence. Lean, not background.
-5. `What The Thread Will Reach Across` - the uploaded pack first, then the participant's live calendar, then their live inbox.
-6. `Participant-Facing Instructions` - the first instruction is always: upload all files from the drop-in content pack into the thread before running any prompts.
-7. `Anchor Prompt` plus at most two optional follow-ups.
-8. `What Good Looks Like` - three or four bullets describing the deliverable participants should be holding and the evidence they should check.
+2. `Business Outcome` - the business deliverable and decision it supports, without teaching/demo framing or product comparisons.
+3. `Setup / Priming Content` - name only this exercise's required files with exact filenames/paths or verified links, in a concise upload/open/reference sentence or short bullets. Replace any legacy `Drop-in Content Pack` heading/table with `Inline Sources` within the exercise, or merge its entries into setup; never add a table or second inventory. Include two or three relevant business anchors: active initiatives, named risks, specific cadence.
+4. `What The Thread Will Reach Across` - refer briefly to the uploads already named in setup, then your live calendar and your live inbox. Do not repeat the file list or promise scenario-specific live content.
+5. `Participant-Facing Instructions` - when uploads are required, upload only the files named inline for this exercise before running its anchor prompt. Do not require participants to consult a source-pack section.
+6. `Anchor Prompt` plus at most two optional follow-ups.
+7. `What Good Looks Like` - three or four bullets describing the deliverable participants should be holding and the evidence they should check.
 
 Include a concise participant-facing time estimate, but no `Facilitator Notes`, `While It Runs`, `If It Stalls`, or delivery-team content.
 
 Pattern-specific additions:
 
 - Pattern A: name the target meeting or moment, the principal, and the deliverable types
-- Pattern B: state the exact cadence (frequency, day, time, timezone), the scan sources, the output destination, one sentence on what the agent flags run over run, the name of the saved skill being scheduled (when the track includes Pattern E), and where the participant manages the task afterward
-- Pattern C: include a concise semantic model blueprint (model name, two or three tables, three to five measures, primary date dimension) and the downstream deliverable
+- Pattern B: state the exact cadence (frequency, day, time, timezone), the scan sources, the output destination, one sentence on what the agent flags run over run, the name of the saved skill being scheduled (when the track includes Pattern E), and where the participant manages the task afterward (Automations)
+- Pattern C: validate the semantic model blueprint internally (model name, tables, measures, date dimension and computational path). Participant-facing content names only the confirmed report/model or uploaded workbook, business measures and date period, plus the downstream deliverable. Do not expose a table/sheet map or make participants hunt for fields; do not imply a live model exists when only an uploaded pack is available.
 - Pattern D: name the question being answered, the surfaces in scope, and the one-page output structure
 - Pattern E: include the skill name, the trigger phrase, a three to five step outline, one sample invocation, and a note that the skill is written to run unattended so it can be scheduled in the Pattern B exercise
 
@@ -259,36 +296,37 @@ Cowork is not Copilot Chat. People do not run short prompts back and forth readi
 - **Lead with one anchor prompt.** A single substantial delegation naming the steps in order, the sources to reach across, and the deliverables to produce. Write the steps as a short numbered list or clearly sequenced clauses inside one prompt, never as separate prompts fired one at a time. It should read like a real instruction to a capable assistant: "Do A, then B, then C, and give me D."
 - **Make it genuinely robust:** a lead sentence plus a three to six step numbered list, or four to eight sentences, covering the full arc from inputs to finished deliverable. This is the heart of the exercise. Do not water it down to a one-liner.
 - **Robust does not mean slow.** Scope the anchor prompt so a single run lands in roughly three to six minutes. Reaching across three or four sources and producing one or two deliverables is the right size. Reaching across eight sources and producing five deliverables will not finish in a live room.
-- **The prompt does the asking, not the agent, in all but the designated interview exercise.** State every input the agent needs inside the prompt so it never has to stop and ask. The one exercise designated to demonstrate the interview pattern is the exception, and even there the question count is capped in the prompt itself.
+- **The prompt does the asking, not the agent, in all but the designated interview exercise.** Give the agent every input it needs inside the prompt: the people, sources, scope, dates, output and destination. The one exercise designated to demonstrate the interview pattern is the exception, and its prompt carries the positive cap: "ask me up to three questions, then proceed."
+- **State the ask affirmatively.** This covers everything a participant pastes, types or uses to configure Copilot: anchor prompts, follow-ups, skill-creation prompts and the skill instructions they produce, and schedule-setup prompts. Each one states the task, the sources, the output and the format. Leave out prohibitions the positive ask already covers ('Don't interview me', 'Don't stop to ask', 'Don't use outside sources', 'Don't make anything up', 'Don't add commentary'). Write any constraint that is still needed as what to do: 'Save it as a draft for me to review', 'Email the result only to me', 'Use only the uploaded files', 'Mark anything you can't confirm as unknown', 'Calculate it directly from the workbook'. Keep a negative only when no clear affirmative form exists.
 - **At most one or two optional follow-ups**, labeled optional, for refinement or a next action. Cap total prompts at three.
 - **Show orchestration, not clicks.** The prompt describes the outcome and the steps to reach it, never a manual sequence of UI actions.
 - Pattern B's anchor prompt is the schedule-setup prompt. Pattern E's anchor prompt is the skill-creation prompt.
 
 Write prompts the way the persona would actually type them: conversational, concise, decision-oriented. No prompt-engineering scaffolding, no system-style language, no hype.
 
-## Drop-in Content Pack (binding)
+## Inline Sources and source-file generation (binding)
 
 Workshop participants do not share a tenant. Their SharePoint libraries, Teams channels, and Power BI models will not match anything you invent. Never instruct participants to "open the X SharePoint library" or "query the Y semantic model" unless the user has confirmed those artifacts exist in the participants' tenants.
 
-Ship a drop-in pack of small synthetic files the participant uploads into the thread, paired with their real calendar and inbox.
+Save the small synthetic files the participant needs to upload into the thread, paired with their real calendar and inbox. Present each required source inline in its exercise, never as a published pack table or separate source section.
 
 Binding for Patterns A, C, and D, and for any pattern that would otherwise reference tenant-specific files, libraries, channels, or models. Not required for Pattern B or E unless the user asks for it.
 
-Every pack-bearing exercise includes:
+Every file-using exercise includes:
 
-1. A `Drop-in Content Pack` section with a short intro line explaining that the pack stands in for tenant artifacts, plus a table mapping each file to what it contains and which prompts use it.
+1. Inline source instructions immediately alongside the exercise: exact filenames/paths or verified links, one open/upload/reference action per instruction, and a short business purpose if useful. Use a sentence or short bullets, not a pack table, mapping matrix, inventory section or source-navigation link. Put ONE concise `Synthetic` handout attribution near the first file-using exercise and a metadata/header label per file; no repeat attribution in later exercises or prompts. Validate file anatomy and mappings internally only.
 2. The actual files, saved under `output/<NN>-<exercise-slug>-pack/` (for example `03-cfo-rate-case-prep-pack/`).
-3. A `What The Thread Will Reach Across` block listing uploads first, then live calendar, then live inbox.
-4. A first participant instruction to upload everything before running any prompts.
+3. A `What The Thread Will Reach Across` block referring to the uploads already named inline, then live calendar, then live inbox, without another inventory.
+4. A participant setup instruction to upload only this exercise's inline-named files before running its anchor prompt.
 5. At least one prompt that references the participant's real calendar or inbox alongside the uploads, so the cross-context value is demonstrated. **Keep live references generic about what is there.** Never promise specific synthetic-scenario items in the participant's real tenant. Phrase the prompt to work against whatever they actually have, and tell Copilot to say so if nothing relates. The same applies to the reach-across block: list "your live calendar" and "your live inbox" plainly.
 
 Pack composition:
 
-- Three to six files, sized for a workshop, not a document corpus. Keep each file short enough to ingest quickly: a two-page brief, a few dozen rows, a one-screen transcript. Large files slow every run in the room
-- Mix at least two formats so participants see multi-format ingestion: one `.docx` brief, one `.xlsx` dataset, one `.docx` transcript
+- Use the smallest file set that genuinely supports the bounded task; do not pad it to a mandatory file count. Keep files short enough to ingest quickly: a two-page brief, a few dozen rows, a one-screen transcript. Large files slow every run in the room
+- Use `.docx` for business documents and `.xlsx` for needed tabular data. Mix formats only when the business task requires them, not to create extra assets
 - For Pattern C, ship an `.xlsx` (or two) approximating what the semantic model would return
 - Realistic, imperfect, and decision-relevant: include the contradictions, stale assumptions, and quoted positions the anchor prompt will exercise
-- Prompts reference uploads by what they contain, not by file name: "Using the intervenor testimony excerpts I uploaded" reads better than "Open intervenor_testimony_excerpts.docx". The mapping table gives exact names.
+- Prompts identify uploads naturally by file/workbook name or an unambiguous business description, plus the question and relevant scope/date period: "Using the uploaded intervenor testimony, summarize the disputed cost assumptions for the October hearing." Inline setup gives the exact filenames/paths and any useful short business purpose, not a mapping table or file anatomy.
 
 **File format realism.** Choose the format a real organization in that industry would use, not the one easiest to generate. Finished documents (briefs, memos, policies, board pre-reads, SOPs) are `.docx`. Tabular data is `.xlsx`; reserve `.csv` for a genuine flat single-table export. **Never ship a `.txt` or `.md` file in a pack.** Content that is plain text in real life, such as chat or meeting transcripts, log excerpts, and code or config snippets, is delivered as `.docx`: keep the verbatim plain-text body intact inside the document (speaker labels, timestamps, line breaks, monospaced blocks for logs or code) and add a short header line naming the source, participants, and date. Where `.pdf` would be the real-world format, still deliver `.docx` unless the user explicitly asks for PDF.
 
@@ -308,31 +346,32 @@ When building a connected set:
 
 - Address the persona directly: "you", "your". Not "the CFO".
 - Tight, non-dramatic prose. Cut theatrical build-up, hype, and marketing phrasing. State each point in one crisp clause. Default to aggressively short on the first build.
-- No meta-narrative inside the exercise: no explanations of your approach, no rationale for structure, no "this exercise is designed to..." framing. Scenario context and "why this prompt matters" lines are part of the exercise and are not meta-narrative.
+- No meta-narrative in prompts or content: use business context and decision relevance only. Do not turn internal pattern distinctions, product comparisons, or teaching rationale into published prose; the binding business-only wording sweep applies throughout.
 - Exercise titles lead with the business process, with the product in parentheses: "Prepare the Rate Case Hearing Pre-Read (Copilot Cowork)", not "Copilot Cowork: Rate Case Prep".
 - Never use em-dashes or en-dashes in any artifact. Use a colon, comma, period, spaced hyphen, or parentheses.
 
 ## Cowork positioning boundaries
 
+- Cowork is generally available for work accounts (June 16, 2026)
 - Focus on the agentic workspace: cross-app orchestration, multi-step execution, autonomous scheduled work, deep multi-source investigation, live data-to-action chains, all in one thread
 - State the value plainly. Avoid hype like "stops being a feature inside apps"
 - Do not regress to single-surface tasks. If the exercise can be completed entirely inside Outlook, Teams, Excel, Word, or PowerPoint, it belongs in `copilot-exercise-builder`
-- Do not position Cowork as a replacement for Agent Builder or Copilot Studio. It is the personal, conversational workspace where agents are invoked, work is delegated, and deliverables are produced
+- Do not position Cowork as a replacement for Agent Builder or Copilot Studio. It is the personal, conversational workspace where agents are invoked, work is delegated, and deliverables are produced; plugins are managed under Customize
 - Cowork runs against the participant's own M365 tenant. Do not promise access to systems outside M365 unless a named Power BI model or supported connector is in scope
 - For scheduled patterns, do not imply autonomous destructive actions (deleting files, force-cancelling meetings, sending without approval) without confirmation
-- **Never include Copilot Chat custom instructions in a Cowork exercise.** Custom instructions are a Copilot Chat construct configured under Settings, Customize, Custom instructions. They are not part of Cowork and do not govern a Cowork thread. Do not add a custom-instructions setup step, do not tell participants to configure or paste them, do not reference the Settings path, and do not build a before-and-after comparison around them. That exercise belongs to `copilot-exercise-builder` under Copilot Chat.
-- The equivalent move in Cowork is not a settings change: context and standing preferences are carried by the anchor prompt itself, by the uploaded content pack, and by a saved personal skill (Pattern E). When an exercise needs the agent to know the participant's priorities or format preferences, state them inside the prompt or bake them into the skill
+- **Carry standing preferences in the prompt or a skill.** Custom instructions are set in Cowork under Customize. When an exercise needs the agent to know the participant's priorities or format preferences, state them inside the anchor prompt or bake them into the saved skill (Pattern E); do not add a custom-instructions setup step or build a before-and-after comparison around them
+- Microsoft Copilot no longer has a Work/Web mode toggle. Never tell participants to open Copilot Chat in "Work mode", select a Work or Web tab, or switch Work/Web modes. Write setup as "Open Microsoft Copilot (copilot.cloud.microsoft) and switch to Cowork." with no mode qualifier, and remove any such reference from content being authored or revised.
 
 ## Pre-delivery checklist
 
 1. Every exercise names a specific persona and a specific operating moment, not a generic executive.
 2. Each exercise uses exactly one pattern, and a multi-exercise set spans at least three patterns.
-3. Every multi-exercise track includes both Pattern E (skill creation) and Pattern B (scheduled prompt), adjacent, E first.
+3. Every multi-exercise track includes both Pattern E (skill creation) and Pattern B (scheduled task), adjacent, E first.
 4. The Pattern B anchor prompt invokes the Pattern E skill by name rather than restating its steps, and the skill name matches verbatim across both exercises and every artifact.
-5. The Pattern E skill is written to run unattended: no mid-run questions, no dependence on the authoring session, with people, sources, and destinations named explicitly.
-6. The Pattern B exercise tells the participant where the scheduled task lives so they can review, pause, edit, or delete it.
+5. The Pattern E skill is written to run unattended: every step has its inputs, and people, sources, and destinations are named explicitly.
+6. The Pattern B exercise points the participant to Automations on the Cowork home page to view, edit, reschedule, or delete the scheduled task.
 7. Every anchor prompt is a single robust delegation with three to six sequenced steps, and total prompts per exercise do not exceed three.
-8. Every pack-bearing exercise has its files actually generated and saved in the correct numbered folder.
+8. Every file-using exercise has only its needed files named inline with exact filenames/paths or verified links and a concise action; the files actually exist in the correct numbered folder. Shared files are referenced, never copied. No centralized matrix, inventory, published blueprint or source-navigation link remains.
 9. No synthetic file is `.txt` or `.md`. Every non-tabular file in the pack, transcripts and log excerpts included, is `.docx`.
 10. No prompt or reach-across block promises scenario-specific content in the participant's real calendar or inbox.
 11. No em-dashes or en-dashes anywhere, including inside the synthetic files.
@@ -340,16 +379,18 @@ When building a connected set:
 13. Every unknown real-world value is a clearly marked placeholder, not an invented figure.
 14. The handout was produced through `copilot-exercise-html-formatter` and saved as a file, not pasted into chat.
 15. Every exercise fits the 10 to 15 minute room budget and carries an estimated run time in the handout.
-16. At most one exercise per session uses an interview-style prompt, it caps the question count at three in the prompt text, and it is flagged in the track overview with a participant-facing time estimate. Every other exercise states its inputs up front.
-17. No exercise references Copilot Chat custom instructions, the Settings and Customize path, or a custom-instructions before-and-after comparison.
+16. At most one exercise per session uses an interview-style prompt, it caps the question count at three in the prompt text, and it is flagged in the track overview with a participant-facing time estimate. Every other exercise gives the agent every input inside the prompt.
+17. No exercise adds a custom-instructions setup step or a custom-instructions before-and-after comparison; standing preferences live in the anchor prompt or the skill.
 18. The handout and every source file pass the participant-only content sweep: no facilitator notes, wait/stall/troubleshooting advice, chat echo, authoring rationale, optional-extension offers, or internal validation commentary.
 19. The track total, including opening and close, fits the stated timebox; if it did not, exercises were cut rather than thinned.
-20. Every participant-typed prompt is copy-paste ready, with any substitution marked as a bracketed placeholder.
+20. Every participant-typed prompt is copy-paste ready, with any substitution marked as a bracketed placeholder, and passes "State the ask affirmatively" under Anchor prompt design.
+21. Every copy block and all narrative pass the business-only wording sweep; provenance is limited to the single source-metadata label and first-use handout attribution, and access prerequisites remain truthful.
+22. Prompts and results match the actual selected sources and small summary/gate workload, distinguish rollout population from analyzed evidence, fit the timebox, and use verified computational tools for numerical scans rather than retrieval completeness claims.
 
 ## Guardrails
 
 - Never fabricate facts in exercise content or synthetic data: names, numbers, quotes, dates, or metrics. Use a clearly marked placeholder such as `[Add Q3 revenue]` when a real value is unknown.
-- Keep synthetic content clearly illustrative and labeled as synthetic. Never present it as real customer or tenant data.
+- Keep synthetic provenance truthful using only the concise `Synthetic` source-metadata label and first-use handout attribution. Never present it as real customer or tenant data; do not add illustrative narrative to prompts or business content.
 - This skill produces demo content only. It does not send email, post to Teams, schedule or cancel meetings, or delete or overwrite files. Hand off to the dedicated M365 skill when the user wants a real action.
 - Never build a Cowork exercise around a tenant artifact the participants will not have.
 - Respect copyright: never reproduce third-party copyrighted text in synthetic content. Summarize or write original substitutes.

@@ -1,22 +1,22 @@
 {
-  "description": "Picks the right harness for a single Microsoft Copilot Studio agent, then produces a styled HTML hands-on\nwalkthrough taking a participant from an empty environment to a working agent: numbered click-path exercises,\ncopy-ready instruction text, knowledge (including web knowledge), tools, test prompts, and publishing.\nUse when the user asks to \"build a Copilot Studio agent\", \"which harness should I use\", \"add knowledge to my\nagent\", \"add tools to my agent\", \"write agent instructions\", or \"publish my agent to Microsoft 365 Copilot\".\nDo NOT use for Copilot Cowork exercises (use copilot-cowork-exercise-builder), other Copilot surface demos\n(use copilot-exercise-builder), or to provision the agent \u2014 this produces the guide, not the agent.\n",
+  "description": "Picks the right harness for a single Microsoft Copilot Studio agent, then produces a styled HTML hands-on\nwalkthrough taking a participant from an empty environment to a working agent: numbered click-path exercises,\ncopy-ready instruction text, knowledge (including web knowledge), tools, test prompts, and publishing.\nUse when the user asks to \"build a Copilot Studio agent\", \"which harness should I use\", \"add knowledge to my\nagent\", \"add tools to my agent\", \"write agent instructions\", or \"publish my agent to Microsoft Copilot\".\nDo NOT use for Copilot Cowork exercises (use copilot-cowork-exercise-builder), other Copilot surface demos\n(use copilot-exercise-builder), or to provision the agent \u2014 this produces the guide, not the agent.\n",
   "description_length": {
-    "detail": "744/1024 UTF-16 units",
-    "headroom_units": 280,
+    "detail": "740/1024 UTF-16 units",
+    "headroom_units": 284,
     "max_units": 1024,
     "status": "PASS",
-    "units": 744
+    "units": 740
   },
   "dimension_notes": {
     "instruction_specificity": [
-      "82 workflow line(s)",
+      "90 workflow line(s)",
       "no example block",
       "names tools / data sources",
       "specifies output format"
     ],
     "robustness": [
       "has Guardrails section",
-      "15 guardrail-style rule(s)",
+      "20 guardrail-style rule(s)",
       "handles missing-data / failure"
     ],
     "scope_boundaries": [
@@ -44,22 +44,28 @@
   "grade": "Excellent",
   "improvements": [],
   "mvb_pass": true,
-  "mvb_threshold": 70,
+  "mvb_threshold": 80,
   "path": "working/copilot-studio-exercise-builder/SKILL.md",
   "risk": {
     "factors": [
-      "takes actions (autonomy / blast radius)"
+      "takes actions (autonomy / blast radius)",
+      "destructive operations"
     ],
-    "launch_floor": 70,
+    "launch_floor": 80,
     "requires_behavioral": true,
-    "requires_human_review": false,
-    "tier": "medium"
+    "requires_human_review": true,
+    "tier": "high"
   },
   "rubric_version": "3",
   "safety": [
     {
       "area": "translation/copyright",
       "detail": "Touches 'translation/copyright' scope",
+      "status": "WARN"
+    },
+    {
+      "area": "destructive",
+      "detail": "Touches 'destructive' scope",
       "status": "WARN"
     }
   ],
@@ -70,6 +76,6 @@
     "non_spec_keys": [],
     "status": "PASS"
   },
-  "timestamp": "2026-09-14 11:50 UTC",
+  "timestamp": "2026-11-19 00:16 UTC",
   "total": 96
 }

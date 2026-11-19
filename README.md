@@ -11,14 +11,19 @@ labs, Microsoft Fabric data agent labs, and styled HTML handouts.
 | --- | --- |
 | `copilot-cowork-exercise-builder` | Builds persona-based Copilot Cowork exercises and connected workshop tracks. |
 | `copilot-exercise-html-formatter` | Renders exercise content as accessible, branded HTML handouts. |
-| `copilot-exercise-builder` | Creates exercises for Copilot Chat, Researcher, Analyst, Notebook, and Microsoft 365 apps. |
+| `copilot-exercise-builder` | Creates exercises for Copilot Chat, Researcher, Analyst, Copilot Workspaces, and Microsoft 365 apps. |
 | `copilot-studio-exercise-builder` | Creates hands-on Copilot Studio agent-building walkthroughs. |
-| `fabric-data-agent-exercise-builder` | Creates hands-on Microsoft Fabric data agent labs with synthetic data, validated SQL, and a scheduled ingestion notebook. |
+| `fabric-data-agent-exercise-builder` | Creates hands-on Microsoft Fabric data agent labs with synthetic data, validated SQL, and a one-time ingestion notebook. |
 
 The general exercise builder places source files inline where participants need
 them, uses business-only wording, and bounds evidence and analytical workloads.
 The HTML formatter also checks for obsolete Work/Web mode references and
 requires affirmative asks in copy-ready prompts.
+
+Fabric labs separate one-time browser-based setup from the business exercises;
+participants inspect scheduling controls without enabling a scheduled job.
+Seismic-specific navigation support is deferred until its supporting template,
+reference, and test harness files are available.
 
 Each skill lives in its own subdirectory of [`skills/`](skills/), with a
 `SKILL.md` file and, when present, `references/` and `scripts/` directories. [`manifest.json`](manifest.json)

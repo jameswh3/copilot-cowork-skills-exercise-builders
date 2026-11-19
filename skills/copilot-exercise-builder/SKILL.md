@@ -1,7 +1,7 @@
 ---
 name: copilot-exercise-builder
 description: |
-  Create executive-ready Microsoft Copilot demo exercises, workshop scenarios, and prompt sequences for customer enablement sessions. Use when the user asks to "create a Copilot demo", "build a Copilot workshop", "make a Researcher exercise", "build an Agent Builder demo", or "put together a full suite of Copilot exercises" for Copilot Chat, Researcher, Analyst, Notebook, Agent Builder, Copilot in Outlook, Teams, Excel, Word, or PowerPoint, or Copilot on Mobile. Do NOT use for Copilot Cowork exercises (use copilot-cowork-exercise-builder) or for HTML handout formatting alone (use copilot-exercise-html-formatter); do NOT use to actually perform the work a scenario depicts (sending real email, real meeting prep, building real decks) - use the dedicated M365 skills instead; do NOT use to modify built-in system skills.
+  Create executive-ready Microsoft Copilot demo exercises, workshop scenarios, and prompt sequences for customer enablement sessions. Use when the user asks to "create a Copilot demo", "build a Copilot workshop", "make a Researcher exercise", "build an Agent Builder demo", or "put together a full suite of Copilot exercises" for Copilot Chat, Researcher, Analyst, Copilot Workspaces, Agent Builder, Copilot in Outlook, Teams, Excel, Word, or PowerPoint, or Copilot on Mobile. Do NOT use for Copilot Cowork exercises (use copilot-cowork-exercise-builder) or for HTML handout formatting alone (use copilot-exercise-html-formatter); do NOT use to actually perform the work a scenario depicts (sending real email, real meeting prep, building real decks) - use the dedicated M365 skills instead; do NOT use to modify built-in system skills.
 metadata:
   category: productivity
   icon: SlideText
@@ -29,7 +29,7 @@ These rules govern authoring and formatting alike and override older examples or
 
 1. **Business-only copy blocks.** Write only the work request the persona would actually give: the decision, selected inputs, substantive business constraints, and requested output. Never put demo, simulation, illustrative, teaching, or authoring labels in prompts. Exclude "this exercise", product comparisons, test controls, generation commentary, and explanations such as "This is illustrative IT ...". Keep draft-only instructions, unknown-value handling, citation/evidence requirements, uncertainty, and approval constraints: these protect the business work and are not meta-narrative.
 2. **Provenance once, in the right place.** Put ONE concise `Synthetic` label in each companion source's metadata/header and ONE concise handout attribution near the first exercise using the synthetic files. Retain source/author/participants/date identifiers. Do not repeat the label in business prose, prompt directives, table rows, or expected outputs; exclude all other demo/simulation/illustrative/teaching/authoring narrative. Do not remove truthful provenance or factual product availability, permissions, licensing, or access prerequisites. Product names and necessary setup/click paths remain; explanatory product comparisons do not.
-3. **Bound the actual evidence workload.** Use a short, explicitly selected file set, authored small enough for the timebox, and a bounded business question or decision-gate scope. Name the files, business scope and timeframe in the work request; keep internal row/table selection out of participant-facing content. For live M365 retrieval, bound topics, people/meetings, dates and returned evidence; report what was actually found/read and what remains unknown. Chat, Notebook, Agent Builder and search-based M365 retrieval are not exhaustive per-account/per-record audit engines. Never promise search-wide completeness, full-population validation, or an all-clear from retrieved snippets or a sample.
+3. **Bound the actual evidence workload.** Use a short, explicitly selected file set, authored small enough for the timebox, and a bounded business question or decision-gate scope. Name the files, business scope and timeframe in the work request; keep internal row/table selection out of participant-facing content. For live M365 retrieval, bound topics, people/meetings, dates and returned evidence; report what was actually found/read and what remains unknown. Chat, Copilot Workspaces, Agent Builder and search-based M365 retrieval are not exhaustive per-account/per-record audit engines. Never promise search-wide completeness, full-population validation, or an all-clear from retrieved snippets or a sample.
 4. **Population is not analyzed records.** A business rollout may cover hundreds of accounts, devices, employees, or sites without the run analyzing each one. Keep that population as business context; state the much smaller source set, summary/gate workload, and coverage actually analyzed separately. Prefer supplied aggregates to hundreds of enumerated items. Do not turn a rollout count such as 600 into 600 individual checks. Choose workload sizes for the timebox and actual source granularity, not an unsupported universal numeric product limit.
 5. **Use the right analytical path.** Quantitative scans and computations belong in Analyst over uploaded data or in Excel for appropriate formulas, tables and light analysis. In Cowork, use an explicitly available computational tool or supported model query for that leg before synthesizing or creating deliverables. Keep inputs small enough for the timebox and verify the computed output. If exact comprehensive validation is required, use a genuinely exhaustive tool-supported path with a defined dataset, full row/page coverage, explicit rules and verification; when unavailable, narrow the task or state the gap instead of promising completeness. No fabricated all-clear, totals, percentages, or probabilities from a sample.
 6. **Coverage belongs in the business result.** Require the sources/rows/gates actually considered, missing or stale evidence, contradictions, and unresolved questions. Distinguish source-reported aggregates from independently computed results and inferences. A sampled finding applies only to its evidence, not the whole population; missing evidence is unknown, not passed. Keep any message, approval or recommendation a draft where appropriate.
@@ -63,8 +63,8 @@ Every published HTML handout and companion file must stand alone for a participa
 
 - **HTML handout formatting** is owned by `copilot-exercise-html-formatter`: brand color resolution, layout, nav rail, copy-to-clipboard prompt blocks, accessibility contrast, punctuation and encoding rules, and the pre-delivery sweep. Hand finished exercise content to that skill to render the handout. Do not re-derive those rules here.
 - **Copilot Cowork exercises** are owned by `copilot-cowork-exercise-builder`. If the user asks for a Cowork exercise, a Cowork track, or persona-based Cowork content, route there. Do not author Cowork scenarios in this skill.
-- **Copilot Studio Agents** exercises are out of scope. If the user asks for one, say plainly that Copilot Studio exercise authoring is not currently supported and offer `Agent Builder` instead.
-- **Custom instructions belong to `Copilot Chat` only.** They are a Copilot Chat construct set under Settings, Customize, Custom instructions. Do not carry the custom-instructions setup step, the Settings path, or the before-and-after comparison into any other scenario type, and never into a Cowork exercise.
+- **Copilot Studio** exercises are owned by `copilot-studio-exercise-builder`. If the user asks for a Copilot Studio agent exercise, route there.
+- **Custom instructions belong to `Copilot Chat` only.** They are a Copilot Chat construct set under Settings and more > Chat settings > Personalization > Custom instructions > Edit instructions > Save instructions. Do not carry the custom-instructions setup step, the Settings path, or the before-and-after comparison into any other scenario type, and never into a Cowork exercise.
 
 ## Priority categories
 
@@ -91,11 +91,11 @@ Detailed rules later in this file explain each category, but they do not change 
 - `Copilot Chat`
 - `Researcher`
 - `Analyst`
-- `Notebook`
+- `Copilot Workspaces`
 - `Agent Builder`
 - `Copilot in Outlook`
 - `Copilot in Teams`
-- `Copilot on Mobile (Voice Mode)`
+- `Copilot on Mobile (Copilot Voice)`
 - `Copilot in Excel`
 - `Copilot in Word`
 - `Copilot in PowerPoint`
@@ -112,7 +112,7 @@ This skill builds demo and workshop content (exercises, prompt sequences, synthe
 
 - The user wants a `Copilot Cowork` exercise, a Cowork track, or persona-based Cowork content: use `copilot-cowork-exercise-builder` instead.
 - The user only wants the HTML handout built, restyled, rebranded, or repaired: use `copilot-exercise-html-formatter` instead.
-- The user wants a Copilot Studio agent exercise: not currently supported; offer `Agent Builder` instead.
+- The user wants a Copilot Studio agent exercise: use `copilot-studio-exercise-builder` instead.
 - The user wants to run the task for real, not demo it: use the appropriate email, meeting, or scheduling capability instead.
 - The user wants a real business document rather than a demo asset: use docx, pptx, or xlsx instead.
 - The user wants to create, edit, validate, or audit a personal skill: use the host's personal-skill management capability instead.
@@ -164,6 +164,8 @@ Examples:
 - "What's changed since last quarter that matters?"
 - "Where are we exposed or unclear going into this?"
 
+**State the ask affirmatively (binding).** This covers everything a participant pastes, types or uses to configure Copilot: prompts, follow-ups, custom-instructions drafts, agent `Instructions`, and prompts that ask Copilot to write instructions. Each one states the task, the sources, the output and the format. Leave out prohibitions the positive ask already covers ('Don't interview me', 'Don't use outside sources', 'Don't make anything up', 'Don't add commentary'). Write any constraint that is still needed as what to do: 'Save it as a draft for me to review', 'Use only the attached files', 'Mark anything you can't confirm as unknown', 'Calculate it directly from the workbook'. Keep a negative only when no clear affirmative form exists.
+
 **Favor tight, non-dramatic executive prose throughout the narrative, not just the prompts.** Scenario overviews, context notes, and "why this matters" lines should be short and plainly worded. Cut theatrical build-up, hype, and marketing phrasing (for example "the scarcest thing in the building," "stops being a feature and becomes a workspace," "the only experience that...," "read it as a leader, not a spectator"). State each point in one crisp clause. Executives want signal, not theater. Default to aggressively short on the first build rather than expecting to trim later.
 
 ### 4. Punctuation
@@ -190,8 +192,8 @@ Also: do not generate `.md` or `.txt` files as synthetic data deliverables. Docu
      - other exercises in the same session
      - output format: **Always produce HTML (styled handout) unless the user explicitly requests plain text.** Do not ask; HTML is the default.
    - Scenario minimums:
-     - `Copilot Chat`, `Copilot in Outlook`, `Copilot in Teams`, `Copilot on Mobile (Voice Mode)`: ask for role, current moment, and timebox if missing.
-     - `Analyst`, `Notebook`, `Copilot in Excel`, `Copilot in Word`, `Copilot in PowerPoint`: also confirm the data or source content context if missing.
+     - `Copilot Chat`, `Copilot in Outlook`, `Copilot in Teams`, `Copilot on Mobile (Copilot Voice)`: ask for role, current moment, and timebox if missing.
+     - `Analyst`, `Copilot Workspaces`, `Copilot in Excel`, `Copilot in Word`, `Copilot in PowerPoint`: also confirm the data or source content context if missing.
      - `Agent Builder`: also confirm business trigger, knowledge sources, and action scope if missing.
 
 2. **Non-overlap check (concise)**
@@ -271,7 +273,7 @@ Every synthetic file must:
 - Include realistic but representative data (not generic placeholders)
 - Be immediately usable by the participant without additional preparation
 
-**Organize files into per-exercise folders.** When a build produces sample files for multiple exercises, save each exercise's files under `output/<NN>-<exercise-slug>/` (for example `03-analyst-finance/`, `09-copilot-in-office-operations/`), where NN is the exercise number in the handout. A file shared by more than one exercise lives in its primary exercise's folder; reference it cross-folder from the others (a Notebook synthesis exercise, for instance, may pin sources from several folders). Update the handout's file references to the folder paths so each exercise points at its folder. A `Copilot Cowork` drop-in content pack follows this same numbered convention with a `-pack` suffix; that rule is owned by `copilot-cowork-exercise-builder`.
+**Organize files into per-exercise folders.** When a build produces sample files for multiple exercises, save each exercise's files under `output/<NN>-<exercise-slug>/` (for example `03-analyst-finance/`, `09-copilot-in-office-operations/`), where NN is the exercise number in the handout. A file shared by more than one exercise lives in its primary exercise's folder; reference it cross-folder from the others (a Copilot Workspaces synthesis exercise, for instance, may add sources from several folders). Update the handout's file references to the folder paths so each exercise points at its folder. A `Copilot Cowork` drop-in content pack follows this same numbered convention with a `-pack` suffix; that rule is owned by `copilot-cowork-exercise-builder`.
 
 ## Scenario boundaries
 
@@ -301,18 +303,19 @@ Every Copilot Chat exercise must include the following elements in this order:
 
 3. **Quick Priority Check** - Start with: "What are my top 3 priorities for today?" Copilot will scan your live mail, calendar, and Teams to surface what needs attention. **Why this first:** You're establishing what matters in your current moment. Copilot sees your calendar and inbox but doesn't yet know your values, context, or what "high-impact" means to you. It's offering an initial read based on activity and recency, not on your actual strategic focus.
 
-4. **Custom Instructions Builder** - Open a new chat, then run this prompt: "Draft my custom instructions from the recent work signals you can retrieve for [named project or topic] during [date range], prioritizing [selected meeting series] and [selected email thread]. Infer my role, recurring decisions, audiences, and writing preferences only where those selected sources support them. Distinguish evidence from inference and leave unsupported details unknown. Return first-person instructions under 1,500 characters as one copyable block, followed by the sources actually considered and gaps for me to correct." Review the evidence and inferences, then apply the corrected text: Settings -> Customize -> Custom instructions -> paste -> Save. Do not claim a complete profile or measured time allocation from retrieval.
+4. **Custom Instructions Builder** - Open a new chat, then run this prompt: "Using my email, meetings and Teams chats from the last 30 days, draft custom instructions for me: my role, the decisions I own, who I write for, and how I like information presented. Base the draft only on what you find in those sources. Include these rules: lead with the answer, separate facts, proposals, approvals and unknowns, and say when you can't confirm something. Keep it under 1,500 characters in one block I can copy." Review and adjust the draft, then apply it: Settings and more > Chat settings > Personalization > Custom instructions > Edit instructions, paste the draft, then Save instructions. Do not claim a complete profile or measured time allocation from retrieval.
+  - **Binding rule:** The custom instructions setup prompt is self-contained: no bracketed placeholders or participant edits needed to run it. Bound it with a fixed window (for example the last 30 days) and the participant's own mail, meetings and chats.
 
 5. **Compare Priority Summaries** - Open a fresh chat and re-run "What are my top 3 priorities for today?" Check whether the response reflects your stated responsibilities, and review cited evidence and gaps. Do not promise that personalization guarantees better priorities or complete retrieval.
 
 6. **Selected Work Prompts** - Use the prompts relevant to the current decision; keep the whole sequence within the prompt-count and timebox rules. These bounded versions take precedence over any earlier requirement to reproduce broad prompts verbatim:
   - "Based on [selected prior thread] with [/person] during [date range], identify likely discussion topics for our next meeting. Cite the evidence and flag assumptions."
-  - "Draft a project update from [/selected email], [/selected chat] and [/selected meeting]: source-reported KPIs versus targets, decisions, risks, and open questions. State which sources were considered and leave unsupported metrics unknown."
-  - "Using [selected launch status memo] and [selected pilot summary], summarize the readiness gates for the [Product] launch in November. Flag gaps and conflicting evidence; do not infer whole-launch readiness or assign an unsupported probability."
-  - "Using [selected calendar entries] and [selected email thread] from [date range], suggest the main work themes. Describe coverage and uncertainty; do not claim measured percentages of total time from this selection."
+  - "Draft a project update from [/selected email], [/selected chat] and [/selected meeting]: source-reported KPIs versus targets, decisions, risks, and open questions. State which sources were considered and mark any unsupported metric as unknown."
+  - "Using [selected launch status memo] and [selected pilot summary], summarize the readiness gates for the [Product] launch in November. Base readiness only on these sources and flag gaps and conflicting evidence."
+  - "Using [selected calendar entries] and [selected email thread] from [date range], suggest the main work themes. Describe themes from this selection, note what it covers, and flag uncertainty."
   - "Review [/select email] and [/selected meeting notes] to draft a brief for the next meeting in [/series], with evidence, unresolved issues and questions for the team."
 
-7. **Participant Practice** - Draft one custom instruction specific to your function (rate case strategy, treasury, accounting, FP&A), apply it, then re-run a selected work prompt. Check whether it reflects your responsibilities without inventing evidence.
+7. **Participant Practice** - Draft one custom instruction specific to your function (rate case strategy, treasury, accounting, FP&A), written as what Copilot should do (for example "When I ask about treasury, lead with cash position and covenant headroom"). Apply it, then re-run a selected work prompt and check that the response reflects your responsibilities and cites its evidence.
 
 ### `Researcher`
 
@@ -323,17 +326,20 @@ Every Copilot Chat exercise must include the following elements in this order:
 - At most, ask one clarifying question about leadership focus or timeframe
 - **Favor the "frame in Chat, then bring Researcher into the thread" pattern.** Researcher is invoked from inside Copilot Chat, and each Researcher run is long. In an executive or any time-boxed session, do NOT stack multiple sequential Researcher prompts: several deep runs back to back will stall a live room. Instead structure the exercise in two phases:
   - **Phase 1 (Copilot Chat, fast and interactive):** frame the problem and plan the research in one or two quick Chat turns. Use Chat to pin down the decision at stake, the specific questions worth researching, and the scope/timeframe. This costs seconds, not minutes.
-  - **Phase 2 (Researcher, same thread, one run):** switch Researcher on in that same chat and fire a single consolidated, well-scoped prompt that asks for the synthesized, decision-ready deliverable in one pass. One run, one output.
+  - **Phase 2 (Researcher, same thread, one run):** in that same chat, type @Researcher (the model defaults to Auto) and send a single consolidated, well-scoped prompt that asks for the synthesized, decision-ready deliverable in one pass. One run, one output.
 - **Researcher Prompt Sequence is the exception to the 4-5 prompt rule:** target one Chat framing prompt plus exactly one Researcher invocation (two prompts total). Do not author three-to-five standalone Researcher prompts. If a refine is truly needed, note it as optional rather than as a second required run.
-- Label the two phases clearly (for example `Phase 1: Frame in Chat` and `Phase 2: Run Researcher once`) so the participant knows when to switch to Researcher.
+- Label the two phases clearly (for example `Phase 1: Frame in Chat` and `Phase 2: Run Researcher once`) so the participant knows when to bring in Researcher. Researcher can also be opened from Agents.
 
 ### `Analyst`
 
 - Keep analysis strictly bounded to uploaded data. Use a timebox-sized dataset and an explicit business scope/date period, naming the file and relevant service, vendor or metric rather than table/row coordinates; compute and verify requested aggregates with the analytical tool. Let Copilot identify the relevant table and fields, check units, and report actual coverage, missing values and business exclusions in the result, with precise source anchors where available. A complete scan of an uploaded table is not completeness across the wider business population.
 
-### `Notebook`
+### `Copilot Workspaces`
 
 - Focus on analysis and synthesis only
+- Frame the work as a team effort in a shared Workspace: shared files and pages, edited together. For a solo exercise, use Projects.
+- Participants prompt in the Workspace chat; do not tell them to pick Researcher or Analyst as a mode inside the Workspace.
+- Include this prerequisite line in the exercise setup: "Copilot Workspaces was previously called Copilot Notebooks; some tenants may still show the old name during rollout."
 
 ### `Agent Builder`
 
@@ -349,7 +355,7 @@ Every Copilot Chat exercise must include the following elements in this order:
 - If included, position `Writing Assistant` after the core Agent Builder exercise and connect it with a handoff cue that explains how retrieved grounded content is transformed into executive-ready writing output
 - Include:
   - `Describe` text
-  - `Instructions`
+  - `Instructions` (the agent's audience, knowledge sources, answer format, and where it routes questions outside its sources, for example "For questions outside these policies, point the user to the HR Service Desk")
   - `Capability boundaries`
   - Executive-style starter prompts
   - Optional synthetic knowledge source design
@@ -369,7 +375,7 @@ Every Copilot Chat exercise must include the following elements in this order:
 - Do not demo document creation or data analysis
 - Keep prompts grounded in collaboration and follow-through
 
-### `Copilot on Mobile (Voice Mode)`
+### `Copilot on Mobile (Copilot Voice)`
 
 - Focus on voice-driven, on-the-go use: quick summaries, task capture, status checks, and brief communications
 - Prompts should be short, natural, and hands-free in tone - as if spoken aloud
@@ -390,32 +396,33 @@ Every Copilot Chat exercise must include the following elements in this order:
 ### `Copilot in Word`
 
 - Focus on document drafting, rewriting, summarizing, and expanding existing content
-- Typical entry point: content produced by a prior `Researcher` or `Copilot Chat` session, carried through a Loop page
+- Typical entry point: a Word document Copilot created from a prior `Researcher` or `Copilot Chat` output
 - Demo prompts should show Copilot acting on that content: refining tone, adding an executive summary, restructuring for a specific audience
 - Do not demo document creation from scratch without a prior content source unless explicitly requested
-- See the linked flow section below for the full Page to Word to PowerPoint sequence
+- See the linked flow section below for the full Chat to Word to PowerPoint sequence
 
 ### `Copilot in PowerPoint`
 
-- Focus on Copilot's editing capabilities within PowerPoint: creating a presentation from a Word document, adding slides, applying Designer, and refining content
-- Typical entry point: a Word document produced from the Page to Word step in the linked flow
+- Focus on Copilot's editing capabilities within PowerPoint: creating a presentation from a Word document, adding slides, applying the organization's Brand Kit or template, and refining content
+- Typical entry point: the Word document saved in the linked flow
 - When the value is simply generating the deck from existing content, a single well-scoped prompt is enough; do not pad with extra iteration prompts the participant does not need
-- Demo prompts should show: generating a deck from a document, adding a summary or risk slide, applying a theme
+- Demo prompts should show: generating a deck from a document, adding a summary or risk slide, applying the Brand Kit or template
 - Do not demo PowerPoint features unrelated to Copilot's editing capabilities
-- See the linked flow section below for the full Page to Word to PowerPoint sequence
+- See the linked flow section below for the full Chat to Word to PowerPoint sequence
 
-### Linked flow: Researcher / Copilot Chat to Page to Word to PowerPoint
+### Linked flow: Researcher / Copilot Chat to Word to PowerPoint
 
 Use this flow when demoing the full document creation chain. Treat it as a single multi-step scenario with clearly labeled phases.
 
 1. **Generate source content** - Run a `Researcher` or `Copilot Chat` scenario to produce a substantive response. For `Copilot Chat`, the output should be long enough to anchor a document.
-2. **Convert to a Page** - Show converting the Copilot response to a Loop page. Demonstrate a brief inline collaboration moment (e.g., a colleague edits or comments).
-3. **Export to Word** - Show the page exported to a Word document. Transition into `Copilot in Word` to refine the content for the target audience.
-4. **Generate PowerPoint** - From the Word document, use Copilot in PowerPoint's editing capabilities to generate a presentation.
+2. **Create a Word document** - In the same conversation, ask Copilot to create a Word document from the output, then save it.
+3. **Refine in Word** - Open the saved document and use `Copilot in Word` to refine the content for the target audience.
+4. **Generate PowerPoint** - In Copilot in PowerPoint, reference the saved Word document to generate the presentation.
 
 When producing this linked flow:
 
 - Produce a connected prompt sequence that flows naturally across each phase
+- Carry content forward by referencing or attaching the saved Word file in the next step, or by @mentioning the next agent (for example @Researcher) in the same conversation; never by copying and pasting between prompts
 - Include brief participant-facing handoff cues between phases naming the next app and action
 - Synthetic content (if needed) should carry consistent terminology and data through all phases
 - Label each phase clearly in the output: `Phase 1`, `Phase 2`, etc.
@@ -429,11 +436,11 @@ Use this table to determine whether synthetic content is allowed and what form i
 | `Copilot Chat` | No | - | - |
 | `Researcher` | No | - | - |
 | `Analyst` | Yes | Yes | Yes, if company named |
-| `Notebook` | Yes | Yes | Yes, if company named |
+| `Copilot Workspaces` | Yes | Yes | Yes, if company named |
 | `Agent Builder` | Yes | Yes | Yes, if company named |
 | `Copilot in Outlook` | No | - | - |
 | `Copilot in Teams` | No | - | - |
-| `Copilot on Mobile (Voice Mode)` | No | - | - |
+| `Copilot on Mobile (Copilot Voice)` | No | - | - |
 | `Copilot in Excel` | Yes | Yes | Yes, if company named |
 | `Copilot in Word` | Yes, if no prior content source | Yes | Yes, if company named |
 | `Copilot in PowerPoint` | Yes, if no prior content source | Yes | Yes, if company named |
@@ -478,6 +485,7 @@ All outputs must be:
 - Always review before delivering: sweep for em-dashes and en-dashes, confirm brand color placeholders are resolved, and confirm every named synthetic file was actually generated. Also run the business-only wording and bounded-evidence audit on every copy block, narrative section and companion source: verify actual source granularity, workload, numerical path, coverage and consistency, not just the headline scope.
 - If required inputs are missing (customer, industry, target role, or scenario type), ask one focused question rather than guessing; when a specific detail cannot be found, use a clearly marked placeholder instead of inventing it.
 - Respect copyright: never reproduce third-party copyrighted text in synthetic content; summarize or create original substitutes instead.
+- Microsoft Copilot no longer has a Work/Web mode toggle. Never tell participants to open Copilot Chat in "Work mode", select a Work or Web tab, or switch modes. Write setup as "Open Microsoft Copilot Chat at copilot.cloud.microsoft." (or the specific app or agent) with no mode qualifier, and remove any such reference from content being authored or revised.
 
 ## Example requests
 
@@ -486,5 +494,5 @@ All outputs must be:
 - "Build an `Agent Builder` demo for an HR knowledge assistant for employee policy questions."
 - "Create `Copilot in Outlook` and `Copilot in Teams` demos for a financial services VP."
 - "Build the full `Researcher` to `Copilot in Word` to `Copilot in PowerPoint` flow for a healthcare strategy team."
-- "Make a `Notebook` exercise for a pharma regulatory team synthesizing submission documents."
-- "Create a `Copilot on Mobile (Voice Mode)` exercise for a field operations director."
+- "Make a `Copilot Workspaces` exercise for a pharma regulatory team synthesizing submission documents."
+- "Create a `Copilot on Mobile (Copilot Voice)` exercise for a field operations director."

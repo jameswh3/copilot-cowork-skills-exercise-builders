@@ -1,15 +1,15 @@
 {
-  "description": "Builds company- and persona-specific hands-on labs that take participants from an empty Fabric workspace to a published Microsoft Fabric data agent: prerequisites, click-path steps, copy-ready agent and data source instructions, validated example SQL, test prompts with computed answers, synthetic CSV data, and a scheduled PySpark ingestion notebook. Use when the user asks to \"create a Fabric data agent exercise\", \"build a Fabric Data Agent workshop\", \"build a Fabric data agent lab\", or \"data agent hands-on for [company]\". Do NOT use for Copilot Cowork exercises (copilot-cowork-exercise-builder), Copilot Studio agents (copilot-studio-exercise-builder), other Copilot surfaces (copilot-exercise-builder), HTML formatting alone (copilot-exercise-html-formatter), or provisioning real Fabric items.\n",
+  "description": "Builds company- and persona-specific hands-on labs that take participants from an empty Fabric workspace to a published Microsoft Fabric data agent: prerequisites, click-path steps, copy-ready agent and data source instructions, validated example SQL, test prompts with computed answers, synthetic CSV data, and a one-time PySpark ingestion notebook. Use when the user asks to \"create a Fabric data agent exercise\", \"build a Fabric Data Agent workshop\", \"build a Fabric data agent lab\", or \"data agent hands-on for [company]\". Do NOT use for Copilot Cowork exercises (copilot-cowork-exercise-builder), Copilot Studio exercises (copilot-studio-exercise-builder), other Copilot surfaces (copilot-exercise-builder), HTML formatting alone (copilot-exercise-html-formatter), or provisioning real Fabric items.\n",
   "description_length": {
-    "detail": "803/1024 UTF-16 units",
-    "headroom_units": 221,
+    "detail": "805/1024 UTF-16 units",
+    "headroom_units": 219,
     "max_units": 1024,
     "status": "PASS",
-    "units": 803
+    "units": 805
   },
   "dimension_notes": {
     "instruction_specificity": [
-      "68 workflow line(s)",
+      "76 workflow line(s)",
       "has Quick Start / example block",
       "names tools / data sources",
       "specifies output format"
@@ -22,6 +22,7 @@
     "scope_boundaries": [
       "has 'When NOT to Use' section",
       "description states exclusions",
+      "delegates to a named skill",
       "focused single-domain scope"
     ],
     "trigger_clarity": [
@@ -33,7 +34,7 @@
   "dimensions": {
     "instruction_specificity": 25,
     "robustness": 23,
-    "scope_boundaries": 23,
+    "scope_boundaries": 25,
     "trigger_clarity": 23
   },
   "faithfulness": {
@@ -43,19 +44,26 @@
   "grade": "Excellent",
   "improvements": [],
   "mvb_pass": true,
-  "mvb_threshold": 70,
+  "mvb_threshold": 80,
   "path": "working/fabric-data-agent-exercise-builder/SKILL.md",
   "risk": {
     "factors": [
-      "takes actions (autonomy / blast radius)"
+      "takes actions (autonomy / blast radius)",
+      "destructive operations"
     ],
-    "launch_floor": 70,
+    "launch_floor": 80,
     "requires_behavioral": true,
-    "requires_human_review": false,
-    "tier": "medium"
+    "requires_human_review": true,
+    "tier": "high"
   },
   "rubric_version": "3",
-  "safety": [],
+  "safety": [
+    {
+      "area": "destructive",
+      "detail": "Touches 'destructive' scope",
+      "status": "WARN"
+    }
+  ],
   "skill_name": "fabric-data-agent-exercise-builder",
   "spec_conformance": {
     "detail": "Frontmatter conforms to the AgentSkills spec.",
@@ -63,6 +71,6 @@
     "non_spec_keys": [],
     "status": "PASS"
   },
-  "timestamp": "2026-10-22 18:28 UTC",
-  "total": 94
+  "timestamp": "2026-11-19 00:16 UTC",
+  "total": 96
 }

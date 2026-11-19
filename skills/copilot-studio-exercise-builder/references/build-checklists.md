@@ -7,8 +7,8 @@ Source pages:
 - High-quality instructions for generative orchestration — https://learn.microsoft.com/en-us/microsoft-copilot-studio/guidance/generative-mode-guidance
 - Knowledge sources summary — https://learn.microsoft.com/en-us/microsoft-copilot-studio/knowledge-copilot-studio
 - Add tools to custom agents — https://learn.microsoft.com/en-us/microsoft-copilot-studio/add-tools-custom-agent
-- Skills overview (GitHub Copilot harness) — https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/skills-overview
-- Knowledge for GitHub Copilot harness agents — https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/knowledge-add-existing-copilot
+- Skills overview (Microsoft Copilot harness) — https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/skills-overview
+- Knowledge for Microsoft Copilot harness agents — https://learn.microsoft.com/en-us/microsoft-copilot-studio/agents-experience/knowledge-add-existing-copilot
 - Publish and deploy your agent — https://learn.microsoft.com/en-us/microsoft-copilot-studio/publication-fundamentals-publish-channels
 
 ## 0. Solution (do this before creating the agent)
@@ -34,7 +34,7 @@ Source: https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-sol
 - [ ] Keep them short and simple; number or bullet ordered steps; Markdown is fine
 - [ ] Only instruct behavior the agent can actually perform — instructions can't use tools or knowledge you haven't added
 - [ ] Reference specific tools/topics/knowledge with `/` and use the exact object name
-- [ ] Add scope guardrails ("only respond to X; otherwise say you can't help")
+- [ ] Write every line as what the agent does: role and sources, how it answers, what it says for out-of-scope requests or missing data ("Answer questions about X; for anything else, say what you cover and point to Y")
 - [ ] Specify response format where it matters (tables, rich-text email bodies)
 - [ ] Skip tone instructions unless the scenario needs a non-default tone
 - [ ] **Do not** write instructions that alter citations/references, retrieval logic, Adaptive Card triggering, or the fallback message — use the fallback topic and card config instead
@@ -43,7 +43,8 @@ Source: https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-sol
 
 ## 3. Knowledge
 
-- [ ] Map each user question type to a source: public website, uploaded documents, SharePoint, Dataverse, connectors (GitHub Copilot harness adds Azure AI Search, Dynamics 365, Salesforce, ServiceNow, Azure SQL in the Add knowledge dialog)
+- [ ] Map each user question type to a source: public website, uploaded documents, SharePoint, Dataverse, connectors
+- [ ] Microsoft Copilot harness Add knowledge dialog: **Featured** — Public websites, SharePoint, OneDrive for Business, Salesforce, ServiceNow, Azure SQL; **Advanced** — Azure DevOps Wiki/Work Items, Custom Connector, Enterprise websites. Azure AI Search knowledge is not supported on this harness
 - [ ] **Documents into knowledge, tabular data into a query mechanism.** Semantic search has limitations for cell indexing, so a spreadsheet dropped into a knowledge set answers lookups unreliably and aggregates worse. Re-cast tabular content as the register or log a business would circulate, or route it to code interpreter, a Dataverse/Azure SQL knowledge source, or a connector or agent flow tool
 - [ ] Check the exercise is asking retrieval for what retrieval does — what a source says, whether two sources agree, what recurs. Totals, counts and percentages need a different mechanism
 - [ ] Note the source authentication model — SharePoint, Dataverse, and connector sources honor the end user's Entra ID permissions, so users only see what they can already access
@@ -65,14 +66,14 @@ Source: https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-tri
 - [ ] Leave the trigger as **The agent chooses** (the generative-orchestration default). It fires on the topic's **name and trigger description**
 - [ ] **Do not write trigger phrases.** "User says a phrase" is classic orchestration and only appears once orchestration is turned off
 - [ ] Name the topic for the situation, not the mechanism — the name is a routing signal
-- [ ] Write the trigger description as *when to use this* plus *when not to use it*, the same shape as a tool description
+- [ ] Write the trigger description as *when to use this*, specific enough to tell it apart from neighboring topics, the same shape as a tool description
 - [ ] Put the fixed wording in a Message node
 - [ ] Test with phrasing far from the description, to prove routing is semantic. A miss is fixed with a better description, never with a phrase list
 
 ## 4. Tools
 
-- [ ] Start from the default shape: **send an email** (Office 365 Outlook connector) and/or **an agent flow** for a multi-step action; add prompt, REST API, MCP server, custom connector, or computer use only when the scenario requires it
-- [ ] Write name + description as routing logic — the orchestrator selects on them; add "when not to use this" wording if it fires wrongly
+- [ ] Start from the default shape: **send an email** (Office 365 Outlook connector) and/or **an agent flow** for a multi-step action; add prompt, REST API, MCP server, custom connector, or computer use (standard harness) only when the scenario requires it
+- [ ] Write name + description as routing logic — the orchestrator selects on them; if it fires wrongly, make the "when to use" wording more specific and name the tool that handles the neighboring case
 - [ ] Decide per tool: let the agent choose dynamically vs. call only from a topic
 - [ ] Decide per tool: **Ask the end user before running** (off by default) — turn it on for consequential actions
 - [ ] Choose authentication: end-user credentials (per-user permissions) vs. maker-provided (shared identity)
@@ -80,12 +81,17 @@ Source: https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-tri
 - [ ] Choose completion behavior (don't respond / generative response / specific response / adaptive card)
 - [ ] Keep the tool set small — the orchestrator supports many tools (up to 128) but roughly 25-30 per agent is the practical recommendation; for a single-agent design, aim far lower and narrow the scope instead of adding tools
 - [ ] For a send-email tool: constrain allowed recipients in the instructions, request rich-text body formatting, and consider requiring end-user confirmation before it runs
-- [ ] GitHub Copilot harness only: consider **skills** (Markdown SKILL.md + optional supporting files, portable/shareable) for reusable task behaviors, and **memory** for cross-interaction context
+- [ ] Microsoft Copilot harness tabs: Build, Preview, Evaluate, Monitor. Build components: Instructions (natural-language instructions are preview), Knowledge, Tools, Skills, Model, Connected agents, Memory (preview)
+- [ ] Microsoft Copilot harness skills: each has a name, a description and Markdown instructions; create from blank, generate with AI, or upload; Browse skills is preview. Use skills for reusable task behaviors and memory for cross-interaction context
+- [ ] Microsoft Copilot harness agent settings tabs: Agent details, AI & behavior, Safety & access, Greeting & prompts
+- [ ] Work IQ is added by default to new Microsoft Copilot harness agents, with write operations on
+- [ ] Not supported on the Microsoft Copilot harness: SharePoint, WhatsApp and Dynamics 365 Contact Center channels, manual authentication, custom entities; computer use is planned (not available)
+- [ ] Microsoft Copilot harness preview features: triggers, agent accounts, MCP/A2A channels
 
 ## 5. Test
 
-- [ ] Test in the test pane while building; for GitHub Copilot harness use the Preview tab and the Evaluate tab test sets
-- [ ] Write prompts for: happy path, ambiguous routing between two tools, missing input, out-of-scope refusal, and a prompt-injection attempt
+- [ ] Test in the test pane while building; for the Microsoft Copilot harness use the Preview tab and the Evaluate tab test sets
+- [ ] Write prompts for: happy path, ambiguous routing between two tools, missing input, an out-of-scope request (expect the redirect), and a prompt-injection attempt
 - [ ] Test trigger payloads for triggered/autonomous agents
 - [ ] Test as a non-maker user to validate permission-trimmed knowledge
 - [ ] Re-test after every instruction change
@@ -96,7 +102,7 @@ Source: https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-tri
 - [ ] Agent authentication defaults to Authenticate with Microsoft — leave it, and keep it out of the lab steps (settings reference only). "No authentication" means the agent can't use tools with user credentials and anyone with the link can chat
 - [ ] Add channels only after the first publish; channel availability can be restricted by admins
 - [ ] Roll out to yourself → small group → org catalog; the demo website is for stakeholder feedback, not production
-- [ ] For agents for Microsoft 365 Copilot: publishing populates the org catalog entry and may require admin approval; distribution is via share link, teammates, org-wide submission, or a downloaded .zip
+- [ ] For agents for Microsoft Copilot: publishing populates the org catalog entry and may require admin approval; distribution is via share link, teammates, org-wide submission, or a downloaded .zip
 - [ ] Expect a delay before published changes reach existing sessions
 
 ## 7. Govern & monitor

@@ -1,6 +1,6 @@
 # Fabric data agent grounding baseline
 
-Baseline verified against Microsoft Learn on 2026-10-22. **Re-verify at build time** with `web_fetch` (see the Hard
+Baseline verified against Microsoft Learn on 2026-11-18. **Re-verify at build time** with `web_fetch` (see the Hard
 Grounding Rule in SKILL.md). Treat any line older than the current quarter as needing a re-check, and mark a detail
 you could not re-verify as **[Verify]** in the handout rather than guessing.
 
@@ -16,7 +16,7 @@ you could not re-verify as **[Verify]** in the handout rather than guessing.
 | How to use notebooks (import, default lakehouse, run identity) | https://learn.microsoft.com/en-us/fabric/data-engineering/how-to-use-notebook | 2026-04-24 |
 | Notebook activity in a pipeline | https://learn.microsoft.com/en-us/fabric/data-factory/notebook-activity | re-check |
 | Features by SKU (trial support) | https://learn.microsoft.com/en-us/fabric/enterprise/fabric-features | 2026-06-30 |
-| Consume a data agent from Microsoft Copilot (preview) | https://learn.microsoft.com/en-us/fabric/data-science/data-agent-microsoft-365-copilot | re-check |
+| Consume a data agent from Microsoft Copilot | https://learn.microsoft.com/en-us/fabric/data-science/data-agent-microsoft-365-copilot | 2026-10-26 |
 
 ## Prerequisites (participant-facing, verified)
 
@@ -50,8 +50,8 @@ you could not re-verify as **[Verify]** in the handout rather than guessing.
 
 ## Product facts the exercises depend on
 
-- Up to **five data sources** per agent, any combination of lakehouse, warehouse, Power BI semantic model, KQL
-  database, ontology, Microsoft Graph. Each is added individually from the OneLake catalog.
+- Up to **five data sources** per agent, any combination of lakehouse, warehouse, mirrored database, Power BI
+  semantic model, KQL database, ontology, Microsoft Graph. Each is added individually from the OneLake catalog.
 - Lakehouse sources answer from **tables**, not Files. CSVs must be ingested into tables first (the notebook does
   this). Unstructured files (.pdf, .docx, .txt) are not supported as data.
 - Explorer checkboxes control which tables are available to the AI; selecting a parent selects all children.
@@ -69,6 +69,7 @@ you could not re-verify as **[Verify]** in the handout rather than guessing.
   spike?"). The agent does not perform advanced analytics, machine learning, or causal inference.
 - **Response cap:** responses are capped at 25 rows and 25 columns; earlier chat turns influence later answers, so
   start a new chat (Clear chat) before a fresh test.
+- Standard runtime (preview) can return up to 1,000 rows; verify before relying on it.
 - **Transparency:** each answer has a steps dropdown showing the steps and the generated query.
 - **Refresh:** in Explorer, hover a source > three dots > Refresh to resync after the source changes; Remove is in the
   same menu.
@@ -76,8 +77,9 @@ you could not re-verify as **[Verify]** in the handout rather than guessing.
   to decide when to invoke the agent. Publishing creates a **draft** version (keep editing) and a **published**
   version (shared).
 - **Share:** recipients need access to the agent and to the underlying data sources.
-- **Consumption:** Microsoft 365 Copilot (preview at baseline), Copilot Studio, Microsoft Foundry, or as an MCP
-  server. Service boundary, stated plainly: when the agent is consumed from one of these services, that service
+- **Consumption:** Microsoft Copilot (GA), Copilot Studio, Microsoft Foundry, or as an MCP server. For Microsoft
+  Copilot: publish the data agent, choose **Publish to Agent Store**, then @mention the agent in Microsoft Copilot /
+  Microsoft Copilot Chat. Service boundary, stated plainly: when the agent is consumed from one of these services, that service
   processes and stores the returned responses under its own terms and data handling policies.
 - **ALM:** diagnostics, Git integration (instructions, example queries, data source selections), deployment pipelines.
 - **Governance:** Purview DLP and access restriction policies can block or truncate results; interactions can be
@@ -85,8 +87,13 @@ you could not re-verify as **[Verify]** in the handout rather than guessing.
 
 ## Notebook and scheduling facts
 
-- Import: workspace toolbar > Import > Notebook > From this computer; Fabric accepts standard `.ipynb`. [Verify the
-  exact menu labels.]
+Author reference only. The handout uses just the import, default lakehouse, Run all, and the scheduler's location;
+run identity, notifications, parameter overrides, and pipeline options stay out of participant content.
+
+- Import (verified 2026-10-23, How to use notebooks > Import existing notebooks): import one or more notebooks from
+  the local computer using the entry in the workspace toolbar (Import > Notebook > From this computer). Fabric
+  recognizes standard `.ipynb` plus `.py`, `.scala`, and `.sql` source files and creates notebook items. Browser
+  only; no VS Code required.
 - Default lakehouse: in the notebook's Lakehouse explorer, add the lakehouse and pin it as default; restart the
   session after pinning a new default. Relative paths like `Files/<folder>/<file>.csv` resolve against it.
 - Parameters cell: cell toolbar ... > **Toggle parameter cell**. A pipeline Notebook activity overrides its values
@@ -99,5 +106,5 @@ you could not re-verify as **[Verify]** in the handout rather than guessing.
 - Monitor: the **Monitor** hub lists runs; the item's ... menu > **Recent runs** shows its history. [Verify labels.]
 - `mssparkutils.notebook.exit(value)` returns an exit value that pipelines can read. `notebookutils` is the newer
   name for the same utilities; `mssparkutils` remains supported. [Verify at build time.]
-- Pipeline alternative: Data pipeline > Notebook activity > Settings: select the workspace and notebook, set Base
+- Pipeline alternative: pipeline > Notebook activity > Settings: select the workspace and notebook, set Base
   parameters, then Home > Schedule.
